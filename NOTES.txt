@@ -1,0 +1,8 @@
+Eingabe der Daten + optionales Wunschfach.
+
+Ausgabe: Empfohlener Studiengang + Auswertung des Wunschfach
+
+
+PISA Test (Bundesland abhängiger Abschluss)
+FH gegen allgemeine Hochschulreife
+Studierfähigkeitstest + Online Test optional.
