@@ -1,0 +1,116 @@
+\documentclass[%
+	pdftex,
+	oneside,        % One-sided print
+	11pt,           % Font size
+	parskip=half,   % The half of a line margin after line feeds
+	headsepline,    % Line after header
+	footsepline,    % Line after footer
+	abstracton,     % Abstract headings
+	USenglish,      % Written in English
+	a4paper,        % Written on Din A4 paper
+]{report}
+
+
+\title{Knowledge based systems\\ Analysing competence for higher education using a Bayesian network}
+\author{Lisa Mischer \& Frank Steiler\\ Interactive and knowledge based systems (T2INF4307)\\ DHBW Stuttgart\\ Contact: it12147@lehre.dhbw-stuttgart.de}
+        
+\usepackage[english]{babel}
+\usepackage[english=british]{csquotes}
+\usepackage[style=alphabetic,backend=biber,natbib=true]{biblatex}
+\usepackage[margin=2cm]{geometry}
+\usepackage{graphicx}
+\usepackage{setspace}
+\usepackage{hyperref}
+\usepackage{varioref}
+\usepackage{chngcntr}
+\usepackage{subcaption}
+\usepackage[export]{adjustbox}[2011/08/13]
+\usepackage{fancyhdr}
+\usepackage[toc,page]{appendix}
+\usepackage{pdfpages}
+\usepackage{tabularx}
+\usepackage{longtable}
+\usepackage{float}
+\usepackage{pifont}
+\usepackage{rotating}
+
+\usepackage{color}
+\definecolor{ListingBackground}{rgb}{0.92,0.92,0.92}
+
+\usepackage{listings}
+\lstset{
+    basicstyle=\normalfont\ttfamily,
+    language=java,
+    extendedchars=true,
+    backgroundcolor=\color{ListingBackground},
+    frame=single,
+    numbers=left,
+    tabsize=8,
+    numberstyle=\scriptsize,
+    stepnumber=1,
+    numbersep=8pt,
+    keepspaces=true, 
+    breaklines=true,
+    showstringspaces=false
+}
+
+\hypersetup{
+	colorlinks=true,
+    citecolor=black,
+    filecolor=black,
+    linkcolor=black,
+    urlcolor=black,
+	pdftitle=Objektorientiertes Software-Engineering Teil-Projekt Gebhardt,
+	pdfauthor={Frank Steiler}, 
+	pdfcreator={Frank Steiler},
+	pdfproducer={Frank Steiler},
+	pdfdisplaydoctitle=true
+}
+
+\restylefloat{table}
+
+\onehalfspacing
+
+
+\pagestyle{fancy}
+\lhead{}
+\renewcommand{\headrulewidth}{0pt}
+\setlength{\headheight}{14pt}
+
+\newcommand{\nocontentsline}[3]{}
+\newcommand{\tocless}[2]{\bgroup\let\addcontentsline=\nocontentsline#1{#2}\egroup}
+
+\begin{document}
+
+\counterwithout{figure}{chapter}
+\counterwithout{table}{chapter}
+\counterwithout{lstlisting}{chapter}
+
+\newcounter{magicrownumbers}[table]
+
+\maketitle
+
+\newpage
+\thispagestyle{empty}
+\mbox{}
+\setcounter{page}{0}
+
+\tableofcontents
+
+\chapter{Introduction}
+
+
+%Include source code from file using:
+%\lstinputlisting[caption=Expected output for the program (implemented using the Bridge design pattern)]{./Source/de/steilerdev/swe/Bridge/output}
+
+\lstlistoflistings
+\printbibliography
+
+\begin{appendices}
+
+%Include pdf for appendix using:
+%\includepdf[pages=-,addtotoc={1,chapter,0,Exercise 1.2 - UML,app:Ex1.2-UML}]{./UML/Exercise1.pdf}
+
+\end{appendices}
+
+\end{document}
