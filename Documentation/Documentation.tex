@@ -17,7 +17,7 @@
 \usepackage[english]{babel}
 \usepackage[english=british]{csquotes}
 \usepackage[style=alphabetic,backend=biber,natbib=true]{biblatex}
-\usepackage[margin=2cm]{geometry}
+\addbibresource{Documentation.bib}
 \usepackage{graphicx}
 \usepackage{setspace}
 \usepackage{hyperref}
@@ -60,10 +60,10 @@
     filecolor=black,
     linkcolor=black,
     urlcolor=black,
-	pdftitle=Objektorientiertes Software-Engineering Teil-Projekt Gebhardt,
-	pdfauthor={Frank Steiler}, 
-	pdfcreator={Frank Steiler},
-	pdfproducer={Frank Steiler},
+	pdftitle=Analysing the eligibility of a person for higher education using a Bayesian network,
+	pdfauthor={Lisa Mischer \& Frank Steiler}, 
+	pdfcreator={Lisa Mischer \& Frank Steiler},
+	pdfproducer={Lisa Mischer \& Frank Steiler},
 	pdfdisplaydoctitle=true
 }
 
@@ -98,18 +98,27 @@
 \tableofcontents
 
 \chapter{Introduction}
-What are Bayesian Networks, Applications, Foundation
+Within knowledge based systems, logic is a commonly used way to represent connections between data and expressions. Unfortunately logic can not handle uncertainty or unprecise data. Bayesian Networks have been developed to takle this problem, by representing knowledge as a set of variables and their dependencies within a directed acyclic graph. \cite{Reichardt:2014aa}
+
+A probabilistic network is using conditional probabilities between the nodes of the graph and inferences to calculate the probability of symptoms and/or causes. There are three types of inferences that are occurring in the network and enable the functionality of the graph: diagnostic, causal and inter-causal inference.
+
+A Bayesian Network is defined by a set of edges (nodes) connected through vertices within a graph: $D=(V,E)$. Every node has finit set of mutually exclusive states. On top of that the network is quantifying the dependencies within a separated conditional probability table (CPT) for each node. \cite{Vomlel:2005aa}
+
+Concluding to create and then use a Bayesian Network, a user has to create the correct graph first and then determine all values for the CPT. A correct network can either be created by an expert, by using data mining techniques to find connections between entities or through machine learning. 
+
+By adding observations for a specific case to the network, the network is updating beliefs about other variables. Therefore the probability of a certain event or state can be predicted by observing other events or states. Therefore it can support decision making and has numerous applications, like the diagnosis of diseases, automatic troubleshooting or education testing. \cite{Vomlel:2005aa}
 
 \chapter{Analysis of data}
 Analysing data using Data Mining techniques (Parallel Coordinates). Finding connections
 
 \chapter{Structure of the network}
 Creating the structure of a Bayesian Network
+Changing cont. variables (grades, income) into ranges (very good, good, etc)
 
 \chapter{Learning conditional probability tables (CPT)}
 Algorithms that can be used to learn the CPT
 
-\chapter{Implementation (WhatToStudy)}
+\chapter{Implementation - WhatToStudy}
 Concrete implementation of the program, functionalities and documentation of implementation
 
 %Include source code from file using:
