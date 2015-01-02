@@ -1,101 +1,101 @@
-Qualifikation;Schnitt;Bundesland;Mathe;Physik;Deutsch;Schultyp;OLT-Mathe;OLT-Deutsch;Studierfähigkeitstest;Alter;Geschlecht;Jahreseinkommen der Eltern;Staatsbürgerschaft;Studiengang;Zwischenkalk;Abschluss
-Abitur;1,5;Baden-Württemberg;1,2;keine;2,6;Allgemeinbildendes Gymnasium;80;66;n.a.;18;w;55000;Non European;Informatik;1,7;1,7
-Abitur;1,7;Baden-Württemberg;3;3;1,4;Allgemeinbildendes Gymnasium;55;88;n.a.;19;m;124000;deutsch;Elektrotechnik;3,1;3,1
-FH Reife;1,0;Baden-Württemberg;keine;keine;keine;n.a.;46;66;734;17;m;78000;Non European;Elektrotechnik;3,9;3,9
+Qualifikation;Schnitt;Bundesland;Mathe;Physik;Deutsch;Schultyp;OLT-Mathe;OLT-Deutsch;Studierfaehigkeitstest;Alter;Geschlecht;Jahreseinkommen_der_Eltern;Staatsbuergerschaft;Studiengang;Zwischenkalk;Abschluss
+Abitur;1,5;Baden-Wuerttemberg;1,2;keine;2,6;Allgemeinbildendes Gymnasium;80;66;n.a.;18;w;55000;Non European;Informatik;1,7;1,7
+Abitur;1,7;Baden-Wuerttemberg;3;3;1,4;Allgemeinbildendes Gymnasium;55;88;n.a.;19;m;124000;deutsch;Elektrotechnik;3,1;3,1
+FH Reife;1,0;Baden-Wuerttemberg;keine;keine;keine;n.a.;46;66;734;17;m;78000;Non European;Elektrotechnik;3,9;3,9
 Abitur;2,1;Nordrhein-Westfalen;1,9;2,2;1,3;Allgemeinbildendes Gymnasium;52;65;n.a.;19;m;72000;deutsch;Elektrotechnik;3;3
-FH Reife;3,7;Sachsen;keine;keine;keine;n.a.;15;20;744;23;m;42000;EU Bürger;Maschinenbau;6,1;abgebrochen
-Abitur;2,1;Baden-Württemberg;1,2;1,3;1,2;Technisches Gymnasium;88;84;n.a.;17;m;56000;deutsch;Maschinenbau;1,7;1,7
+FH Reife;3,7;Sachsen;keine;keine;keine;n.a.;15;20;744;23;m;42000;EU Buerger;Maschinenbau;6,1;abgebrochen
+Abitur;2,1;Baden-Wuerttemberg;1,2;1,3;1,2;Technisches Gymnasium;88;84;n.a.;17;m;56000;deutsch;Maschinenbau;1,7;1,7
 Abitur;1,0;Sachsen;3;2,9;2,7;Wirtschaftsgymnasium;45;52;n.a.;17;m;62000;deutsch;Wirtschaftswissenschaften;2,7;2,7
-FH Reife;1,5;Baden-Württemberg;keine;keine;keine;n.a.;43;63;961;24;m;86000;deutsch;Wirtschaftswissenschaften;3,5;3,5
-Abitur;1,2;Baden-Württemberg;2,6;2,4;1,7;Allgemeinbildendes Gymnasium;52;81;n.a.;18;m;83000;deutsch;Maschinenbau;2,8;2,8
-Abitur;2,2;Baden-Württemberg;1,7;1,5;1,3;Allgemeinbildendes Gymnasium;86;82;n.a.;17;w;47000;deutsch;Maschinenbau;1,9;1,9
+FH Reife;1,5;Baden-Wuerttemberg;keine;keine;keine;n.a.;43;63;961;24;m;86000;deutsch;Wirtschaftswissenschaften;3,5;3,5
+Abitur;1,2;Baden-Wuerttemberg;2,6;2,4;1,7;Allgemeinbildendes Gymnasium;52;81;n.a.;18;m;83000;deutsch;Maschinenbau;2,8;2,8
+Abitur;2,2;Baden-Wuerttemberg;1,7;1,5;1,3;Allgemeinbildendes Gymnasium;86;82;n.a.;17;w;47000;deutsch;Maschinenbau;1,9;1,9
 Abitur;2,9;Nordrhein-Westfalen;1,5;1,5;1,3;Allgemeinbildendes Gymnasium;68;68;n.a.;17;m;87000;deutsch;Elektrotechnik;2,2;2,2
 Abitur;1,1;Bayern;2,4;2,5;1,8;Allgemeinbildendes Gymnasium;62;77;n.a.;19;m;58000;deutsch;Maschinenbau;2,5;2,5
-FH Reife;1,2;Sachsen;keine;keine;keine;n.a.;44;60;709;24;m;64000;EU Bürger;Maschinenbau;3,9;3,9
-Abitur;2,7;Baden-Württemberg;2,9;keine;2,2;Allgemeinbildendes Gymnasium;44;64;n.a.;18;w;65000;deutsch;Wirtschaftswissenschaften;3;3
-Abitur;1,7;Baden-Württemberg;2,3;2,1;2,9;Allgemeinbildendes Gymnasium;61;56;n.a.;17;m;121000;deutsch;Informatik;2,4;2,4
-Abitur;2,9;Baden-Württemberg;2;1,9;1,9;Technisches Gymnasium;86;83;n.a.;19;w;88000;deutsch;Informatik;2,1;2,1
-Abitur;1,8;Baden-Württemberg;2,8;2,6;2,6;Allgemeinbildendes Gymnasium;50;64;n.a.;20;m;112000;deutsch;Wirtschaftswissenschaften;2,6;2,6
-Abitur;2,7;Baden-Württemberg;2,4;2,6;2,2;Allgemeinbildendes Gymnasium;56;57;n.a.;17;w;75000;deutsch;Wirtschaftswissenschaften;2,7;2,7
-Abitur;2,4;Baden-Württemberg;2;2,3;1,7;Allgemeinbildendes Gymnasium;63;66;n.a.;18;w;64000;deutsch;Maschinenbau;2,7;2,7
-Abitur;3,0;Baden-Württemberg;2,6;keine;2,4;Allgemeinbildendes Gymnasium;53;59;n.a.;18;m;47000;Non European;Maschinenbau;3,5;3,5
-FH Reife;1,2;Baden-Württemberg;keine;keine;keine;n.a.;43;68;811;25;w;84000;Non European;Soziale Arbeit;2,5;2,5
-Abitur;1,8;Baden-Württemberg;1,8;keine;1,3;Allgemeinbildendes Gymnasium;71;75;n.a.;19;m;107000;deutsch;Elektrotechnik;2,4;2,4
-Abitur;1,5;Baden-Württemberg;1,3;1,1;1,5;Allgemeinbildendes Gymnasium;100;74;n.a.;18;w;100000;deutsch;Wirtschaftswissenschaften;1,3;1,3
-Abitur;1,6;Baden-Württemberg;2,1;2,1;1,1;Allgemeinbildendes Gymnasium;70;95;965;17;m;107000;deutsch;Informatik;2;2
-Abitur;2,0;Baden-Württemberg;1,9;2,3;1,4;Allgemeinbildendes Gymnasium;70;84;n.a.;18;w;109000;deutsch;Soziale Arbeit;2;2
+FH Reife;1,2;Sachsen;keine;keine;keine;n.a.;44;60;709;24;m;64000;EU Buerger;Maschinenbau;3,9;3,9
+Abitur;2,7;Baden-Wuerttemberg;2,9;keine;2,2;Allgemeinbildendes Gymnasium;44;64;n.a.;18;w;65000;deutsch;Wirtschaftswissenschaften;3;3
+Abitur;1,7;Baden-Wuerttemberg;2,3;2,1;2,9;Allgemeinbildendes Gymnasium;61;56;n.a.;17;m;121000;deutsch;Informatik;2,4;2,4
+Abitur;2,9;Baden-Wuerttemberg;2;1,9;1,9;Technisches Gymnasium;86;83;n.a.;19;w;88000;deutsch;Informatik;2,1;2,1
+Abitur;1,8;Baden-Wuerttemberg;2,8;2,6;2,6;Allgemeinbildendes Gymnasium;50;64;n.a.;20;m;112000;deutsch;Wirtschaftswissenschaften;2,6;2,6
+Abitur;2,7;Baden-Wuerttemberg;2,4;2,6;2,2;Allgemeinbildendes Gymnasium;56;57;n.a.;17;w;75000;deutsch;Wirtschaftswissenschaften;2,7;2,7
+Abitur;2,4;Baden-Wuerttemberg;2;2,3;1,7;Allgemeinbildendes Gymnasium;63;66;n.a.;18;w;64000;deutsch;Maschinenbau;2,7;2,7
+Abitur;3,0;Baden-Wuerttemberg;2,6;keine;2,4;Allgemeinbildendes Gymnasium;53;59;n.a.;18;m;47000;Non European;Maschinenbau;3,5;3,5
+FH Reife;1,2;Baden-Wuerttemberg;keine;keine;keine;n.a.;43;68;811;25;w;84000;Non European;Soziale Arbeit;2,5;2,5
+Abitur;1,8;Baden-Wuerttemberg;1,8;keine;1,3;Allgemeinbildendes Gymnasium;71;75;n.a.;19;m;107000;deutsch;Elektrotechnik;2,4;2,4
+Abitur;1,5;Baden-Wuerttemberg;1,3;1,1;1,5;Allgemeinbildendes Gymnasium;100;74;n.a.;18;w;100000;deutsch;Wirtschaftswissenschaften;1,3;1,3
+Abitur;1,6;Baden-Wuerttemberg;2,1;2,1;1,1;Allgemeinbildendes Gymnasium;70;95;965;17;m;107000;deutsch;Informatik;2;2
+Abitur;2,0;Baden-Wuerttemberg;1,9;2,3;1,4;Allgemeinbildendes Gymnasium;70;84;n.a.;18;w;109000;deutsch;Soziale Arbeit;2;2
 Abitur;2,3;Nordrhein-Westfalen;1,8;1,6;1,8;Allgemeinbildendes Gymnasium;60;63;n.a.;20;m;50000;deutsch;Informatik;2,1;2,1
 Abitur;2,9;Sachsen;2;2,2;2,5;Allgemeinbildendes Gymnasium;58;55;n.a.;19;m;49000;deutsch;Wirtschaftswissenschaften;2,5;2,5
-Abitur;3,3;Baden-Württemberg;1,8;1,9;2,3;Wirtschaftsgymnasium;72;57;995;17;m;89000;deutsch;Maschinenbau;2,4;2,4
-Abitur;1,7;Baden-Württemberg;1,4;keine;1,7;Allgemeinbildendes Gymnasium;85;84;n.a.;18;m;126000;deutsch;Elektrotechnik;2,1;2,1
-Abitur;2,1;Baden-Württemberg;2,2;2,1;2,1;Allgemeinbildendes Gymnasium;65;57;n.a.;19;m;73000;deutsch;Elektrotechnik;2,8;2,8
-Abitur;2,5;Baden-Württemberg;1,8;1,8;1,1;Allgemeinbildendes Gymnasium;76;86;n.a.;19;m;99000;deutsch;Maschinenbau;2;2
-FH Reife;2,4;Baden-Württemberg;keine;keine;keine;n.a.;33;55;979;24;m;82000;Non European;Informatik;4;4
-Abitur;2,9;Baden-Württemberg;1,3;1,4;2,3;Allgemeinbildendes Gymnasium;76;55;n.a.;18;m;105000;deutsch;Wirtschaftswissenschaften;1,9;1,9
+Abitur;3,3;Baden-Wuerttemberg;1,8;1,9;2,3;Wirtschaftsgymnasium;72;57;995;17;m;89000;deutsch;Maschinenbau;2,4;2,4
+Abitur;1,7;Baden-Wuerttemberg;1,4;keine;1,7;Allgemeinbildendes Gymnasium;85;84;n.a.;18;m;126000;deutsch;Elektrotechnik;2,1;2,1
+Abitur;2,1;Baden-Wuerttemberg;2,2;2,1;2,1;Allgemeinbildendes Gymnasium;65;57;n.a.;19;m;73000;deutsch;Elektrotechnik;2,8;2,8
+Abitur;2,5;Baden-Wuerttemberg;1,8;1,8;1,1;Allgemeinbildendes Gymnasium;76;86;n.a.;19;m;99000;deutsch;Maschinenbau;2;2
+FH Reife;2,4;Baden-Wuerttemberg;keine;keine;keine;n.a.;33;55;979;24;m;82000;Non European;Informatik;4;4
+Abitur;2,9;Baden-Wuerttemberg;1,3;1,4;2,3;Allgemeinbildendes Gymnasium;76;55;n.a.;18;m;105000;deutsch;Wirtschaftswissenschaften;1,9;1,9
 Abitur;1,1;Bremen;1,5;1,5;1,7;Allgemeinbildendes Gymnasium;80;59;n.a.;20;m;51000;deutsch;Elektrotechnik;1,6;1,6
 Abitur;2,8;Nordrhein-Westfalen;1,5;keine;2,1;Allgemeinbildendes Gymnasium;60;55;n.a.;20;m;70000;deutsch;Elektrotechnik;2,8;2,8
 FH Reife;3,2;Nordrhein-Westfalen;keine;keine;keine;n.a.;19;30;662;19;m;91000;Non European;Elektrotechnik;6,4;abgebrochen
-Abitur;2,5;Baden-Württemberg;1,5;1,4;1,6;Allgemeinbildendes Gymnasium;82;75;n.a.;17;w;79000;deutsch;Soziale Arbeit;1,5;1,5
-Abitur;2,3;Baden-Württemberg;1,4;1,2;1,3;Technisches Gymnasium;99;91;n.a.;18;w;63000;deutsch;Soziale Arbeit;1,5;1,5
-Abitur;2,2;Baden-Württemberg;1,1;1;2,4;Allgemeinbildendes Gymnasium;89;64;n.a.;18;m;69000;deutsch;Maschinenbau;1,6;1,6
+Abitur;2,5;Baden-Wuerttemberg;1,5;1,4;1,6;Allgemeinbildendes Gymnasium;82;75;n.a.;17;w;79000;deutsch;Soziale Arbeit;1,5;1,5
+Abitur;2,3;Baden-Wuerttemberg;1,4;1,2;1,3;Technisches Gymnasium;99;91;n.a.;18;w;63000;deutsch;Soziale Arbeit;1,5;1,5
+Abitur;2,2;Baden-Wuerttemberg;1,1;1;2,4;Allgemeinbildendes Gymnasium;89;64;n.a.;18;m;69000;deutsch;Maschinenbau;1,6;1,6
 Abitur;2,2;Nordrhein-Westfalen;2,4;2,4;2,2;Allgemeinbildendes Gymnasium;40;55;n.a.;18;m;125000;deutsch;Elektrotechnik;3,5;3,5
-Abitur;1,9;Baden-Württemberg;2,3;2,4;1,6;Allgemeinbildendes Gymnasium;60;73;910;19;m;64000;deutsch;Elektrotechnik;2,8;2,8
-Abitur;3,1;Baden-Württemberg;2,7;2,5;2,6;Allgemeinbildendes Gymnasium;45;50;n.a.;19;w;84000;deutsch;Wirtschaftswissenschaften;2,9;2,9
-FH Reife;2,7;Baden-Württemberg;keine;keine;keine;n.a.;29;45;928;20;m;86000;deutsch;Informatik;4,3;abgebrochen
-Abitur;1,1;Baden-Württemberg;1,8;1,9;1,3;Allgemeinbildendes Gymnasium;78;78;n.a.;17;m;118000;deutsch;Wirtschaftswissenschaften;1,8;1,8
+Abitur;1,9;Baden-Wuerttemberg;2,3;2,4;1,6;Allgemeinbildendes Gymnasium;60;73;910;19;m;64000;deutsch;Elektrotechnik;2,8;2,8
+Abitur;3,1;Baden-Wuerttemberg;2,7;2,5;2,6;Allgemeinbildendes Gymnasium;45;50;n.a.;19;w;84000;deutsch;Wirtschaftswissenschaften;2,9;2,9
+FH Reife;2,7;Baden-Wuerttemberg;keine;keine;keine;n.a.;29;45;928;20;m;86000;deutsch;Informatik;4,3;abgebrochen
+Abitur;1,1;Baden-Wuerttemberg;1,8;1,9;1,3;Allgemeinbildendes Gymnasium;78;78;n.a.;17;m;118000;deutsch;Wirtschaftswissenschaften;1,8;1,8
 Abitur;2,0;Sachsen;4;4,4;2,3;Technisches Gymnasium;35;61;n.a.;18;m;103000;deutsch;Elektrotechnik;4,2;abgebrochen
 Abitur;2,4;Bayern;2,7;2,9;2,2;Allgemeinbildendes Gymnasium;48;61;n.a.;17;w;98000;deutsch;Elektrotechnik;3,8;3,8
-Abitur;1,1;Baden-Württemberg;1,6;1,7;1,2;Allgemeinbildendes Gymnasium;81;87;n.a.;18;m;84000;deutsch;Maschinenbau;1,5;1,5
+Abitur;1,1;Baden-Wuerttemberg;1,6;1,7;1,2;Allgemeinbildendes Gymnasium;81;87;n.a.;18;m;84000;deutsch;Maschinenbau;1,5;1,5
 Abitur;2,4;Sachsen;2,8;3;2,6;Allgemeinbildendes Gymnasium;46;46;n.a.;19;m;65000;deutsch;Maschinenbau;3,4;3,4
-Abitur;1,7;Baden-Württemberg;2,5;2,4;3;Allgemeinbildendes Gymnasium;62;52;n.a.;19;m;43000;deutsch;Wirtschaftswissenschaften;2,6;2,6
+Abitur;1,7;Baden-Wuerttemberg;2,5;2,4;3;Allgemeinbildendes Gymnasium;62;52;n.a.;19;m;43000;deutsch;Wirtschaftswissenschaften;2,6;2,6
 Abitur;2,3;Nordrhein-Westfalen;1,7;1,6;1,9;Gesamtschule;71;51;n.a.;19;m;57000;deutsch;Elektrotechnik;2,1;2,1
-Abitur;2,4;Baden-Württemberg;1,8;1,9;2,3;Allgemeinbildendes Gymnasium;84;58;n.a.;18;m;47000;deutsch;Wirtschaftswissenschaften;2;2
-FH Reife;3,5;Baden-Württemberg;keine;keine;keine;n.a.;24;28;789;23;m;43000;EU Bürger;Soziale Arbeit;4,4;abgebrochen
-Abitur;1,1;Baden-Württemberg;1,3;1,5;2,9;Technisches Gymnasium;98;72;n.a.;18;m;54000;deutsch;Maschinenbau;1,4;1,4
-Abitur;2,6;Baden-Württemberg;1,8;1,6;1,7;Allgemeinbildendes Gymnasium;72;73;n.a.;18;m;124000;deutsch;Wirtschaftswissenschaften;2,2;2,2
-Abitur;1,9;Baden-Württemberg;2,9;3;1;Allgemeinbildendes Gymnasium;54;86;n.a.;17;m;56000;EU Bürger;Wirtschaftswissenschaften;2,7;2,7
-Abitur;2,2;Baden-Württemberg;2,5;2,7;1,8;Allgemeinbildendes Gymnasium;54;71;n.a.;19;m;111000;deutsch;Informatik;2,5;2,5
+Abitur;2,4;Baden-Wuerttemberg;1,8;1,9;2,3;Allgemeinbildendes Gymnasium;84;58;n.a.;18;m;47000;deutsch;Wirtschaftswissenschaften;2;2
+FH Reife;3,5;Baden-Wuerttemberg;keine;keine;keine;n.a.;24;28;789;23;m;43000;EU Buerger;Soziale Arbeit;4,4;abgebrochen
+Abitur;1,1;Baden-Wuerttemberg;1,3;1,5;2,9;Technisches Gymnasium;98;72;n.a.;18;m;54000;deutsch;Maschinenbau;1,4;1,4
+Abitur;2,6;Baden-Wuerttemberg;1,8;1,6;1,7;Allgemeinbildendes Gymnasium;72;73;n.a.;18;m;124000;deutsch;Wirtschaftswissenschaften;2,2;2,2
+Abitur;1,9;Baden-Wuerttemberg;2,9;3;1;Allgemeinbildendes Gymnasium;54;86;n.a.;17;m;56000;EU Buerger;Wirtschaftswissenschaften;2,7;2,7
+Abitur;2,2;Baden-Wuerttemberg;2,5;2,7;1,8;Allgemeinbildendes Gymnasium;54;71;n.a.;19;m;111000;deutsch;Informatik;2,5;2,5
 Abitur;1,3;Bayern;1,9;1,7;1,1;Wirtschaftsgymnasium;80;79;n.a.;17;w;69000;deutsch;Wirtschaftswissenschaften;1,6;1,6
-Abitur;1,6;Baden-Württemberg;1;1;2,2;Wirtschaftsgymnasium;100;61;n.a.;18;m;113000;deutsch;Maschinenbau;1,3;1,3
-Abitur;2,5;Baden-Württemberg;1,3;1,3;2,3;Technisches Gymnasium;88;63;n.a.;19;m;118000;deutsch;Maschinenbau;1,8;1,8
-Abitur;3,0;Baden-Württemberg;1,7;1,9;1,2;Allgemeinbildendes Gymnasium;86;77;n.a.;20;w;97000;deutsch;Soziale Arbeit;1,7;1,7
+Abitur;1,6;Baden-Wuerttemberg;1;1;2,2;Wirtschaftsgymnasium;100;61;n.a.;18;m;113000;deutsch;Maschinenbau;1,3;1,3
+Abitur;2,5;Baden-Wuerttemberg;1,3;1,3;2,3;Technisches Gymnasium;88;63;n.a.;19;m;118000;deutsch;Maschinenbau;1,8;1,8
+Abitur;3,0;Baden-Wuerttemberg;1,7;1,9;1,2;Allgemeinbildendes Gymnasium;86;77;n.a.;20;w;97000;deutsch;Soziale Arbeit;1,7;1,7
 Abitur;1,4;Bayern;2;2,4;2,7;Allgemeinbildendes Gymnasium;63;64;n.a.;20;w;92000;deutsch;Elektrotechnik;2,6;2,6
 Techniker;2,3;Nordrhein-Westfalen;keine;keine;keine;n.a.;32;45;990;23;w;37000;Non European;Maschinenbau;5;abgebrochen
-FH Reife;1,3;Baden-Württemberg;keine;keine;keine;n.a.;49;65;914;25;w;66000;deutsch;Wirtschaftswissenschaften;3,2;3,2
-Abitur;2,1;Baden-Württemberg;2,2;2,2;2,9;Allgemeinbildendes Gymnasium;53;52;n.a.;18;w;90000;deutsch;Elektrotechnik;3;3
-Abitur;2,5;Baden-Württemberg;2,2;2,3;1,9;Technisches Gymnasium;71;84;n.a.;17;m;78000;deutsch;Elektrotechnik;2,8;2,8
-Abitur;2,4;Baden-Württemberg;1,8;2,1;1,1;Technisches Gymnasium;69;83;n.a.;18;m;66000;deutsch;Maschinenbau;2,5;2,5
-Abitur;2,5;Baden-Württemberg;2;1,9;1,7;Wirtschaftsgymnasium;80;69;n.a.;19;w;122000;deutsch;Maschinenbau;2,1;2,1
-Abitur;1,2;Baden-Württemberg;1,6;1,7;2,9;Allgemeinbildendes Gymnasium;81;50;n.a.;18;m;54000;deutsch;Maschinenbau;1,8;1,8
-FH Reife;2,0;Thüringen;keine;keine;keine;n.a.;35;48;691;23;m;70000;Non European;Informatik;4,1;abgebrochen
+FH Reife;1,3;Baden-Wuerttemberg;keine;keine;keine;n.a.;49;65;914;25;w;66000;deutsch;Wirtschaftswissenschaften;3,2;3,2
+Abitur;2,1;Baden-Wuerttemberg;2,2;2,2;2,9;Allgemeinbildendes Gymnasium;53;52;n.a.;18;w;90000;deutsch;Elektrotechnik;3;3
+Abitur;2,5;Baden-Wuerttemberg;2,2;2,3;1,9;Technisches Gymnasium;71;84;n.a.;17;m;78000;deutsch;Elektrotechnik;2,8;2,8
+Abitur;2,4;Baden-Wuerttemberg;1,8;2,1;1,1;Technisches Gymnasium;69;83;n.a.;18;m;66000;deutsch;Maschinenbau;2,5;2,5
+Abitur;2,5;Baden-Wuerttemberg;2;1,9;1,7;Wirtschaftsgymnasium;80;69;n.a.;19;w;122000;deutsch;Maschinenbau;2,1;2,1
+Abitur;1,2;Baden-Wuerttemberg;1,6;1,7;2,9;Allgemeinbildendes Gymnasium;81;50;n.a.;18;m;54000;deutsch;Maschinenbau;1,8;1,8
+FH Reife;2,0;Thueringen;keine;keine;keine;n.a.;35;48;691;23;m;70000;Non European;Informatik;4,1;abgebrochen
 Abitur;2,3;Bayern;2,1;2;2,5;Allgemeinbildendes Gymnasium;56;60;n.a.;18;m;113000;deutsch;Elektrotechnik;2,6;2,6
 Abitur;1,6;Nordrhein-Westfalen;2,1;2;2,2;Gesamtschule;51;55;n.a.;18;w;75000;deutsch;Soziale Arbeit;2,1;2,1
-Abitur;2,6;Baden-Württemberg;1,4;1,4;3;Technisches Gymnasium;89;62;n.a.;19;m;103000;deutsch;Maschinenbau;1,9;1,9
-Abitur;2,8;Baden-Württemberg;2,7;3;1,6;Allgemeinbildendes Gymnasium;55;70;n.a.;20;m;75000;Non European;Maschinenbau;3,5;3,5
+Abitur;2,6;Baden-Wuerttemberg;1,4;1,4;3;Technisches Gymnasium;89;62;n.a.;19;m;103000;deutsch;Maschinenbau;1,9;1,9
+Abitur;2,8;Baden-Wuerttemberg;2,7;3;1,6;Allgemeinbildendes Gymnasium;55;70;n.a.;20;m;75000;Non European;Maschinenbau;3,5;3,5
 FH Reife;3,4;Bayern;keine;keine;keine;n.a.;20;30;801;19;m;45000;deutsch;Elektrotechnik;6;abgebrochen
 Abitur;2,8;Bremen;1,4;1,2;1,5;Allgemeinbildendes Gymnasium;75;57;956;19;w;122000;deutsch;Wirtschaftswissenschaften;1,9;1,9
-Abitur;1,6;Baden-Württemberg;2,8;2,7;1,6;Allgemeinbildendes Gymnasium;51;73;n.a.;18;m;104000;deutsch;Elektrotechnik;3,2;3,2
-Abitur;2,1;Baden-Württemberg;1,2;1,2;2,9;Allgemeinbildendes Gymnasium;89;54;n.a.;18;m;76000;deutsch;Informatik;1,6;1,6
-Abitur;1,5;Baden-Württemberg;3,8;4;1,4;Allgemeinbildendes Gymnasium;39;78;n.a.;19;m;59000;deutsch;Maschinenbau;3,8;3,8
-Abitur;2,0;Baden-Württemberg;2,4;2,6;2,9;Technisches Gymnasium;68;55;n.a.;18;w;85000;deutsch;Wirtschaftswissenschaften;2,5;2,5
-Abitur;2,1;Baden-Württemberg;1,4;1,3;2,3;Allgemeinbildendes Gymnasium;82;64;n.a.;18;w;85000;deutsch;Soziale Arbeit;1,6;1,6
-Abitur;1,9;Baden-Württemberg;1,4;1,4;1,9;Technisches Gymnasium;100;89;n.a.;19;m;116000;deutsch;Informatik;1,6;1,6
-Abitur;2,2;Baden-Württemberg;1,9;1,8;2,6;Allgemeinbildendes Gymnasium;72;59;n.a.;19;m;91000;deutsch;Maschinenbau;2,2;2,2
-FH Reife;2,2;Baden-Württemberg;keine;keine;keine;n.a.;39;57;928;17;m;92000;Non European;Informatik;4;4
-Abitur;1,5;Baden-Württemberg;2,5;2,5;2,8;Allgemeinbildendes Gymnasium;54;54;n.a.;18;w;56000;deutsch;Wirtschaftswissenschaften;2,4;2,4
-Abitur;1,5;Baden-Württemberg;2,1;2,6;2,8;Allgemeinbildendes Gymnasium;72;61;n.a.;19;w;90000;deutsch;Elektrotechnik;2,8;2,8
-Abitur;2,2;Baden-Württemberg;1;1,3;1,9;Allgemeinbildendes Gymnasium;92;60;n.a.;18;m;70000;deutsch;Elektrotechnik;1,8;1,8
-Abitur;2,4;Baden-Württemberg;1,6;1,8;1,9;Wirtschaftsgymnasium;79;64;n.a.;18;w;67000;deutsch;Wirtschaftswissenschaften;2;2
-Abitur;1,4;Baden-Württemberg;1,3;1,1;1,1;Allgemeinbildendes Gymnasium;98;94;n.a.;18;m;125000;deutsch;Maschinenbau;1,3;1,3
-Abitur;3,8;Baden-Württemberg;3;3,1;2,7;Allgemeinbildendes Gymnasium;44;55;n.a.;18;m;69000;deutsch;Soziale Arbeit;3,2;3,2
+Abitur;1,6;Baden-Wuerttemberg;2,8;2,7;1,6;Allgemeinbildendes Gymnasium;51;73;n.a.;18;m;104000;deutsch;Elektrotechnik;3,2;3,2
+Abitur;2,1;Baden-Wuerttemberg;1,2;1,2;2,9;Allgemeinbildendes Gymnasium;89;54;n.a.;18;m;76000;deutsch;Informatik;1,6;1,6
+Abitur;1,5;Baden-Wuerttemberg;3,8;4;1,4;Allgemeinbildendes Gymnasium;39;78;n.a.;19;m;59000;deutsch;Maschinenbau;3,8;3,8
+Abitur;2,0;Baden-Wuerttemberg;2,4;2,6;2,9;Technisches Gymnasium;68;55;n.a.;18;w;85000;deutsch;Wirtschaftswissenschaften;2,5;2,5
+Abitur;2,1;Baden-Wuerttemberg;1,4;1,3;2,3;Allgemeinbildendes Gymnasium;82;64;n.a.;18;w;85000;deutsch;Soziale Arbeit;1,6;1,6
+Abitur;1,9;Baden-Wuerttemberg;1,4;1,4;1,9;Technisches Gymnasium;100;89;n.a.;19;m;116000;deutsch;Informatik;1,6;1,6
+Abitur;2,2;Baden-Wuerttemberg;1,9;1,8;2,6;Allgemeinbildendes Gymnasium;72;59;n.a.;19;m;91000;deutsch;Maschinenbau;2,2;2,2
+FH Reife;2,2;Baden-Wuerttemberg;keine;keine;keine;n.a.;39;57;928;17;m;92000;Non European;Informatik;4;4
+Abitur;1,5;Baden-Wuerttemberg;2,5;2,5;2,8;Allgemeinbildendes Gymnasium;54;54;n.a.;18;w;56000;deutsch;Wirtschaftswissenschaften;2,4;2,4
+Abitur;1,5;Baden-Wuerttemberg;2,1;2,6;2,8;Allgemeinbildendes Gymnasium;72;61;n.a.;19;w;90000;deutsch;Elektrotechnik;2,8;2,8
+Abitur;2,2;Baden-Wuerttemberg;1;1,3;1,9;Allgemeinbildendes Gymnasium;92;60;n.a.;18;m;70000;deutsch;Elektrotechnik;1,8;1,8
+Abitur;2,4;Baden-Wuerttemberg;1,6;1,8;1,9;Wirtschaftsgymnasium;79;64;n.a.;18;w;67000;deutsch;Wirtschaftswissenschaften;2;2
+Abitur;1,4;Baden-Wuerttemberg;1,3;1,1;1,1;Allgemeinbildendes Gymnasium;98;94;n.a.;18;m;125000;deutsch;Maschinenbau;1,3;1,3
+Abitur;3,8;Baden-Wuerttemberg;3;3,1;2,7;Allgemeinbildendes Gymnasium;44;55;n.a.;18;m;69000;deutsch;Soziale Arbeit;3,2;3,2
 Abitur;2,6;Sachsen;3,1;2,8;2,7;Allgemeinbildendes Gymnasium;37;49;n.a.;17;m;119000;deutsch;Wirtschaftswissenschaften;3,9;3,9
-Abitur;1,4;Baden-Württemberg;1,6;1,8;1,7;Allgemeinbildendes Gymnasium;92;75;n.a.;19;m;109000;deutsch;Wirtschaftswissenschaften;1,6;1,6
-Abitur;2,9;Baden-Württemberg;2,2;keine;1,4;Wirtschaftsgymnasium;58;76;n.a.;19;m;69000;deutsch;Maschinenbau;3,1;3,1
-Abitur;3,5;Baden-Württemberg;1,7;1,5;1,2;Allgemeinbildendes Gymnasium;78;78;n.a.;19;m;109000;deutsch;Maschinenbau;2,1;2,1
-Techniker;2,8;Baden-Württemberg;keine;keine;keine;n.a.;30;43;n.a.;23;w;79000;deutsch;Wirtschaftswissenschaften;5,7;abgebrochen
+Abitur;1,4;Baden-Wuerttemberg;1,6;1,8;1,7;Allgemeinbildendes Gymnasium;92;75;n.a.;19;m;109000;deutsch;Wirtschaftswissenschaften;1,6;1,6
+Abitur;2,9;Baden-Wuerttemberg;2,2;keine;1,4;Wirtschaftsgymnasium;58;76;n.a.;19;m;69000;deutsch;Maschinenbau;3,1;3,1
+Abitur;3,5;Baden-Wuerttemberg;1,7;1,5;1,2;Allgemeinbildendes Gymnasium;78;78;n.a.;19;m;109000;deutsch;Maschinenbau;2,1;2,1
+Techniker;2,8;Baden-Wuerttemberg;keine;keine;keine;n.a.;30;43;n.a.;23;w;79000;deutsch;Wirtschaftswissenschaften;5,7;abgebrochen
 Abitur;3,7;Bayern;1,4;1,2;1,6;Technisches Gymnasium;100;81;n.a.;18;m;96000;deutsch;Maschinenbau;1,9;1,9
-Abitur;2,8;Baden-Württemberg;1,4;1,6;1,2;Allgemeinbildendes Gymnasium;74;88;n.a.;18;m;123000;deutsch;Informatik;1,9;1,9
+Abitur;2,8;Baden-Wuerttemberg;1,4;1,6;1,2;Allgemeinbildendes Gymnasium;74;88;n.a.;18;m;123000;deutsch;Informatik;1,9;1,9
 Abitur;1,7;Sachsen;2,8;2,6;1,8;Wirtschaftsgymnasium;48;75;n.a.;17;w;108000;deutsch;Wirtschaftswissenschaften;2,4;2,4
 Abitur;2,3;Bayern;1,3;1,6;1,1;Technisches Gymnasium;95;83;n.a.;20;m;72000;deutsch;Maschinenbau;1,7;1,7
-FH Reife;3,9;Baden-Württemberg;keine;keine;keine;n.a.;17;25;927;22;m;94000;deutsch;Informatik;5,5;abgebrochen
+FH Reife;3,9;Baden-Wuerttemberg;keine;keine;keine;n.a.;17;25;927;22;m;94000;deutsch;Informatik;5,5;abgebrochen
 Abitur;2,7;Bayern;2,1;1,9;1,2;Allgemeinbildendes Gymnasium;70;80;n.a.;20;w;73000;deutsch;Soziale Arbeit;2,2;2,2
