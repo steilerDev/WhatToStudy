@@ -16,8 +16,6 @@
  */
 package de.steilerdev.whatToStudy.Functionalities;
 
-import de.steilerdev.whatToStudy.Interface.Functionality;
-
 /**
  * This functionality of the application is printing the help of the program to the terminal.
  */

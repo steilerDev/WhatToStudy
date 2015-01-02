@@ -1,8 +1,10 @@
 package de.steilerdev.whatToStudy;
 
+import de.steilerdev.whatToStudy.Functionalities.Evaluate;
 import de.steilerdev.whatToStudy.Functionalities.Help;
 import de.steilerdev.whatToStudy.Functionalities.Version;
-import de.steilerdev.whatToStudy.Interface.Functionality;
+import de.steilerdev.whatToStudy.Functionalities.Functionality;
+import norsys.netica.NeticaException;
 
 /**
  * This class is used to manage the basic terminal interface for the application.
@@ -35,7 +37,7 @@ public class Main {
         {
             if(args[0].equals("-e"))
             {
-
+                program = new Evaluate();
             } else if(args[0].equals("-l"))
             {
 
@@ -50,6 +52,12 @@ public class Main {
             System.out.println("Unsuitable amount or unrecognised arguments.");
             program = new Help();
         }
-        program.run(args);
+        try
+        {
+            program.run(args);
+        } catch (NeticaException e)
+        {
+            System.err.println("Error occurred during runtime: " + e.getLocalizedMessage());
+        }
     }
 }
