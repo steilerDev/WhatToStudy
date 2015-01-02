@@ -1,6 +1,6 @@
 WhatToStudy
 ===========
-This project is creating a Java implementation, evaluating the eligibility ofa student for a specific course.
+This project is creating a Java implementation, evaluating the eligibility of a student for a specific course.
 
 ## Interface
 
