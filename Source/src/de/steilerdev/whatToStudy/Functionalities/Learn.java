@@ -20,78 +20,60 @@ import de.steilerdev.whatToStudy.Exception.WhatToStudyException;
 import de.steilerdev.whatToStudy.Utility.CSVStreamer;
 import norsys.netica.*;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
-
 /**
  * This class is used to learn the CPT's of the network stored network.
  */
 public class Learn implements Functionality
 {
+    private static int learningAlgorithm = Learner.EM_LEARNING;
+    private static int learningIterations = 200;
+
     @Override
     public void run(String[] args) throws WhatToStudyException, NeticaException
     {
         Environ env = new Environ(null);
 
         //Getting the network from the file
+        System.out.println("Loading network.");
         Net net = new Net(new Streamer(
                 Thread.currentThread()
                         .getContextClassLoader()
                         .getResourceAsStream("de/steilerdev/whatToStudy/Network/StudyNetwork_new.dne"), //Getting the network as java.io.InputStream from the Netica file
                 "StudyNetwork", //Giving the Network a name
                 env)); //Handling over the Environ
+        NodeList nodes = net.getNodes();
 
-
-
-
-        NodeList nodes    = net.getNodes();
-
+        //Deleting all previously stored CPT's
+        System.out.println("Clearing current CPT.");
         nodes.parallelStream().forEach(node -> {
-            ((Node)node).deleteTables()
+            try
+            {
+                ((Node) node).deleteTables();
+            } catch (NeticaException ignoreException)
+            {
+            }
         });
 
-        for (int n=0; n<nodes.size(); n++) {
-            nodes.getNode(n).deleteTables();
-        }
-
-        // Read in the case file into a caseset
-
+        // Read in the case file into a case set
+        System.out.println("Loading cases from file");
         Caseset cases = new Caseset ();
-        Streamer caseFile = new Streamer ("Data Files/LearnLatent.cas");
+        Streamer caseFile = CSVStreamer.getNeticaStream(args[1], "LearningStreamer", env);
         cases.addCases ( caseFile, 1.0, null);
-        Learner learner = new Learner (Learner.EM_LEARNING);
-        learner.setMaxIterations (200);
 
+        //Configuring and starting learning process
+        System.out.println("Starting learning process, using " + learningAlgorithm + " with " + learningIterations + " iterations");
+        Learner learner = new Learner (learningAlgorithm);
+        learner.setMaxIterations (learningIterations);
         learner.learnCPTs ( nodes, cases, 1.0);
 
-        net.write (new Streamer ("Data Files/Learned_Latent.dne"));
-
-        // the folowing are not strictly necessary, but a good habit
-        learner.finalize();
-        cases.finalize();
-        net.finalize();
-
-
-
-
-
-
-        System.out.println("Loading example data file.");
-
-        System.out.println("Learning CPT");
-        net.reviseCPTsByCaseFile(CSVStreamer.getNeticaStream(args[1], "LearningStream", env), nodes, 1.0);
-
-        // clear current findings, calculated from learning
-
-        for (int n=0; n<nodes.size(); n++) {
-            nodes.getNode(n).finding().clear();
-        }
-
+        //Saving the learned CPT's
         System.out.println("Writing file");
         net.write(new Streamer("Learned.dne"));
-        System.out.println("Finished");
+        System.out.println("Finished learning!");
+
+        // Closing all resources, not neccessary, but a good habit.
+        learner.finalize();
+        cases.finalize();
         net.finalize();
     }
 }

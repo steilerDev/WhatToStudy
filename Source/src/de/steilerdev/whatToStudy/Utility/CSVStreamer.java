@@ -29,7 +29,7 @@ import java.util.Locale;
 /**
  * This class converts a input stream with an CSV file to a file readable by Netica (Respecting Netica Constraints and converting continuous values into discrete ones).
  * The class is also adjusting the stream according to the needs of the network, using the following specification.
- * - 1st column: Qualification (Abitur, Techniker, FH_Reife)
+ * - 1st column: Qualification (Abitur, Techniker, FH)
  * - 2nd column: Qualification_Average (Very_Good, Good, Satisfying, Failed)
  * - 3rd column: State (BW, BY, BE, BB, HB, HH, HE, MV, NI, NW, RP, SL, SN, ST, SH, TH)
  * - 4th column: Math (Very_Good, Good, Satisfying, Failed, NA)
@@ -315,7 +315,7 @@ public class CSVStreamer
             return qualification;
         } else if(qualification.equals("FH Reife"))
         {
-            return "FH_Reife";
+            return "FH";
         } else
         {
             throw new WhatToStudyException("Error validating and cleaning qualification column in line " + currentLineNumber);
@@ -371,7 +371,7 @@ public class CSVStreamer
             return "BY";
         } else if(state.equals("Nordrhein-Westfalen"))
         {
-            return "NRW";
+            return "NW";
         } else if(state.equals("Bremen"))
         {
             return "HB";
