@@ -25,6 +25,9 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 
+/**
+ * This class is used to learn the CPT's of the network stored network.
+ */
 public class Learn implements Functionality
 {
     @Override
@@ -32,6 +35,7 @@ public class Learn implements Functionality
     {
         Environ env = new Environ(null);
 
+        //Getting the network from the file
         Net net = new Net(new Streamer(
                 Thread.currentThread()
                         .getContextClassLoader()
@@ -39,24 +43,45 @@ public class Learn implements Functionality
                 "StudyNetwork", //Giving the Network a name
                 env)); //Handling over the Environ
 
-        NodeList nodes = net.getNodes();
+
+
+
+        NodeList nodes    = net.getNodes();
+
+        nodes.parallelStream().forEach(node -> {
+            ((Node)node).deleteTables()
+        });
+
         for (int n=0; n<nodes.size(); n++) {
             nodes.getNode(n).deleteTables();
         }
 
-        System.out.println(System.getProperty("user.dir"));
+        // Read in the case file into a caseset
+
+        Caseset cases = new Caseset ();
+        Streamer caseFile = new Streamer ("Data Files/LearnLatent.cas");
+        cases.addCases ( caseFile, 1.0, null);
+        Learner learner = new Learner (Learner.EM_LEARNING);
+        learner.setMaxIterations (200);
+
+        learner.learnCPTs ( nodes, cases, 1.0);
+
+        net.write (new Streamer ("Data Files/Learned_Latent.dne"));
+
+        // the folowing are not strictly necessary, but a good habit
+        learner.finalize();
+        cases.finalize();
+        net.finalize();
+
+
+
+
+
 
         System.out.println("Loading example data file.");
-        try
-        {
-            File initialFile = new File(args[1]);
-            InputStream targetStream = new FileInputStream(initialFile);
-            System.out.println("Learning CPT");
-            net.reviseCPTsByCaseFile(CSVStreamer.getNeticaStream(targetStream, "LearningStream", env), nodes, 1.0);
-        } catch (FileNotFoundException e)
-        {
-            throw new WhatToStudyException(e);
-        }
+
+        System.out.println("Learning CPT");
+        net.reviseCPTsByCaseFile(CSVStreamer.getNeticaStream(args[1], "LearningStream", env), nodes, 1.0);
 
         // clear current findings, calculated from learning
 

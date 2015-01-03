@@ -83,7 +83,7 @@ public class CSVStreamer
     private static NumberFormat nf = NumberFormat.getInstance(Locale.GERMAN);
 
     /**
-     * This function is converting a file specified by the exercise, cleans the values and returns a unified Streamer, usable by NeticaJ.
+     * This function is converting the file format specified by the exercise, cleans the values and returns a unified Streamer, usable by NeticaJ.
      * @param inputStream The input file as stream.
      * @param streamName The name of the Streamer used by Netica.
      * @param env The current Environment.
@@ -200,6 +200,27 @@ public class CSVStreamer
             {
                 throw new WhatToStudyException(e);
             }
+        }
+    }
+
+    /**
+     * This function is converting the file format specified by the exercise, cleans the values and returns a unified Streamer, usable by NeticaJ.
+     * @param inputFile The string representing the path to the input file.
+     * @param streamName The name of the Streamer used by Netica.
+     * @param env The current Environment.
+     * @return A Streamer object usable by NeticaJ
+     * @throws Exception If an error occurs.
+     */
+    public static Streamer getNeticaStream(String inputFile, String streamName, Environ env) throws WhatToStudyException
+    {
+        try
+        {
+            File initialFile = new File(inputFile);
+            InputStream targetStream = new FileInputStream(initialFile);
+            return getNeticaStream(targetStream, streamName, env);
+        } catch (FileNotFoundException e)
+        {
+            throw new WhatToStudyException("Unable to find the specified file " + inputFile);
         }
     }
 

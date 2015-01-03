@@ -43,6 +43,9 @@ public class Main {
             {
 
             }
+        } else if(args.length == 3 && args[0].equals("-e"))
+        {
+            program = new Evaluate();
         }
 
         if(program == null)

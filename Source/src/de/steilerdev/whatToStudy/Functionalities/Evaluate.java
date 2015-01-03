@@ -16,11 +16,13 @@
  */
 package de.steilerdev.whatToStudy.Functionalities;
 
+import de.steilerdev.whatToStudy.Exception.WhatToStudyException;
 import de.steilerdev.whatToStudy.Utility.CSVStreamer;
 import norsys.netica.*;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.InputStream;
 
 /**
@@ -35,16 +37,30 @@ public class Evaluate implements Functionality
      * @throws NeticaException If an error occurs.
      */
     @Override
-    public void run(String[] args) throws NeticaException
+    public void run(String[] args) throws NeticaException, WhatToStudyException
     {
         Environ env = new Environ(null);
+        Net net;
 
-        Net net = new Net(new Streamer(
-                Thread.currentThread()
-                        .getContextClassLoader()
-                        .getResourceAsStream("de/steilerdev/whatToStudy/Network/StudyNetwork_new.dne"), //Getting the network as java.io.InputStream from the Netica file
-                "StudyNetwork", //Giving the Network a name
-                env)); //Handling over the Environ
+        if(args.length == 2)
+        {   //If there is no network file use the internal file instead.
+            net = new Net(new Streamer(Thread.currentThread().getContextClassLoader()
+                    .getResourceAsStream("de/steilerdev/whatToStudy/Network/StudyNetwork_new.dne"), //Getting the network as java.io.InputStream from the Netica file
+                    "StudyNetwork", //Giving the Network a name
+                    env)); //Handling over the Environ
+        } else if (args.length == 3)
+        {   //Load user specified network
+            try
+            {
+                net = new Net(new Streamer(new FileInputStream(args[2]), "CustomStudyNetwork", env));
+            } catch (FileNotFoundException e)
+            {
+                throw new WhatToStudyException("Unable to locate file, specified by user: " + args[2]);
+            }
+        } else
+        {
+            throw new WhatToStudyException("Unable to load network!");
+        }
 
         //Getting nodes, to be able to visit them or calculate belief later
         Node course    = net.getNode("Course");
