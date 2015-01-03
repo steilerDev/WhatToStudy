@@ -16,26 +16,19 @@
  */
 package de.steilerdev.whatToStudy.Functionalities;
 
+import de.steilerdev.whatToStudy.Exception.WhatToStudyException;
 import de.steilerdev.whatToStudy.Utility.CSVStreamer;
 import norsys.netica.*;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.InputStream;
 
-/**
- * This class is using the stored network to evaluate if the system can recommend the user to study a specific course
- * The evaluation is done using inference.
- */
-public class Evaluate implements Functionality
+public class Learn implements Functionality
 {
-    /**
-     * This function is loading the stored network and evaluates the given data against it. As a result the likeness of the course, the student should study is presented.
-     * @param args The command line arguments stated during the call of the application. In this case it should be -e and the path to a CSV file, that needs to be evaluated.
-     * @throws NeticaException If an error occurs.
-     */
     @Override
-    public void run(String[] args) throws NeticaException
+    public void run(String[] args) throws WhatToStudyException, NeticaException
     {
         Environ env = new Environ(null);
 
@@ -46,14 +39,34 @@ public class Evaluate implements Functionality
                 "StudyNetwork", //Giving the Network a name
                 env)); //Handling over the Environ
 
-        //Getting nodes, to be able to visit them or calculate belief later
-        Node course    = net.getNode("Course");
+        NodeList nodes = net.getNodes();
+        for (int n=0; n<nodes.size(); n++) {
+            nodes.getNode(n).deleteTables();
+        }
 
-        net.compile();
+        System.out.println(System.getProperty("user.dir"));
 
-        double belief = course.getBelief ("C_Science");
-        System.out.println ("\nProbability of computer science is " + belief);
+        System.out.println("Loading example data file.");
+        try
+        {
+            File initialFile = new File(args[1]);
+            InputStream targetStream = new FileInputStream(initialFile);
+            System.out.println("Learning CPT");
+            net.reviseCPTsByCaseFile(CSVStreamer.getNeticaStream(targetStream, "LearningStream", env), nodes, 1.0);
+        } catch (FileNotFoundException e)
+        {
+            throw new WhatToStudyException(e);
+        }
 
+        // clear current findings, calculated from learning
+
+        for (int n=0; n<nodes.size(); n++) {
+            nodes.getNode(n).finding().clear();
+        }
+
+        System.out.println("Writing file");
+        net.write(new Streamer("Learned.dne"));
+        System.out.println("Finished");
         net.finalize();
     }
 }

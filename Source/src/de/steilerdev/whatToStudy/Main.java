@@ -1,9 +1,7 @@
 package de.steilerdev.whatToStudy;
 
-import de.steilerdev.whatToStudy.Functionalities.Evaluate;
-import de.steilerdev.whatToStudy.Functionalities.Help;
-import de.steilerdev.whatToStudy.Functionalities.Version;
-import de.steilerdev.whatToStudy.Functionalities.Functionality;
+import de.steilerdev.whatToStudy.Exception.WhatToStudyException;
+import de.steilerdev.whatToStudy.Functionalities.*;
 import norsys.netica.NeticaException;
 
 /**
@@ -40,7 +38,7 @@ public class Main {
                 program = new Evaluate();
             } else if(args[0].equals("-l"))
             {
-
+                program = new Learn();
             } else if(args[0].equals("-t"))
             {
 
@@ -57,7 +55,10 @@ public class Main {
             program.run(args);
         } catch (NeticaException e)
         {
-            System.err.println("Error occurred during runtime: " + e.getLocalizedMessage());
+            System.err.println("Error occurred during runtime: " + e.getMessage());
+        } catch(WhatToStudyException e)
+        {
+            System.err.println("Error occurred during runtime: " + e.getMessage());
         }
     }
 }

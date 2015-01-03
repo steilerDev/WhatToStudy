@@ -38,5 +38,10 @@ public class Help implements Functionality
         System.out.println("\t-p:\t\t\t\t\t\tShow current bayesian network.");
         System.out.println("\t-t <<test file>>:\t\tTest current bayesian network using the provided test file.");
         System.out.println("\t\t\t\t\t\t\tThe file should be a CSV.");
+        System.out.println();
+        System.out.println("Note: Every input file needs to fit the following specifications:");
+        System.out.println("\t- The file needs to have a valid header. Example:");
+        System.out.println("\t\t\"Qualifikation;Schnitt;Bundesland;Mathe;Physik;Deutsch;Schultyp;OLT-Mathe;OLT-Deutsch;Studierfaehigkeitstest;Alter;Geschlecht;Jahreseinkommen der Eltern;Staatsbuergerschaft;Studiengang;Zwischenkalk;Abschluss\"");
+        System.out.println("\t- Please remove all Umlaute from the files ('ä', 'ö', 'ü', etc.)");
     }
 }
