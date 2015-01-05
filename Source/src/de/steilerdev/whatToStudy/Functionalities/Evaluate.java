@@ -37,39 +37,63 @@ public class Evaluate implements Functionality
      * @throws NeticaException If an error occurs.
      */
     @Override
-    public void run(String[] args) throws NeticaException, WhatToStudyException
+    public void run(String[] args) throws WhatToStudyException
     {
-        Environ env = new Environ(null);
-        Net net;
+        Net net = null;
+        Environ env = null;
+        try
+        {
+            env = new Environ(null);
 
-        if(args.length == 2)
-        {   //If there is no network file use the internal file instead.
-            net = new Net(new Streamer(Thread.currentThread().getContextClassLoader()
-                    .getResourceAsStream("de/steilerdev/whatToStudy/Network/StudyNetwork_new.dne"), //Getting the network as java.io.InputStream from the Netica file
-                    "StudyNetwork", //Giving the Network a name
-                    env)); //Handling over the Environ
-        } else if (args.length == 3)
-        {   //Load user specified network
+            if(args.length == 2)
+            {   //If there is no network file use the internal file instead.
+                net = new Net(new Streamer(Thread.currentThread().getContextClassLoader()
+                        .getResourceAsStream("de/steilerdev/whatToStudy/Network/StudyNetwork_new.dne"), //Getting the network as java.io.InputStream from the Netica file
+                        "StudyNetwork", //Giving the Network a name
+                        env)); //Handling over the Environ
+            } else if (args.length == 3)
+            {   //Load user specified network
+                try
+                {
+                    net = new Net(new Streamer(new FileInputStream(args[2]), "CustomStudyNetwork", env));
+                } catch (FileNotFoundException e)
+                {
+                    throw new WhatToStudyException("Unable to locate file, specified by user: " + args[2]);
+                }
+            } else
+            {
+                throw new WhatToStudyException("Unable to load network!");
+            }
+
+            //Todo: Load args[1] and use it. (Using Streamer)
+
+            //Getting nodes, to be able to visit them or calculate belief later
+            Node course = net.getNode("Course");
+            net.compile();
+
+            double belief = course.getBelief ("C_Science");
+            System.out.println ("\nProbability of computer science is " + belief);
+
+            net.finalize();
+        } catch(NeticaException e)
+        {
+            throw new WhatToStudyException("A Netica based error occurred: " + e.getMessage());
+        } finally
+        {
             try
             {
-                net = new Net(new Streamer(new FileInputStream(args[2]), "CustomStudyNetwork", env));
-            } catch (FileNotFoundException e)
+                net.finalize();
+            } catch (NeticaException e)
             {
-                throw new WhatToStudyException("Unable to locate file, specified by user: " + args[2]);
+                throw new WhatToStudyException("A Netica based error occurred during the finalization of the net.");
             }
-        } else
-        {
-            throw new WhatToStudyException("Unable to load network!");
+            try
+            {
+                env.finalize();
+            } catch (NeticaException e)
+            {
+                throw new WhatToStudyException("A Netica based error occurred during the finalization of the environment.");
+            }
         }
-
-        //Getting nodes, to be able to visit them or calculate belief later
-        Node course    = net.getNode("Course");
-
-        net.compile();
-
-        double belief = course.getBelief ("C_Science");
-        System.out.println ("\nProbability of computer science is " + belief);
-
-        net.finalize();
     }
 }

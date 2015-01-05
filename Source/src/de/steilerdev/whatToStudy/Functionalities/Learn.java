@@ -27,53 +27,113 @@ public class Learn implements Functionality
 {
     private static int learningAlgorithm = Learner.EM_LEARNING;
     private static int learningIterations = 200;
+    private static String fileName = "Learned.dne";
 
     @Override
-    public void run(String[] args) throws WhatToStudyException, NeticaException
+    public void run(String[] args) throws WhatToStudyException
     {
-        Environ env = new Environ(null);
+        Learner learner = null;
+        Caseset cases = null;
+        Net net = null;
+        Environ env = null;
+        try
+        {
+            env = new Environ(null);
 
-        //Getting the network from the file
-        System.out.println("Loading network.");
-        Net net = new Net(new Streamer(
-                Thread.currentThread()
-                        .getContextClassLoader()
-                        .getResourceAsStream("de/steilerdev/whatToStudy/Network/StudyNetwork_new.dne"), //Getting the network as java.io.InputStream from the Netica file
-                "StudyNetwork", //Giving the Network a name
-                env)); //Handling over the Environ
-        NodeList nodes = net.getNodes();
+            //Getting the network from the file
+            System.out.println("Loading network.");
+            net = new Net(new Streamer(Thread.currentThread().getContextClassLoader()
+                    .getResourceAsStream("de/steilerdev/whatToStudy/Network/StudyNetwork_new.dne"), //Getting the network as java.io.InputStream from the Netica file
+                    "StudyNetwork", //Giving the Network a name
+                    Environ.getDefaultEnviron())); //Handling over the Environ
+            NodeList nodes = net.getNodes();
 
-        //Deleting all previously stored CPT's
-        System.out.println("Clearing current CPT.");
-        nodes.parallelStream().forEach(node -> {
-            try
+            //Deleting all previously stored CPT's
+            System.out.println("Clearing current CPT.");
+            nodes.parallelStream().forEach(node -> {
+                try
+                {
+                    ((Node) node).deleteTables();
+                } catch (NeticaException ignoreExceptionInsideLambda) {}
+            });
+
+            // Read in the case file into a case set
+            System.out.println("Loading cases from file");
+            cases = new Caseset();
+            Streamer caseFile = CSVStreamer.getNeticaStream(args[1], "LearningStreamer", env);
+            cases.addCases(caseFile, 1.0, null);
+
+            //Configuring learning
+            switch (learningAlgorithm)
             {
-                ((Node) node).deleteTables();
-            } catch (NeticaException ignoreException)
-            {
+                case 1:
+                    System.out.println("Starting learning process, using case counting learning algorithm with " + learningIterations + " iterations.");
+                    break;
+                case 3:
+                    System.out.println("Starting learning process, using EM (Expectation Maximization) learning algorithm with " + learningIterations + " iterations.");
+                    break;
+                case 4:
+                    System.out.println("Starting learning process, using Gradient Descent learning algorithm with " + learningIterations + " iterations.");
+                    break;
+                default:
+                    System.out.println("Starting learning process, using an unknown learning algorithm with " + learningIterations + " iterations.");
             }
-        });
+            learner = new Learner(learningAlgorithm);
+            learner.setMaxIterations(learningIterations);
 
-        // Read in the case file into a case set
-        System.out.println("Loading cases from file");
-        Caseset cases = new Caseset ();
-        Streamer caseFile = CSVStreamer.getNeticaStream(args[1], "LearningStreamer", env);
-        cases.addCases ( caseFile, 1.0, null);
+            //Starting learning
+            learner.learnCPTs(nodes, cases, 1.0);
 
-        //Configuring and starting learning process
-        System.out.println("Starting learning process, using " + learningAlgorithm + " with " + learningIterations + " iterations");
-        Learner learner = new Learner (learningAlgorithm);
-        learner.setMaxIterations (learningIterations);
-        learner.learnCPTs ( nodes, cases, 1.0);
-
-        //Saving the learned CPT's
-        System.out.println("Writing file");
-        net.write(new Streamer("Learned.dne"));
-        System.out.println("Finished learning!");
-
-        // Closing all resources, not neccessary, but a good habit.
-        learner.finalize();
-        cases.finalize();
-        net.finalize();
+            //Saving the learned CPT's
+            System.out.println("Writing file \"" + fileName + "\"");
+            net.write(new Streamer(fileName));
+            System.out.println("Finished learning!");
+        } catch (NeticaException e)
+        {
+            throw new WhatToStudyException("A Netica based error occurred: " + e.getMessage());
+        } finally
+        {
+            // Closing all resources, not necessary, but a good habit.
+            if (learner != null)
+            {
+                try
+                {
+                    learner.finalize();
+                } catch (NeticaException e)
+                {
+                    throw new WhatToStudyException("A Netica based error occurred during the finalization of the learner.");
+                }
+            }
+            if (cases != null)
+            {
+                try
+                {
+                    cases.finalize();
+                } catch (NeticaException e)
+                {
+                    throw new WhatToStudyException("A Netica based error occurred during the finalization of the case set.");
+                }
+            }
+            if(net != null)
+            {
+                try
+                {
+                    net.finalize();
+                } catch (NeticaException e)
+                {
+                    throw new WhatToStudyException("A Netica based error occurred during the finalization of the net.");
+                }
+            }
+            if(env != null)
+            {
+                try
+                {
+                    env.finalize();
+                } catch (NeticaException e)
+                {
+                    throw new WhatToStudyException("A Netica based error occurred during the finalization of the environment.");
+                }
+            }
+        }
     }
 }

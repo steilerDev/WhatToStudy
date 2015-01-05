@@ -88,7 +88,7 @@ public class CSVStreamer
      * @param streamName The name of the Streamer used by Netica.
      * @param env The current Environment.
      * @return A Streamer object usable by NeticaJ
-     * @throws Exception If an error occurs.
+     * @throws WhatToStudyException If an error occurs.
      */
     public static Streamer getNeticaStream(InputStream inputStream, String streamName, Environ env) throws WhatToStudyException
     {
@@ -209,7 +209,7 @@ public class CSVStreamer
      * @param streamName The name of the Streamer used by Netica.
      * @param env The current Environment.
      * @return A Streamer object usable by NeticaJ
-     * @throws Exception If an error occurs.
+     * @throws WhatToStudyException If an error occurs.
      */
     public static Streamer getNeticaStream(String inputFile, String streamName, Environ env) throws WhatToStudyException
     {
@@ -306,7 +306,7 @@ public class CSVStreamer
      * This function is cleaning and validating the classification column.
      * @param qualification The input String.
      * @return The cleaned String.
-     * @throws NeticaException If the input does not fit the requirements.
+     * @throws WhatToStudyException If the input does not fit the requirements.
      */
     private static String cleanQualification(String qualification) throws WhatToStudyException
     {
@@ -326,7 +326,7 @@ public class CSVStreamer
      * This function is cleaning and validating the average column.
      * @param averageString The input String.
      * @return The cleaned String.
-     * @throws NeticaException If the input does not fit the requirements.
+     * @throws WhatToStudyException If the input does not fit the requirements.
      */
     private static String cleanAverage(String averageString) throws WhatToStudyException
     {
@@ -359,7 +359,7 @@ public class CSVStreamer
      * This function is cleaning and validating the state column.
      * @param state The input String.
      * @return The cleaned String.
-     * @throws NeticaException If the input does not fit the requirements.
+     * @throws WhatToStudyException If the input does not fit the requirements.
      */
     private static String cleanState(String state) throws WhatToStudyException
     {
@@ -421,7 +421,7 @@ public class CSVStreamer
      * This function is cleaning and validating the math column.
      * @param mathString The input String.
      * @return The cleaned String.
-     * @throws NeticaException If the input does not fit the requirements.
+     * @throws WhatToStudyException If the input does not fit the requirements.
      */
     private static String cleanMath(String mathString) throws WhatToStudyException
     {
@@ -460,7 +460,7 @@ public class CSVStreamer
      * This function is cleaning and validating the physic column.
      * @param physicsString The input String.
      * @return The cleaned String.
-     * @throws NeticaException If the input does not fit the requirements.
+     * @throws WhatToStudyException If the input does not fit the requirements.
      */
     private static String cleanPhysics(String physicsString) throws WhatToStudyException
     {
@@ -499,7 +499,7 @@ public class CSVStreamer
      * This function is cleaning and validating the German column.
      * @param germanString The input String.
      * @return The cleaned String.
-     * @throws NeticaException If the input does not fit the requirements.
+     * @throws WhatToStudyException If the input does not fit the requirements.
      */
     private static String cleanGerman(String germanString) throws WhatToStudyException
     {
@@ -538,7 +538,7 @@ public class CSVStreamer
      * This function is cleaning and validating the school type column.
      * @param schoolType The input String.
      * @return The cleaned String.
-     * @throws NeticaException If the input does not fit the requirements.
+     * @throws WhatToStudyException If the input does not fit the requirements.
      */
     private static String cleanSchoolType(String schoolType) throws WhatToStudyException
     {
@@ -568,7 +568,7 @@ public class CSVStreamer
      * The points are converted to grades using the following pattern: 50% == 4.0, 100% == 1.0
      * @param oltMath The input String.
      * @return The cleaned String.
-     * @throws NeticaException If the input does not fit the requirements.
+     * @throws WhatToStudyException If the input does not fit the requirements.
      */
     private static String cleanOLTMath(String oltMath) throws WhatToStudyException
     {
@@ -602,7 +602,7 @@ public class CSVStreamer
      * The points are converted to grades using the following pattern: 50% == 4.0, 100% == 1.0
      * @param oltGerman The input String.
      * @return The cleaned String.
-     * @throws NeticaException If the input does not fit the requirements.
+     * @throws WhatToStudyException If the input does not fit the requirements.
      */
     private static String cleanOLTGerman(String oltGerman) throws WhatToStudyException
     {
@@ -636,7 +636,7 @@ public class CSVStreamer
      * The points are converted to grades using the following pattern: 50% == 4.0, 100% == 1.0
      * @param studyAbilityTest The input String.
      * @return The cleaned String.
-     * @throws NeticaException If the input does not fit the requirements.
+     * @throws WhatToStudyException If the input does not fit the requirements.
      */
     private static String cleanStudyAbilityTest(String studyAbilityTest) throws WhatToStudyException
     {
@@ -676,7 +676,7 @@ public class CSVStreamer
      * The age is converted using the following pattern: young == < 18, average == < 23, old == > 23
      * @param ageString The input String.
      * @return The cleaned String.
-     * @throws NeticaException If the input does not fit the requirements.
+     * @throws WhatToStudyException If the input does not fit the requirements.
      */
     private static String cleanAge(String ageString) throws WhatToStudyException
     {
@@ -706,7 +706,7 @@ public class CSVStreamer
      * This function is cleaning and validating the sex column.
      * @param sex The input String.
      * @return The cleaned String.
-     * @throws NeticaException If the input does not fit the requirements.
+     * @throws WhatToStudyException If the input does not fit the requirements.
      */
     private static String cleanSex(String sex) throws WhatToStudyException
     {
@@ -727,7 +727,7 @@ public class CSVStreamer
      * The income is converted according the World Bank analysis of 2013: Low == < 12.540, Low_Middle == < 49.500 High_Middle == < 152.940, High == > 152.940
      * @param incomeString The input String.
      * @return The cleaned String.
-     * @throws NeticaException If the input does not fit the requirements.
+     * @throws WhatToStudyException If the input does not fit the requirements.
      */
     private static String cleanIncome(String incomeString) throws WhatToStudyException
     {
@@ -760,7 +760,7 @@ public class CSVStreamer
      * This function is cleaning and validating the nationality column.
      * @param nationality The input String.
      * @return The cleaned String.
-     * @throws NeticaException If the input does not fit the requirements.
+     * @throws WhatToStudyException If the input does not fit the requirements.
      */
     private static String cleanNationality(String nationality) throws WhatToStudyException
     {
@@ -783,7 +783,7 @@ public class CSVStreamer
      * This function is cleaning and validating the course column.
      * @param course The input String.
      * @return The cleaned String.
-     * @throws NeticaException If the input does not fit the requirements.
+     * @throws WhatToStudyException If the input does not fit the requirements.
      */
     private static String cleanCourse(String course) throws WhatToStudyException
     {
@@ -813,7 +813,7 @@ public class CSVStreamer
      * @param calc The input String from the 16th column.
      * @param grade The input String from the 17th column.
      * @return The cleaned String.
-     * @throws NeticaException If the input does not fit the requirements.
+     * @throws WhatToStudyException If the input does not fit the requirements.
      */
     private static String cleanFinalGrade(String calc, String grade) throws WhatToStudyException
     {
