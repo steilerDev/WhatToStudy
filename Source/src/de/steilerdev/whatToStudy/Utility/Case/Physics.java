@@ -17,7 +17,7 @@
 package de.steilerdev.whatToStudy.Utility.Case;
 
 /**
- * An enumeration for the physics column of a case.
+ * This enumeration contains all specification for the physics column of a case.
  */
 public enum Physics
 {
@@ -70,15 +70,24 @@ public enum Physics
         }
     },
     NA
+    {
+        /**
+         * A nice formatted output handed over to Netica to evaluate it.
+         * @return The name of this enum constant used by Netica
+         */
+        @Override
+        public String toString()
         {
-            /**
-             * A nice formatted output handed over to Netica to evaluate it.
-             * @return The name of this enum constant used by Netica
-             */
-            @Override
-            public String toString()
-            {
-                return "NA";
-            }
+            return "NA";
         }
+    };
+
+    /**
+     * Creates the header for the physics column.
+     * @return The header for the physics column
+     */
+    public static String getHeader()
+    {
+        return "Physics";
+    }
 }

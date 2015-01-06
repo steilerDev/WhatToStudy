@@ -17,7 +17,7 @@
 package de.steilerdev.whatToStudy.Utility.Case;
 
 /**
- * An enumeration for the study ability test column of a case.
+ * This enumeration contains all specification for the study ability test column of a case.
  */
 public enum StudyAbilityTest
 {
@@ -80,5 +80,14 @@ public enum StudyAbilityTest
         {
             return "NA";
         }
+    };
+
+    /**
+     * Creates the header for the study ability test column.
+     * @return The header for the study ability test column
+     */
+    public static String getHeader()
+    {
+        return "Study_Ability_Test";
     }
 }

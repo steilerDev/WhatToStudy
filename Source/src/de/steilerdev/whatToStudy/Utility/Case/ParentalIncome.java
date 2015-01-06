@@ -17,7 +17,7 @@
 package de.steilerdev.whatToStudy.Utility.Case;
 
 /**
- * An enumeration for the parental income column of a case.
+ * This enumeration contains all specification for the parental income column of a case.
  */
 public enum ParentalIncome
 {
@@ -68,5 +68,14 @@ public enum ParentalIncome
         {
             return "High";
         }
+    };
+
+    /**
+     * Creates the header for the parental income column.
+     * @return The header for the parental income column
+     */
+    public static String getHeader()
+    {
+        return "Parental_Income";
     }
 }

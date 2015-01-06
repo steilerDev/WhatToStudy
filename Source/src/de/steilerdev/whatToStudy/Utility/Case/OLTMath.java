@@ -17,7 +17,7 @@
 package de.steilerdev.whatToStudy.Utility.Case;
 
 /**
- * An enumeration for the online test - math column of a case.
+ * This enumeration contains all specification for the online test - math column of a case.
  */
 public enum OLTMath
 {
@@ -68,5 +68,14 @@ public enum OLTMath
         {
             return "Failed";
         }
+    };
+
+    /**
+     * Creates the header for the online test - math column.
+     * @return The header for the online test - math column
+     */
+    public static String getHeader()
+    {
+        return "OLT_Math";
     }
 }

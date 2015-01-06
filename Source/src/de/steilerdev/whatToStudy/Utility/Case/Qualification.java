@@ -17,7 +17,7 @@
 package de.steilerdev.whatToStudy.Utility.Case;
 
 /**
- * An enumeration for the qualification column of a case.
+ * This enumeration contains all specification for the qualification column of a case.
  */
 public enum Qualification
 {
@@ -57,5 +57,14 @@ public enum Qualification
         {
             return "Techniker";
         }
+    };
+
+    /**
+     * Creates the header for the qualification column.
+     * @return The header for the qualification column
+     */
+    public static String getHeader()
+    {
+        return "Qualification";
     }
 }

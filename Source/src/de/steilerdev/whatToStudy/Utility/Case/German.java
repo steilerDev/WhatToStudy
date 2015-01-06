@@ -17,7 +17,7 @@
 package de.steilerdev.whatToStudy.Utility.Case;
 
 /**
- * An enumeration for the German column of a case.
+ * This enumeration contains all specification for the german column of a case.
  */
 public enum German
 {
@@ -80,5 +80,14 @@ public enum German
         {
             return "NA";
         }
+    };
+
+    /**
+     * Creates the header for the German column.
+     * @return The header for the German column
+     */
+    public static String getHeader()
+    {
+        return "German";
     }
 }

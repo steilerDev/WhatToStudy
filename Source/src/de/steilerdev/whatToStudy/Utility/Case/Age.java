@@ -17,7 +17,7 @@
 package de.steilerdev.whatToStudy.Utility.Case;
 
 /**
- * An enumeration for the age column of a case.
+ * This enumeration contains all specification for the age column of a case.
  */
 public enum Age
 {
@@ -56,5 +56,14 @@ public enum Age
         {
             return "Old";
         }
+    };
+
+    /**
+     * Creates the header for the age column.
+     * @return The header for the age column
+     */
+    public static String getHeader()
+    {
+        return "Age";
     }
 }

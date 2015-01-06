@@ -17,7 +17,7 @@
 package de.steilerdev.whatToStudy.Utility.Case;
 
 /**
- * An enumeration for the state column of a case.
+ * This enumeration contains all specification for the state column of a case.
  */
 public enum State
 {
@@ -195,5 +195,14 @@ public enum State
         {
             return "TH";
         }
+    };
+
+    /**
+     * Creates the header for the state column.
+     * @return The header for the state column
+     */
+    public static String getHeader()
+    {
+        return "State";
     }
 }

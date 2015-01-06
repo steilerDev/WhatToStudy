@@ -17,7 +17,7 @@
 package de.steilerdev.whatToStudy.Utility.Case;
 
 /**
- * An enumeration for the final grade column of a case.
+ * This enumeration contains all specification for the final grade column of a case.
  */
 public enum FinalGrade
 {
@@ -68,5 +68,14 @@ public enum FinalGrade
         {
             return "Failed";
         }
+    };
+
+    /**
+     * Creates the header for the final grade column.
+     * @return The header for the final grade column
+     */
+    public static String getHeader()
+    {
+        return "Final_Grade";
     }
 }

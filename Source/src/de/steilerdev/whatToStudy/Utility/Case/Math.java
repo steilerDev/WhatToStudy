@@ -17,7 +17,7 @@
 package de.steilerdev.whatToStudy.Utility.Case;
 
 /**
- * An enumeration for the math column of a case.
+ * This enumeration contains all specification for the math column of a case.
  */
 public enum Math
 {
@@ -80,5 +80,14 @@ public enum Math
         {
             return "NA";
         }
+    };
+
+    /**
+     * Creates the header for the math column.
+     * @return The header for the math column
+     */
+    public static String getHeader()
+    {
+        return "Math";
     }
 }

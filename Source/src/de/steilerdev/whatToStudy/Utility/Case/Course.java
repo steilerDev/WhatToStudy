@@ -17,7 +17,7 @@
 package de.steilerdev.whatToStudy.Utility.Case;
 
 /**
- * An enumeration for the course column of a case.
+ * This enumeration contains all specification for the course column of a case.
  */
 public enum Course
 {
@@ -80,5 +80,14 @@ public enum Course
         {
             return "Economics";
         }
+    };
+
+    /**
+     * Creates the header for the course column.
+     * @return The header for the course column
+     */
+    public static String getHeader()
+    {
+        return "Course";
     }
 }

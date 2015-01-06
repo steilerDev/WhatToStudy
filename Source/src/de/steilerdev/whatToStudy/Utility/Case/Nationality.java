@@ -17,7 +17,7 @@
 package de.steilerdev.whatToStudy.Utility.Case;
 
 /**
- * An enumeration for the nationality column of a case.
+ * This enumeration contains all specification for the nationality column of a case.
  */
 public enum Nationality
 {
@@ -56,5 +56,14 @@ public enum Nationality
         {
             return "Non_EU";
         }
+    };
+
+    /**
+     * Creates the header for the nationality column.
+     * @return The header for the nationality column
+     */
+    public static String getHeader()
+    {
+        return "Nationality";
     }
 }

@@ -17,7 +17,7 @@
 package de.steilerdev.whatToStudy.Utility.Case;
 
 /**
- * An enumeration for the online test - German column of a case.
+ * This enumeration contains all specification for the online test - German column of a case.
  */
 public enum OLTGerman
 {
@@ -68,5 +68,14 @@ public enum OLTGerman
         {
             return "Failed";
         }
+    };
+
+    /**
+     * Creates the header for the online test - Germany column.
+     * @return The header for the online test - Germany column
+     */
+    public static String getHeader()
+    {
+        return "OLT_German";
     }
 }

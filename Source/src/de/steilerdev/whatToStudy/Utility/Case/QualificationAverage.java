@@ -17,7 +17,7 @@
 package de.steilerdev.whatToStudy.Utility.Case;
 
 /**
- * An enumeration for the qualification average column of a case.
+ * This enumeration contains all specification for the qualification average column of a case.
  */
 public enum QualificationAverage
 {
@@ -68,5 +68,14 @@ public enum QualificationAverage
         {
             return "Failed";
         }
+    };
+
+    /**
+     * Creates the header for the qualification average column.
+     * @return The header for the qualification average column
+     */
+    public static String getHeader()
+    {
+        return "Qualification_Average";
     }
 }

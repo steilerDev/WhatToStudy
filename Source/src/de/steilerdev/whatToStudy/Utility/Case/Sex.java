@@ -17,7 +17,7 @@
 package de.steilerdev.whatToStudy.Utility.Case;
 
 /**
- * An enumeration for the sex column of a case.
+ * This enumeration contains all specification for the sex column of a case.
  */
 public enum Sex
 {
@@ -44,5 +44,14 @@ public enum Sex
         {
             return "W";
         }
+    };
+
+    /**
+     * Creates the header for the sex column.
+     * @return The header for the sex column
+     */
+    public static String getHeader()
+    {
+        return "Sex";
     }
 }
