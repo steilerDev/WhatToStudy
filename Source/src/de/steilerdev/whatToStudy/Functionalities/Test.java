@@ -26,7 +26,7 @@ public class Test implements Functionality
     /**
      * This functionality is testing the quality of the network using a set of data.
      * @param args The command line arguments stated during the call of the application.
-     * @throws WhatToStudyException
+     * @throws WhatToStudyException If an error occurs.
      */
     @Override
     public void run(String[] args) throws WhatToStudyException

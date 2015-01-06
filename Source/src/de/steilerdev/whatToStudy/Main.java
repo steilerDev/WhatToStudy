@@ -19,6 +19,7 @@ public class Main {
     {
         Functionality program = null;
 
+        //Checking command line arguments and selecting correct functionality.
         if (args.length == 1)
         {
             if(args[0].equals("-h"))
@@ -27,9 +28,9 @@ public class Main {
             } else if(args[0].equals("-v"))
             {
                 program = new Version();
-            } else if(args[0].equals("-p"))
+            } else if(args[0].equals("-d"))
             {
-
+                program = new Draw();
             }
         } else if(args.length == 2)
         {
@@ -41,24 +42,27 @@ public class Main {
                 program = new Learn();
             } else if(args[0].equals("-t"))
             {
-
+                program = new Test();
+            } else if (args[0].equals("-d"))
+            {
+                program = new Draw();
             }
         } else if(args.length == 3 && args[0].equals("-e"))
         {
             program = new Evaluate();
         }
 
+        //If no functionality applied to the command line arguments, the help dialog is shown.
         if(program == null)
         {
             System.out.println("Unsuitable amount or unrecognised arguments.");
             program = new Help();
         }
+
+        //Starting the selected functionality and properly handling the error.
         try
         {
             program.run(args);
-        } catch (NeticaException e)
-        {
-            System.err.println("Error occurred during runtime: " + e.getMessage());
         } catch(WhatToStudyException e)
         {
             System.err.println("Error occurred during runtime: " + e.getMessage());
