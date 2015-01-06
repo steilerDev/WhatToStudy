@@ -17,6 +17,8 @@
 package de.steilerdev.whatToStudy.Utility;
 
 import de.steilerdev.whatToStudy.Exception.WhatToStudyException;
+import de.steilerdev.whatToStudy.Utility.Case.*;
+import de.steilerdev.whatToStudy.Utility.Case.Math;
 import norsys.netica.Environ;
 import norsys.netica.NeticaException;
 import norsys.netica.Streamer;
@@ -24,6 +26,7 @@ import norsys.netica.Streamer;
 import java.io.*;
 import java.text.NumberFormat;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Locale;
 
 /**
@@ -96,81 +99,43 @@ public class CSVStreamer
         BufferedReader br = null;
         try
         {
-            //Temp file, storing the converted information.
+            //Temp file, storing the converted information. (Needed for creating an InputStream from an OutputStream)
             File file = new File(".tempData");
             if (!file.exists())
             {
                 file.createNewFile();
             }
+            //Deleting temp file after finishing.
             file.deleteOnExit();
 
-            //The print stream used to write to the file
+            //The print stream used to write to the temp file
             fileStream = new PrintStream(file);
 
-            //The line that is currently read.
-            String line;
+            //Printing the cleaned header
+            fileStream.println("Qualification " +
+                    "Qualification_Average " +
+                    "State " +
+                    "Math " +
+                    "Physics " +
+                    "German " +
+                    "School_Type " +
+                    "OLT_Math " +
+                    "OLT_German " +
+                    "Study_Ability_Test " +
+                    "Age " +
+                    "Sex " +
+                    "Parental_Income " +
+                    "Nationality " +
+                    "Course " +
+                    "Final_Grade");
 
-            //Reading the input stream (input file)
-            br = new BufferedReader(new InputStreamReader(inputStream));
+            //Getting a list of all cases of the file
+            ArrayList<Case> cases = getCase(inputStream);
 
-            //Parsing and validating header
-            if ((line = br.readLine()) != null)
+            //Adding a new line for each case
+            for(Case currentCase: cases)
             {
-                currentLineNumber++;
-                String[] header = line.split(cvsSplitBy);
-                if (!validateHeader(header))
-                {
-                    throw new WhatToStudyException("The header of the specific file does not meet the stated requirements. See help page for more information");
-                } else
-                {
-                    //Printing the cleaned header
-                    fileStream.println("Qualification " +
-                            "Qualification_Average " +
-                            "State " +
-                            "Math " +
-                            "Physics " +
-                            "German " +
-                            "School_Type " +
-                            "OLT_Math " +
-                            "OLT_German " +
-                            "Study_Ability_Test " +
-                            "Age " +
-                            "Sex " +
-                            "Parental_Income " +
-                            "Nationality " +
-                            "Course " +
-                            "Final_Grade");
-                }
-            }
-
-            while ((line = br.readLine()) != null)
-            {
-                currentLineNumber++;
-                String[] lineArray = line.split(cvsSplitBy);
-
-                if (lineArray.length != 17)
-                {
-                    throw new NeticaException("Invalid number of columns in line " + currentLineNumber);
-                } else
-                {
-                    fileStream.print(cleanQualification(lineArray[0].trim()) + " ");
-                    fileStream.print(cleanAverage(lineArray[1].trim()) + " ");
-                    fileStream.print(cleanState(lineArray[2].trim()) + " ");
-                    fileStream.print(cleanMath(lineArray[3].trim()) + " ");
-                    fileStream.print(cleanPhysics(lineArray[4].trim()) + " ");
-                    fileStream.print(cleanGerman(lineArray[5].trim()) + " ");
-                    fileStream.print(cleanSchoolType(lineArray[6].trim()) + " ");
-                    fileStream.print(cleanOLTMath(lineArray[7].trim()) + " ");
-                    fileStream.print(cleanOLTGerman(lineArray[8].trim()) + " ");
-                    fileStream.print(cleanStudyAbilityTest(lineArray[9].trim()) + " ");
-                    fileStream.print(cleanAge(lineArray[10].trim()) + " ");
-                    fileStream.print(cleanSex(lineArray[11].trim()) + " ");
-                    fileStream.print(cleanIncome(lineArray[12].trim()) + " ");
-                    fileStream.print(cleanNationality(lineArray[13].trim()) + " ");
-                    fileStream.print(cleanCourse(lineArray[14].trim()) + " ");
-                    fileStream.print(cleanFinalGrade(lineArray[15].trim(), lineArray[16]) + " ");
-                    fileStream.print("\n");
-                }
+                fileStream.println(currentCase.toString());
             }
 
             fileStream.flush();
@@ -204,6 +169,42 @@ public class CSVStreamer
     }
 
     /**
+     * This function is creating a list of cases from an Input Stream.
+     * @param inputStream The input stream that is read by the function
+     * @return A list of cases.
+     * @throws WhatToStudyException If an error occurs.
+     */
+    public static ArrayList<Case> getCase(InputStream inputStream) throws WhatToStudyException
+    {
+        try(BufferedReader br = new BufferedReader(new InputStreamReader(inputStream)))
+        {
+            ArrayList<Case> caseList = new ArrayList<>();
+            String line;
+
+            //Parsing and validating header
+            if ((line = br.readLine()) != null)
+            {
+                currentLineNumber++;
+                String[] header = line.split(cvsSplitBy);
+                if (!validateHeader(header, false))
+                {
+                    throw new WhatToStudyException("The header of the specific file does not meet the stated requirements. See help page for more information");
+                }
+            }
+
+            while ((line = br.readLine()) != null)
+            {
+                currentLineNumber++;
+                caseList.add(getCase(line));
+            }
+            return caseList;
+        } catch (IOException e)
+        {
+            throw new WhatToStudyException("Error reading input stream.");
+        }
+    }
+
+    /**
      * This function is converting the file format specified by the exercise, cleans the values and returns a unified Streamer, usable by NeticaJ.
      * @param inputFile The string representing the path to the input file.
      * @param streamName The name of the Streamer used by Netica.
@@ -225,11 +226,108 @@ public class CSVStreamer
     }
 
     /**
+     * This function creates a case using the case line. The line needs to have all 17 columns separated by the cvsSplitBy character.
+     * @param caseLine The source line used to create a case.
+     * @return The case described inside the case line.
+     * @throws WhatToStudyException If an error occurs.
+     */
+    public static Case getCase(String caseLine) throws WhatToStudyException
+    {
+        return getCase(caseLine, false);
+    }
+
+    private static Case getCase(String caseLine, boolean skipNonMandatory) throws WhatToStudyException
+    {
+        String[] lineArray = caseLine.split(cvsSplitBy);
+        Case currentCase = new Case();
+
+        if (lineArray.length != 17 || skipNonMandatory)
+        {
+            throw new WhatToStudyException("Invalid number of columns in line " + currentLineNumber);
+        }
+
+        // If all columns are mandatory
+        if (lineArray.length == 17)
+        {
+            currentCase.setCourse(cleanCourse(lineArray[14].trim()));
+            currentCase.setFinalGrade(cleanFinalGrade(lineArray[15].trim(), lineArray[16]));
+        } else
+        {
+            currentCase.setCourse(null);
+            currentCase.setFinalGrade(null);
+        }
+
+        currentCase.setQualification(cleanQualification(lineArray[0].trim()));
+        currentCase.setQualificationAverage(cleanQualificationAverage(lineArray[1].trim()));
+        currentCase.setState(cleanState(lineArray[2].trim()));
+        currentCase.setMath(cleanMath(lineArray[3].trim()));
+        currentCase.setPhysics(cleanPhysics(lineArray[4].trim()));
+        currentCase.setGerman(cleanGerman(lineArray[5].trim()));
+        currentCase.setSchoolType(cleanSchoolType(lineArray[6].trim()));
+        currentCase.setOLTMath(cleanOLTMath(lineArray[7].trim()));
+        currentCase.setOLTGerman(cleanOLTGerman(lineArray[8].trim()));
+        currentCase.setStudyAbilityTest(cleanStudyAbilityTest(lineArray[9].trim()));
+        currentCase.setAge(cleanAge(lineArray[10].trim()));
+        currentCase.setSex(cleanSex(lineArray[11].trim()));
+        currentCase.setParentalIncome(cleanParentalIncome(lineArray[12].trim()));
+        currentCase.setNationality(cleanNationality(lineArray[13].trim()));
+
+        return currentCase;
+    }
+
+    /**
+     * This function reads a file, that contains a case used for evaluation, concluding the 16th and 17th column are not mandatory.
+     * If the are more than one case within the file, only the first case is returned.
+     * @param inputFile The file name of the source file.
+     * @return The Case object storing the evaluation case.
+     */
+    public static Case getEvaluationCase(String inputFile) throws WhatToStudyException
+    {
+        try
+        {
+            File initialFile = new File(inputFile);
+            InputStream inputStream = new FileInputStream(initialFile);
+
+            try(BufferedReader br = new BufferedReader(new InputStreamReader(inputStream)))
+            {
+                String line;
+
+                //Parsing and validating header
+                if ((line = br.readLine()) != null)
+                {
+                    currentLineNumber++;
+                    String[] header = line.split(cvsSplitBy);
+                    if (!validateHeader(header, true))
+                    {
+                        throw new WhatToStudyException("The header of the specific file does not meet the stated requirements. See help page for more information");
+                    }
+                }
+
+                if ((line = br.readLine()) != null)
+                {
+                    currentLineNumber++;
+                    return getCase(line, true);
+                } else
+                {
+                    throw new WhatToStudyException("No line to read from.");
+                }
+            } catch (IOException e)
+            {
+                throw new WhatToStudyException("Error reading input stream.");
+            }
+        } catch (FileNotFoundException e)
+        {
+            throw new WhatToStudyException("Unable to find the specified file " + inputFile);
+        }
+    }
+
+    /**
      * This function is checking if the header of the CSV fits the specifications.
      * @param header An array consisting of the header columns.
+     * @param skipNonMandatory Skips the last two columns if they are non mandatory.
      * @return True if it is a valid header, false otherwise.
      */
-    private static boolean validateHeader(String[] header)
+    private static boolean validateHeader(String[] header, boolean skipNonMandatory)
     {
         if(!header[0].equals("Qualifikation"))
         {
@@ -291,11 +389,11 @@ public class CSVStreamer
         {
             return false;
         }
-        if (!header[15].equals("Zwischenkalk"))
+        if (skipNonMandatory || !header[15].equals("Zwischenkalk"))
         {
             return false;
         }
-        if (!header[16].equals("Abschluss"))
+        if (skipNonMandatory || !header[16].equals("Abschluss"))
         {
             return false;
         }
@@ -308,14 +406,17 @@ public class CSVStreamer
      * @return The cleaned String.
      * @throws WhatToStudyException If the input does not fit the requirements.
      */
-    private static String cleanQualification(String qualification) throws WhatToStudyException
+    private static Qualification cleanQualification(String qualification) throws WhatToStudyException
     {
-        if(qualification.equals("Abitur") || qualification.equals("Techniker"))
+        if(qualification.equals("Abitur"))
         {
-            return qualification;
+            return Qualification.ABITUR;
+        } else if (qualification.equals("Techniker"))
+        {
+            return Qualification.TECHNIKER;
         } else if(qualification.equals("FH Reife"))
         {
-            return "FH";
+            return Qualification.FH;
         } else
         {
             throw new WhatToStudyException("Error validating and cleaning qualification column in line " + currentLineNumber);
@@ -328,23 +429,23 @@ public class CSVStreamer
      * @return The cleaned String.
      * @throws WhatToStudyException If the input does not fit the requirements.
      */
-    private static String cleanAverage(String averageString) throws WhatToStudyException
+    private static QualificationAverage cleanQualificationAverage(String averageString) throws WhatToStudyException
     {
         try
         {
             double average = nf.parse(averageString).doubleValue();
             if(average < 2.0)
             {
-                return "Very_Good";
+                return QualificationAverage.VERY_GOOD;
             } else if(average < 3.0)
             {
-                return "Good";
+                return QualificationAverage.GOOD;
             } else if(average < 4.0)
             {
-                return "Satisfying";
+                return QualificationAverage.SATISFYING;
             } else if(average >= 4.0)
             {
-                return "Failed";
+                return QualificationAverage.FAILED;
             } else
             {
                 throw new WhatToStudyException("Unable to parse average in line " + currentLineNumber);
@@ -361,56 +462,56 @@ public class CSVStreamer
      * @return The cleaned String.
      * @throws WhatToStudyException If the input does not fit the requirements.
      */
-    private static String cleanState(String state) throws WhatToStudyException
+    private static State cleanState(String state) throws WhatToStudyException
     {
         if(state.equals("Baden-Wuerttemberg") || state.equals("Baden-Württemberg"))
         {
-            return "BW";
+            return State.BADEN_WUERTTEMBERG;
         } else if(state.equals("Bayern"))
         {
-            return "BY";
+            return State.BAYERN;
         } else if(state.equals("Nordrhein-Westfalen"))
         {
-            return "NW";
+            return State.NORDRHEIN_WESTFALEN;
         } else if(state.equals("Bremen"))
         {
-            return "HB";
+            return State.BREMEN;
         } else if(state.equals("Sachsen"))
         {
-            return "SN";
+            return State.SACHSEN;
         } else if(state.equals("Thueringen") || state.equals("Thüringen"))
         {
-            return "TH";
+            return State.THUERINGEN;
         } else if(state.equals("Hessen"))
         {
-            return "HE";
+            return State.HESSEN;
         } else if(state.equals("Mecklenburg-Vorpommern"))
         {
-            return "MV";
+            return State.MECKLENBURG_VORPOMMERN;
         } else if(state.equals("Berlin"))
         {
-            return "BE";
+            return State.BERLIN;
         } else if(state.equals("Rheinland-Pfalz"))
         {
-            return "RP";
+            return State.RHEINLAND_PFALZ;
         } else if(state.equals("Hamburg"))
         {
-            return "HH";
+            return State.HAMBURG;
         } else if(state.equals("Sachsen-Anhalt"))
         {
-            return "ST";
+            return State.SACHSEN_ANHALT;
         } else if(state.equals("Niedersachsen"))
         {
-            return "NI";
+            return State.NIEDERSACHSEN;
         } else if(state.equals("Brandenburg"))
         {
-            return "BB";
+            return State.BRANDENBURG;
         } else if(state.equals("Saarland"))
         {
-            return "SL";
+            return State.SAARLAND;
         } else if(state.equals("Schleswig-Holstein"))
         {
-            return "SH";
+            return State.SACHSEN_ANHALT;
         } else
         {
             throw new WhatToStudyException("Error validating and cleaning state column in line " + currentLineNumber);
@@ -423,11 +524,11 @@ public class CSVStreamer
      * @return The cleaned String.
      * @throws WhatToStudyException If the input does not fit the requirements.
      */
-    private static String cleanMath(String mathString) throws WhatToStudyException
+    private static Math cleanMath(String mathString) throws WhatToStudyException
     {
         if(mathString.equals("keine"))
         {
-            return "NA";
+            return Math.NA;
         } else
         {
             try
@@ -435,16 +536,16 @@ public class CSVStreamer
                 double math = nf.parse(mathString).doubleValue();
                 if (math < 2.0)
                 {
-                    return "Very_Good";
+                    return Math.VERY_GOOD;
                 } else if (math < 3.0)
                 {
-                    return "Good";
+                    return Math.GOOD;
                 } else if (math < 4.0)
                 {
-                    return "Satisfying";
+                    return Math.SATISFYING;
                 } else if (math >= 4.0)
                 {
-                    return "Failed";
+                    return Math.FAILED;
                 } else
                 {
                     throw new WhatToStudyException("Unable to parse math grade in line " + currentLineNumber);
@@ -462,11 +563,11 @@ public class CSVStreamer
      * @return The cleaned String.
      * @throws WhatToStudyException If the input does not fit the requirements.
      */
-    private static String cleanPhysics(String physicsString) throws WhatToStudyException
+    private static Physics cleanPhysics(String physicsString) throws WhatToStudyException
     {
         if(physicsString.equals("keine"))
         {
-            return "NA";
+            return Physics.NA;
         } else
         {
             try
@@ -474,16 +575,16 @@ public class CSVStreamer
                 double physics = nf.parse(physicsString).doubleValue();
                 if (physics < 2.0)
                 {
-                    return "Very_Good";
+                    return Physics.VERY_GOOD;
                 } else if (physics < 3.0)
                 {
-                    return "Good";
+                    return Physics.GOOD;
                 } else if (physics < 4.0)
                 {
-                    return "Satisfying";
+                    return Physics.SATISFYING;
                 } else if (physics >= 4.0)
                 {
-                    return "Failed";
+                    return Physics.FAILED;
                 } else
                 {
                     throw new WhatToStudyException("Unable to parse physics grade in line " + currentLineNumber);
@@ -501,11 +602,11 @@ public class CSVStreamer
      * @return The cleaned String.
      * @throws WhatToStudyException If the input does not fit the requirements.
      */
-    private static String cleanGerman(String germanString) throws WhatToStudyException
+    private static German cleanGerman(String germanString) throws WhatToStudyException
     {
         if(germanString.equals("keine"))
         {
-            return "NA";
+            return German.NA;
         } else
         {
             try
@@ -513,16 +614,16 @@ public class CSVStreamer
                 double german = nf.parse(germanString).doubleValue();
                 if (german < 2.0)
                 {
-                    return "Very_Good";
+                    return German.VERY_GOOD;
                 } else if (german < 3.0)
                 {
-                    return "Good";
+                    return German.GOOD;
                 } else if (german < 4.0)
                 {
-                    return "Satisfying";
+                    return German.SATISFYING;
                 } else if (german >= 4.0)
                 {
-                    return "Failed";
+                    return German.FAILED;
                 } else
                 {
                     throw new WhatToStudyException("Unable to parse German grade in line " + currentLineNumber);
@@ -540,23 +641,23 @@ public class CSVStreamer
      * @return The cleaned String.
      * @throws WhatToStudyException If the input does not fit the requirements.
      */
-    private static String cleanSchoolType(String schoolType) throws WhatToStudyException
+    private static SchoolType cleanSchoolType(String schoolType) throws WhatToStudyException
     {
         if(schoolType.equals("Allgemeinbildendes Gymnasium"))
         {
-            return "A_Gymnasium";
+            return SchoolType.A_GYMNASIUM;
         } else if(schoolType.equals("Gesamtschule"))
         {
-            return "Gesamtschule";
+            return SchoolType.GESAMTSCHULE;
         } else if(schoolType.equals("Technisches Gymnasium"))
         {
-            return "T_Gymnasium";
+            return SchoolType.T_GYMNASIUM;
         } else if(schoolType.equals("Wirtschaftsgymnasium"))
         {
-            return "W_Gymnasium";
+            return SchoolType.W_GYMNASIUM;
         } else if(schoolType.equals("n.a."))
         {
-            return "NA";
+            return SchoolType.NA;
         } else
         {
             throw new WhatToStudyException("Error validating and cleaning school type column in line " + currentLineNumber);
@@ -570,23 +671,23 @@ public class CSVStreamer
      * @return The cleaned String.
      * @throws WhatToStudyException If the input does not fit the requirements.
      */
-    private static String cleanOLTMath(String oltMath) throws WhatToStudyException
+    private static OLTMath cleanOLTMath(String oltMath) throws WhatToStudyException
     {
         try
         {
             int math = Integer.parseInt(oltMath);
             if (math > 84)
             {
-                return "Very_Good";
+                return OLTMath.VERY_GOOD;
             } else if (math > 67)
             {
-                return "Good";
+                return OLTMath.GOOD;
             } else if (math > 50)
             {
-                return "Satisfying";
+                return OLTMath.SATISFYING;
             } else if (math <= 50)
             {
-                return "Failed";
+                return OLTMath.FAILED;
             } else
             {
                 throw new WhatToStudyException("Unable to parse online test math grade in line " + currentLineNumber);
@@ -604,23 +705,23 @@ public class CSVStreamer
      * @return The cleaned String.
      * @throws WhatToStudyException If the input does not fit the requirements.
      */
-    private static String cleanOLTGerman(String oltGerman) throws WhatToStudyException
+    private static OLTGerman cleanOLTGerman(String oltGerman) throws WhatToStudyException
     {
         try
         {
             int german = Integer.parseInt(oltGerman);
             if (german > 84)
             {
-                return "Very_Good";
+                return OLTGerman.VERY_GOOD;
             } else if (german > 67)
             {
-                return "Good";
+                return OLTGerman.GOOD;
             } else if (german > 50)
             {
-                return "Satisfying";
+                return OLTGerman.SATISFYING;
             } else if (german <= 50)
             {
-                return "Failed";
+                return OLTGerman.FAILED;
             } else
             {
                 throw new WhatToStudyException("Unable to parse online test German grade in line " + currentLineNumber);
@@ -638,11 +739,11 @@ public class CSVStreamer
      * @return The cleaned String.
      * @throws WhatToStudyException If the input does not fit the requirements.
      */
-    private static String cleanStudyAbilityTest(String studyAbilityTest) throws WhatToStudyException
+    private static StudyAbilityTest cleanStudyAbilityTest(String studyAbilityTest) throws WhatToStudyException
     {
         if(studyAbilityTest.equals("n.a."))
         {
-            return "NA";
+            return StudyAbilityTest.NA;
         } else
         {
             try
@@ -650,16 +751,16 @@ public class CSVStreamer
                 int studyAbility = Integer.parseInt(studyAbilityTest);
                 if (studyAbility > 840)
                 {
-                    return "Very_Good";
+                    return StudyAbilityTest.VERY_GOOD;
                 } else if (studyAbility > 670)
                 {
-                    return "Good";
+                    return StudyAbilityTest.GOOD;
                 } else if (studyAbility > 500)
                 {
-                    return "Satisfying";
+                    return StudyAbilityTest.SATISFYING;
                 } else if (studyAbility <= 500)
                 {
-                    return "Failed";
+                    return StudyAbilityTest.FAILED;
                 } else
                 {
                     throw new WhatToStudyException("Unable to parse study ability test grade in line " + currentLineNumber);
@@ -678,20 +779,20 @@ public class CSVStreamer
      * @return The cleaned String.
      * @throws WhatToStudyException If the input does not fit the requirements.
      */
-    private static String cleanAge(String ageString) throws WhatToStudyException
+    private static Age cleanAge(String ageString) throws WhatToStudyException
     {
         try
         {
             int age = Integer.parseInt(ageString);
             if (age < 18)
             {
-                return "Young";
+                return Age.YOUNG;
             } else if (age < 23)
             {
-                return "Average";
+                return Age.AVERAGE;
             } else if (age >= 23)
             {
-                return "Old";
+                return Age.OLD;
             } else
             {
                 throw new WhatToStudyException("Unable to parse age in line " + currentLineNumber);
@@ -708,14 +809,14 @@ public class CSVStreamer
      * @return The cleaned String.
      * @throws WhatToStudyException If the input does not fit the requirements.
      */
-    private static String cleanSex(String sex) throws WhatToStudyException
+    private static Sex cleanSex(String sex) throws WhatToStudyException
     {
         if(sex.equalsIgnoreCase("m"))
         {
-            return "M";
+            return Sex.MALE;
         } else if(sex.equalsIgnoreCase("w"))
         {
-            return "W";
+            return Sex.FEMALE;
         } else
         {
             throw new WhatToStudyException("Error validating and cleaning sex type column in line " + currentLineNumber);
@@ -729,23 +830,23 @@ public class CSVStreamer
      * @return The cleaned String.
      * @throws WhatToStudyException If the input does not fit the requirements.
      */
-    private static String cleanIncome(String incomeString) throws WhatToStudyException
+    private static ParentalIncome cleanParentalIncome(String incomeString) throws WhatToStudyException
     {
         try
         {
             int income = Integer.parseInt(incomeString);
             if (income < 12540)
             {
-                return "Low";
+                return ParentalIncome.LOW;
             } else if (income < 49500)
             {
-                return "Low_Middle";
+                return ParentalIncome.LOW_MIDDLE;
             } else if (income < 152940)
             {
-                return "High_Middle";
+                return ParentalIncome.HIGH_MIDDLE;
             } else if (income >= 152940)
             {
-                return "High";
+                return ParentalIncome.HIGH;
             } else
             {
                 throw new WhatToStudyException("Unable to parse income in line " + currentLineNumber);
@@ -762,17 +863,17 @@ public class CSVStreamer
      * @return The cleaned String.
      * @throws WhatToStudyException If the input does not fit the requirements.
      */
-    private static String cleanNationality(String nationality) throws WhatToStudyException
+    private static Nationality cleanNationality(String nationality) throws WhatToStudyException
     {
         if(nationality.equals("deutsch"))
         {
-            return "German";
+            return Nationality.GERMAN;
         } else if(nationality.equals("EU Buerger") || nationality.equals("EU Bürger"))
         {
-            return "EU";
+            return Nationality.EU;
         } else if(nationality.equals("Non European"))
         {
-            return "Non_EU";
+            return Nationality.NON_EU;
         } else
         {
             throw new WhatToStudyException("Error validating and cleaning nationality column in line " + currentLineNumber);
@@ -785,23 +886,23 @@ public class CSVStreamer
      * @return The cleaned String.
      * @throws WhatToStudyException If the input does not fit the requirements.
      */
-    private static String cleanCourse(String course) throws WhatToStudyException
+    private static Course cleanCourse(String course) throws WhatToStudyException
     {
         if(course.equals("Elektrotechnik"))
         {
-            return "E_Engineering";
+            return Course.E_ENGINEERING;
         } else if(course.equals("Informatik"))
         {
-            return "C_Science";
+            return Course.C_SCIENCE;
         } else if(course.equals("Maschinenbau"))
         {
-            return "Engineering";
+            return Course.ENGINEERING;
         } else if(course.equals("Soziale Arbeit"))
         {
-            return "S_Work";
+            return Course.S_WORK;
         } else if(course.equals("Wirtschaftswissenschaften"))
         {
-            return "Economics";
+            return Course.ECONOMICS;
         } else
         {
             throw new WhatToStudyException("Error validating and cleaning course column in line " + currentLineNumber);
@@ -815,23 +916,23 @@ public class CSVStreamer
      * @return The cleaned String.
      * @throws WhatToStudyException If the input does not fit the requirements.
      */
-    private static String cleanFinalGrade(String calc, String grade) throws WhatToStudyException
+    private static FinalGrade cleanFinalGrade(String calc, String grade) throws WhatToStudyException
     {
         try
         {
             double finalGrade = nf.parse(calc).doubleValue();
             if (finalGrade < 2.0)
             {
-                return "Very_Good";
+                return FinalGrade.VERY_GOOD;
             } else if (finalGrade < 3.0)
             {
-                return "Good";
+                return FinalGrade.GOOD;
             } else if (finalGrade <= 4.0)
             {
-                return "Satisfying";
+                return FinalGrade.SATISFYING;
             } else if (finalGrade > 4.0 && grade.equals("abgebrochen"))
             {
-                return "Failed";
+                return FinalGrade.FAILED;
             } else
             {
                 throw new WhatToStudyException("Unable to parse final grade in line " + currentLineNumber + ", maybe the last two columns do not match");
