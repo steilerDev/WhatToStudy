@@ -87,6 +87,27 @@ public class CSVStreamer
 
     /**
      * This function is converting the file format specified by the exercise, cleans the values and returns a unified Streamer, usable by NeticaJ.
+     * @param inputFile The string representing the path to the input file.
+     * @param streamName The name of the Streamer used by Netica.
+     * @param env The current Environment.
+     * @return A Streamer object usable by NeticaJ
+     * @throws WhatToStudyException If an error occurs.
+     */
+    public static Streamer getNeticaStream(String inputFile, String streamName, Environ env) throws WhatToStudyException
+    {
+        try
+        {
+            File initialFile = new File(inputFile);
+            InputStream targetStream = new FileInputStream(initialFile);
+            return getNeticaStream(targetStream, streamName, env);
+        } catch (FileNotFoundException e)
+        {
+            throw new WhatToStudyException("Unable to find the specified file " + inputFile);
+        }
+    }
+
+    /**
+     * This function is converting the file format specified by the exercise, cleans the values and returns a unified Streamer, usable by NeticaJ.
      * @param inputStream The input file as stream.
      * @param streamName The name of the Streamer used by Netica.
      * @param env The current Environment.
@@ -112,22 +133,22 @@ public class CSVStreamer
             fileStream = new PrintStream(file);
 
             //Printing the cleaned header
-            fileStream.println("Qualification " +
-                    "Qualification_Average " +
-                    "State " +
-                    "Math " +
-                    "Physics " +
-                    "German " +
-                    "School_Type " +
-                    "OLT_Math " +
-                    "OLT_German " +
-                    "Study_Ability_Test " +
-                    "Age " +
-                    "Sex " +
-                    "Parental_Income " +
-                    "Nationality " +
-                    "Course " +
-                    "Final_Grade");
+            fileStream.print(Qualification.getHeader() + " ");
+            fileStream.print(QualificationAverage.getHeader() + " ");
+            fileStream.print(State.getHeader() + " ");
+            fileStream.print(Math.getHeader() + " ");
+            fileStream.print(Physics.getHeader() + " ");
+            fileStream.print(German.getHeader() + " ");
+            fileStream.print(SchoolType.getHeader() + " ");
+            fileStream.print(OLTMath.getHeader() + " ");
+            fileStream.print(OLTGerman.getHeader() + " ");
+            fileStream.print(StudyAbilityTest.getHeader() + " ");
+            fileStream.print(Age.getHeader() + " ");
+            fileStream.print(Sex.getHeader() + " ");
+            fileStream.print(ParentalIncome.getHeader() + " ");
+            fileStream.print(Nationality.getHeader() + " ");
+            fileStream.print(Course.getHeader() + " ");
+            fileStream.print(FinalGrade.getHeader() + "\n");
 
             //Getting a list of all cases of the file
             ArrayList<Case> cases = getCase(inputStream);
@@ -205,27 +226,6 @@ public class CSVStreamer
     }
 
     /**
-     * This function is converting the file format specified by the exercise, cleans the values and returns a unified Streamer, usable by NeticaJ.
-     * @param inputFile The string representing the path to the input file.
-     * @param streamName The name of the Streamer used by Netica.
-     * @param env The current Environment.
-     * @return A Streamer object usable by NeticaJ
-     * @throws WhatToStudyException If an error occurs.
-     */
-    public static Streamer getNeticaStream(String inputFile, String streamName, Environ env) throws WhatToStudyException
-    {
-        try
-        {
-            File initialFile = new File(inputFile);
-            InputStream targetStream = new FileInputStream(initialFile);
-            return getNeticaStream(targetStream, streamName, env);
-        } catch (FileNotFoundException e)
-        {
-            throw new WhatToStudyException("Unable to find the specified file " + inputFile);
-        }
-    }
-
-    /**
      * This function creates a case using the case line. The line needs to have all 17 columns separated by the cvsSplitBy character.
      * @param caseLine The source line used to create a case.
      * @return The case described inside the case line.
@@ -241,7 +241,7 @@ public class CSVStreamer
         String[] lineArray = caseLine.split(cvsSplitBy);
         Case currentCase = new Case();
 
-        if (lineArray.length != 17 || skipNonMandatory)
+        if (!(lineArray.length == 17 || skipNonMandatory))
         {
             throw new WhatToStudyException("Invalid number of columns in line " + currentLineNumber);
         }
@@ -389,11 +389,11 @@ public class CSVStreamer
         {
             return false;
         }
-        if (skipNonMandatory || !header[15].equals("Zwischenkalk"))
+        if (!(skipNonMandatory || header[15].equals("Zwischenkalk")))
         {
             return false;
         }
-        if (skipNonMandatory || !header[16].equals("Abschluss"))
+        if (!(skipNonMandatory || header[16].equals("Abschluss")))
         {
             return false;
         }
@@ -511,7 +511,7 @@ public class CSVStreamer
             return State.SAARLAND;
         } else if(state.equals("Schleswig-Holstein"))
         {
-            return State.SACHSEN_ANHALT;
+            return State.SCHLESWIG_HOLSTEIN;
         } else
         {
             throw new WhatToStudyException("Error validating and cleaning state column in line " + currentLineNumber);
