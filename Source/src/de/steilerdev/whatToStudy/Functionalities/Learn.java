@@ -28,6 +28,7 @@ public class Learn implements Functionality
     private static int learningAlgorithm = Learner.EM_LEARNING;
     private static int learningIterations = 200;
     private static String fileName = "Learned.dne";
+    private static String internalFile = "de/steilerdev/whatToStudy/Network/StudyNetwork_new.dne";
 
     @Override
     public void run(String[] args) throws WhatToStudyException
@@ -43,7 +44,7 @@ public class Learn implements Functionality
             //Getting the network from the file
             System.out.println("Loading network.");
             net = new Net(new Streamer(Thread.currentThread().getContextClassLoader()
-                    .getResourceAsStream("de/steilerdev/whatToStudy/Network/StudyNetwork_new.dne"), //Getting the network as java.io.InputStream from the Netica file
+                    .getResourceAsStream(internalFile), //Getting the network as java.io.InputStream from the Netica file
                     "StudyNetwork", //Giving the Network a name
                     Environ.getDefaultEnviron())); //Handling over the Environ
             NodeList nodes = net.getNodes();
