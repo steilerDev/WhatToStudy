@@ -38,12 +38,10 @@ public class Draw extends JFrame implements Functionality
     @Override
     public void run(String[] args) throws WhatToStudyException
     {
-        Net net = null;
-        Environ env = null;
         try
         {
-            env = new Environ(null);
-
+            Environ env = new Environ(null);
+            Net net;
             if(args.length == 2)
             {   //If there is no network file use the internal file instead.
                 System.out.println("Loading network from internal file");
@@ -51,51 +49,34 @@ public class Draw extends JFrame implements Functionality
                         .getResourceAsStream(internalFile), //Getting the network as java.io.InputStream from the Netica file
                         "StudyNetwork", //Giving the Network a name
                         env)); //Handling over the Environ
+                this.setTitle("Bayesian Network for \"" + internalFile +  "\"");
             } else if (args.length == 3)
             {   //Load user specified network
                 System.out.println("Loading network from user specified file.");
                 net = new Net(new Streamer(args[2]));
+                this.setTitle("Bayesian Network for \"" + args[2] + "\"");
             } else
             {
                 throw new WhatToStudyException("Unable to load network!");
             }
 
-            net.compile();  //optional
+            //Optional compiling network, could reveal possible errors.
+            System.out.println("Compiling network.");
+            net.compile();
 
+            //Drawing panel.
+            System.out.println("Drawing network.");
             NetPanel netPanel = new NetPanel(net, NodePanel.NODE_STYLE_AUTO_SELECT);
-            getContentPane().add(new JScrollPane(netPanel)); //adds the NetPanel to ourself
+            getContentPane().add(new JScrollPane(netPanel)); //adds the NetPanel to the JPanel
             setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            setSize(800, 500); // or supply getPreferredSize();
+            setSize(800, 500); // Using a pre-defined size, frame is going to be resizable
             setVisible(true);
         } catch (NeticaException e)
         {
-            throw new WhatToStudyException("A Netica based error occurred during the finalization of the net.");
+            throw new WhatToStudyException("A Netica based error occurred while drawing the net.");
         } catch (Exception e)
         {
-            throw new WhatToStudyException("An unknown error occurred during the finalization of the net.");
-        } finally
-        {
-            if(net != null)
-            {
-                try
-                {
-                    net.finalize();
-                } catch (NeticaException e)
-                {
-                    throw new WhatToStudyException("A Netica based error occurred during the finalization of the net.");
-                }
-            }
-            if(env != null)
-            {
-                try
-                {
-                    env.finalize();
-                } catch (NeticaException e)
-                {
-                    throw new WhatToStudyException("A Netica based error occurred during the finalization of the net.");
-                }
-            }
-
+            throw new WhatToStudyException("An unknown error occurred while drawing the net.");
         }
     }
 }
