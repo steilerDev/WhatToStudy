@@ -1,0 +1,242 @@
+// ~->[DNET-1]->~
+
+// File created by an unlicensed user using Netica 5.15 on Jan 03, 2015 at 03:26:38.
+
+bnet StudyNetwork_new {
+autoupdate = TRUE;
+whenchanged = 1420251984;
+
+visual V2 {
+	defdispform = BELIEFBARS;
+	nodelabeling = TITLE;
+	NodeMaxNumEntries = 50;
+	nodefont = font {shape= "Arial"; size= 9;};
+	linkfont = font {shape= "Arial"; size= 9;};
+	windowposn = (149, 125, 1183, 533);
+	resolution = 72;
+	drawingbounds = (1232, 720);
+	showpagebreaks = FALSE;
+	usegrid = TRUE;
+	gridspace = (6, 6);
+	NodeSet Node {BuiltIn = 1; Color = 0x00E1E1E1;};
+	NodeSet Nature {BuiltIn = 1; Color = 0x00F8EED2;};
+	NodeSet Deterministic {BuiltIn = 1; Color = 0x00D3CAA6;};
+	NodeSet Finding {BuiltIn = 1; Color = 0x00C8C8C8;};
+	NodeSet Constant {BuiltIn = 1; Color = 0x00FFFFFF;};
+	NodeSet ConstantValue {BuiltIn = 1; Color = 0x00FFFFB4;};
+	NodeSet Utility {BuiltIn = 1; Color = 0x00FFBDBD;};
+	NodeSet Decision {BuiltIn = 1; Color = 0x00DEE8FF;};
+	NodeSet Documentation {BuiltIn = 1; Color = 0x00F0FAFA;};
+	NodeSet Title {BuiltIn = 1; Color = 0x00FFFFFF;};
+	PrinterSetting A {
+		margins = (1270, 1270, 1270, 1270);
+		};
+	};
+
+node Qualification {
+	kind = NATURE;
+	discrete = TRUE;
+	chance = DETERMIN;
+	states = (Abitur, Techniker, FH);
+	parents = ();
+	whenchanged = 1420250920;
+	belief = (0.3333333, 0.3333333, 0.3333333);
+	visual V2 {
+		center = (150, 90);
+		height = 1;
+		};
+	};
+
+node Math {
+	kind = NATURE;
+	discrete = TRUE;
+	chance = CHANCE;
+	states = (Very_Good, Good, Satisfying, Failed, NA);
+	parents = ();
+	whenchanged = 1420251109;
+	belief = (0.2, 0.2, 0.2, 0.2, 0.2);
+	visual V2 {
+		center = (132, 192);
+		height = 4;
+		};
+	};
+
+node German {
+	kind = NATURE;
+	discrete = TRUE;
+	chance = CHANCE;
+	states = (Very_Good, Good, Satisfying, Failed, NA);
+	parents = ();
+	whenchanged = 1420251156;
+	belief = (0.2, 0.2, 0.2, 0.2, 0.2);
+	visual V2 {
+		center = (120, 300);
+		height = 5;
+		};
+	};
+
+node Physics {
+	kind = NATURE;
+	discrete = TRUE;
+	chance = CHANCE;
+	states = (Very_Good, Good, Satisfying, Failed, NA);
+	parents = ();
+	whenchanged = 1420251984;
+	belief = (0.2, 0.2, 0.2, 0.2, 0.2);
+	visual V2 {
+		center = (330, 336);
+		height = 15;
+		};
+	};
+
+node Qualification_Average {
+	kind = NATURE;
+	discrete = TRUE;
+	states = (Very_Good, Good, Satisfying, Failed);
+	parents = (Math, German, Physics);
+	whenchanged = 1420251984;
+	belief = (0.25, 0.25, 0.25, 0.25);
+	visual V2 {
+		center = (348, 96);
+		height = 2;
+		};
+	};
+
+node School_Type {
+	kind = NATURE;
+	discrete = TRUE;
+	chance = CHANCE;
+	states = (A_Gymnasium, W_Gymnasium, T_Gymnasium, Gesamtschule, NA);
+	parents = ();
+	whenchanged = 1420251207;
+	belief = (0.2, 0.2, 0.2, 0.2, 0.2);
+	visual V2 {
+		center = (228, 564);
+		height = 14;
+		};
+	};
+
+node State {
+	kind = NATURE;
+	discrete = TRUE;
+	chance = CHANCE;
+	states = (BW, BY, BE, BB, HB, HH, HE, MV, NI, NW, RP, SL, SN, ST, SH, TH);
+	parents = ();
+	whenchanged = 1420251081;
+	belief = (0.0625, 0.0625, 0.0625, 0.0625, 0.0625, 0.0625, 0.0625, 0.0625, 0.0625, 0.0625, 0.0625, 0.0625, 0.0625, 0.0625, 0.0625, 0.0625);
+	visual V2 {
+		center = (528, 174);
+		height = 3;
+		};
+	};
+
+node OLT_German {
+	kind = NATURE;
+	discrete = TRUE;
+	chance = CHANCE;
+	states = (Very_Good, Good, Satisfying, Failed);
+	parents = ();
+	whenchanged = 1420251266;
+	belief = (0.25, 0.25, 0.25, 0.25);
+	visual V2 {
+		center = (708, 90);
+		height = 6;
+		};
+	};
+
+node Study_Ability_Test {
+	kind = NATURE;
+	discrete = TRUE;
+	chance = CHANCE;
+	states = (Very_Good, Good, Satisfying, Failed, NA);
+	parents = ();
+	whenchanged = 1420251332;
+	belief = (0.2, 0.2, 0.2, 0.2, 0.2);
+	visual V2 {
+		center = (738, 216);
+		height = 8;
+		};
+	};
+
+node Age {
+	kind = NATURE;
+	discrete = TRUE;
+	chance = CHANCE;
+	states = (Young, Average, Old);
+	parents = ();
+	whenchanged = 1420251348;
+	belief = (0.3333333, 0.3333333, 0.3333333);
+	visual V2 {
+		center = (708, 312);
+		height = 9;
+		};
+	};
+
+node Nationality {
+	kind = NATURE;
+	discrete = TRUE;
+	chance = CHANCE;
+	states = (German, EU, Non_EU);
+	parents = ();
+	whenchanged = 1420251407;
+	belief = (0.3333333, 0.3333333, 0.3333333);
+	visual V2 {
+		center = (750, 396);
+		height = 11;
+		};
+	};
+
+node OLT_Math {
+	kind = NATURE;
+	discrete = TRUE;
+	chance = CHANCE;
+	states = (Very_Good, Good, Satisfying, Failed);
+	parents = ();
+	whenchanged = 1420251246;
+	belief = (0.25, 0.25, 0.25, 0.25);
+	visual V2 {
+		center = (900, 84);
+		height = 7;
+		};
+	};
+
+node Sex {
+	kind = NATURE;
+	discrete = TRUE;
+	chance = CHANCE;
+	states = (M, W);
+	parents = ();
+	whenchanged = 1420251360;
+	belief = (0.5, 0.5);
+	visual V2 {
+		center = (990, 210);
+		height = 10;
+		};
+	};
+
+node Course {
+	kind = NATURE;
+	discrete = TRUE;
+	states = (E_Engineering, Engineering, C_Science, S_Work, Economics);
+	parents = (Qualification, Qualification_Average, School_Type, State, OLT_German, Study_Ability_Test, Age, Nationality, OLT_Math, Sex);
+	whenchanged = 1420251959;
+	belief = (0.2, 0.2, 0.2, 0.2, 0.2);
+	visual V2 {
+		center = (498, 480);
+		height = 12;
+		};
+	};
+
+node Final_Grade {
+	kind = NATURE;
+	discrete = TRUE;
+	states = (Very_Good, Good, Satisfying, Failed);
+	parents = (Course);
+	whenchanged = 1420251677;
+	belief = (0.25, 0.25, 0.25, 0.25);
+	visual V2 {
+		center = (624, 612);
+		height = 13;
+		};
+	};
+};
