@@ -39,6 +39,9 @@ public class Learn implements Functionality
         Environ env = null;
         try
         {
+            System.out.println("Starting to learn CPT's for the stated network.");
+
+            //Creating a new environment that is used as default environment later.
             env = new Environ(null);
 
             //Getting the network from the file

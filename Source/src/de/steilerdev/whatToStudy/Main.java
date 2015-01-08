@@ -2,7 +2,6 @@ package de.steilerdev.whatToStudy;
 
 import de.steilerdev.whatToStudy.Exception.WhatToStudyException;
 import de.steilerdev.whatToStudy.Functionalities.*;
-import norsys.netica.NeticaException;
 
 /**
  * This class is used to manage the basic terminal interface for the application.
@@ -43,13 +42,19 @@ public class Main {
             } else if(args[0].equals("-t"))
             {
                 program = new Test();
-            } else if (args[0].equals("-d"))
+            } else if(args[0].equals("-d"))
             {
                 program = new Draw();
             }
-        } else if(args.length == 3 && args[0].equals("-e"))
+        } else if(args.length == 3)
         {
-            program = new Evaluate();
+            if(args[0].equals("-e"))
+            {
+                program = new Evaluate();
+            } else if(args[0].equals("-t"))
+            {
+                program = new Test();
+            }
         }
 
         //If no functionality applied to the command line arguments, the help dialog is shown.

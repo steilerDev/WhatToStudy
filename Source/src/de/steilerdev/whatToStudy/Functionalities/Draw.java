@@ -40,7 +40,11 @@ public class Draw extends JFrame implements Functionality
     {
         try
         {
+            System.out.println("Starting to draw the network.");
+
+            //Creating a new environment that is used as default environment later.
             Environ env = new Environ(null);
+
             Net net;
             if(args.length == 2)
             {   //If there is no network file use the internal file instead.

@@ -37,7 +37,7 @@ public class Help implements Functionality
         System.out.println("\t-l <<source file>>:\t\tLearn CPT using the source file.");
         System.out.println("\t\t\t\t\t\t\tThe file should be a CSV.");
         System.out.println("\t-d:\t\t\t\t\t\tShow current bayesian network.");
-        System.out.println("\t-t <<test file>>:\t\tTest current bayesian network using the provided test file.");
+        System.out.println("\t-t <<test file>>:\t\tTest current bayesian network using the provided test file. Optional: Pass the Network file as second argument.");
         System.out.println("\t\t\t\t\t\t\tThe file should be a CSV.");
 
         //Input file specification

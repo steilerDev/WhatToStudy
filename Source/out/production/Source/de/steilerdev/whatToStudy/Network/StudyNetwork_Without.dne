@@ -1,10 +1,10 @@
 // ~->[DNET-1]->~
 
-// File created by an unlicensed user using Netica 5.15 on Jan 08, 2015 at 17:28:02.
+// File created by an unlicensed user using Netica 5.15 on Jan 08, 2015 at 17:29:17.
 
-bnet StudyNetwork_new {
+bnet StudyNetwork_Without {
 autoupdate = TRUE;
-whenchanged = 1420734477;
+whenchanged = 1420734551;
 
 visual V2 {
 	defdispform = BELIEFBARS;
@@ -45,36 +45,12 @@ node Qualification {
 		};
 	};
 
-node Age {
-	kind = NATURE;
-	discrete = TRUE;
-	states = (Young, Average, Old);
-	parents = ();
-	whenchanged = 1420251348;
-	visual V2 {
-		center = (708, 312);
-		height = 9;
-		};
-	};
-
-node Sex {
-	kind = NATURE;
-	discrete = TRUE;
-	states = (M, W);
-	parents = ();
-	whenchanged = 1420251360;
-	visual V2 {
-		center = (990, 210);
-		height = 10;
-		};
-	};
-
 node State {
 	kind = NATURE;
 	discrete = TRUE;
 	states = (BW, BY, BE, BB, HB, HH, HE, MV, NI, NW, RP, SL, SN, ST, SH, TH);
-	parents = (Qualification, Age, Sex);
-	whenchanged = 1420734477;
+	parents = (Qualification);
+	whenchanged = 1420734551;
 	visual V2 {
 		center = (528, 174);
 		height = 3;
