@@ -81,17 +81,17 @@ public enum Sex
 
     /**
      * This function is cleaning and validating a String for the sex property, to enable its use within the network.
-     * @param sex The input String, being one of the following: m, w, F, M.
+     * @param sex The input String, being one of the following: Male, Female, m, w, F, M.
      * @return The appropriate enumeration.
      * @throws WhatToStudyException If the input does not fit the requirements.
      */
     public static Sex clean(String sex) throws WhatToStudyException
     {
         Optional<Sex> currentValue;
-        if(sex.equalsIgnoreCase("m"))
+        if(sex.equalsIgnoreCase("m") || sex.equals("Male"))
         {
             return Sex.MALE;
-        } else if(sex.equalsIgnoreCase("w"))
+        } else if(sex.equalsIgnoreCase("w") || sex.equals("Female"))
         {
             return Sex.FEMALE;
         } else if((currentValue = Arrays.stream(Sex.values()).parallel().filter(value -> value.toString().equals(sex)).findFirst()).isPresent())

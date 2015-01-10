@@ -13,7 +13,6 @@ import java.util.Locale;
 public class Main {
 
     //General properties for the program
-
     /**
      * Floating point numbers with "," as delimiter, change to US if using ".".
      */
@@ -22,7 +21,7 @@ public class Main {
     /**
      * The fully qualified path of the internal file.
      */
-    public static final String internalFile = "de/steilerdev/whatToStudy/Network/StudyNetwork_new.dne";
+    public static final String internalFile = "de/steilerdev/whatToStudy/Network/StudyNet_final.dne";
 
     /**
      * This function is called, at the startup of the application.

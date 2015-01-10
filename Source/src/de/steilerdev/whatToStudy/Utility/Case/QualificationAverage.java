@@ -105,7 +105,7 @@ public enum QualificationAverage
 
     /**
      * This function is cleaning and validating a String for the qualification average property, to enable its use within the network.
-     * @param qualificationAverageString The input String, being an floating point number within the range 1.0 to 6.0, or one of the following: Very_Good, Good, Satisfying, Failed.
+     * @param qualificationAverageString The input String, being a floating point number within the range 1.0 to 6.0, or one of the following: Very_Good, Good, Satisfying, Failed.
      * @return The appropriate enumeration.
      * @throws WhatToStudyException If the input does not fit the requirements.
      */

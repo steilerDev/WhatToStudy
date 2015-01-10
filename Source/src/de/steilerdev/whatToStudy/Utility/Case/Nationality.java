@@ -92,7 +92,7 @@ public enum Nationality
 
     /**
      * This function is cleaning and validating a String for the nationality property, to enable its use within the network.
-     * @param nationality The input String, being one of the following: German, EU, Non_EU, deutsch, EU Buerge, EU B&uuml;rger, Non European
+     * @param nationality The input String, being one of the following: German, EU, Non_EU, deutsch, EU Buerger, EU B&uuml;rger, Non European
      * @return The appropriate enumeration.
      * @throws WhatToStudyException If the input does not fit the requirements.
      */
