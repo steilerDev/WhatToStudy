@@ -39,7 +39,8 @@ public class Test implements Functionality
     {
         if(true)
         {
-            throw new WhatToStudyException("Unfortunately this functionality is not available due to an unresolved bug in NeticaJ.");
+            throw new WhatToStudyException("Unfortunately this functionality is not available due to an unresolved bug in NeticaJ.\n" +
+                    "While running the test the following error occurs: \"Fatal error within frame: C [libsystem_c.dylib+0x1152] strlen+0x12\"");
         }
         //Instantiating variables, to finalize them later.
         Environ env = null;
