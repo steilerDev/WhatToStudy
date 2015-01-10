@@ -19,7 +19,11 @@ public class Main {
         Functionality program = null;
 
         //Checking command line arguments and selecting correct functionality.
-        if (args.length == 1)
+        if(args.length == 0)
+        {
+            program = new Interactive();
+        }
+        if(args.length == 1)
         {
             if(args[0].equals("-h"))
             {
