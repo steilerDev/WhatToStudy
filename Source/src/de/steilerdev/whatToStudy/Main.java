@@ -3,16 +3,31 @@ package de.steilerdev.whatToStudy;
 import de.steilerdev.whatToStudy.Exception.WhatToStudyException;
 import de.steilerdev.whatToStudy.Functionalities.*;
 
+import java.text.NumberFormat;
+import java.util.Locale;
+
 /**
  * This class is used to manage the basic terminal interface for the application.
  * It is starting the appropriate classes and functions based on the user input handed over using parameters.
  */
 public class Main {
 
+    //General properties for the program
+
+    /**
+     * Floating point numbers with "," as delimiter, change to US if using ".".
+     */
+    public static final NumberFormat localizedNumberFormat = NumberFormat.getInstance(Locale.GERMAN);
+
+    /**
+     * The fully qualified path of the internal file.
+     */
+    public static final String internalFile = "de/steilerdev/whatToStudy/Network/StudyNetwork_new.dne";
+
     /**
      * This function is called, at the startup of the application.
      * It creates a new object, that is handling the terminal interface.
-     * @param args
+     * @param args The command line arguments stated during the call of the application.
      */
     public static void main(String[] args)
     {

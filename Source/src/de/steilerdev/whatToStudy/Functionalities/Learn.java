@@ -17,6 +17,7 @@
 package de.steilerdev.whatToStudy.Functionalities;
 
 import de.steilerdev.whatToStudy.Exception.WhatToStudyException;
+import de.steilerdev.whatToStudy.Main;
 import de.steilerdev.whatToStudy.Utility.CSVStreamer;
 import norsys.netica.*;
 
@@ -25,10 +26,10 @@ import norsys.netica.*;
  */
 public class Learn implements Functionality
 {
+    //Specific options for the learning process
     private static int learningAlgorithm = Learner.EM_LEARNING;
     private static int learningIterations = 200;
     private static String fileName = "Learned.dne";
-    private static String internalFile = "de/steilerdev/whatToStudy/Network/StudyNetwork_new.dne";
 
     @Override
     public void run(String[] args) throws WhatToStudyException
@@ -47,7 +48,7 @@ public class Learn implements Functionality
             //Getting the network from the file
             System.out.println("Loading network.");
             net = new Net(new Streamer(Thread.currentThread().getContextClassLoader()
-                    .getResourceAsStream(internalFile), //Getting the network as java.io.InputStream from the Netica file
+                    .getResourceAsStream(Main.internalFile), //Getting the network as java.io.InputStream from the Netica file
                     "StudyNetwork", //Giving the Network a name
                     Environ.getDefaultEnviron())); //Handling over the Environ
             NodeList nodes = net.getNodes();

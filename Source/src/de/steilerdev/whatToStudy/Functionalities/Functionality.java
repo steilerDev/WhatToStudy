@@ -26,6 +26,7 @@ public interface Functionality
     /**
      * This function is called if the functionality is selected and started.
      * @param args The command line arguments stated during the call of the application.
+     * @throws WhatToStudyException If an error occurs.
      */
     public void run(String args[]) throws WhatToStudyException;
 }

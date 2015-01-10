@@ -17,6 +17,7 @@
 package de.steilerdev.whatToStudy.Functionalities;
 
 import de.steilerdev.whatToStudy.Exception.WhatToStudyException;
+import de.steilerdev.whatToStudy.Main;
 import de.steilerdev.whatToStudy.Utility.CSVStreamer;
 import de.steilerdev.whatToStudy.Utility.Case.*;
 import de.steilerdev.whatToStudy.Utility.Case.Math;
@@ -29,12 +30,10 @@ import norsys.netica.*;
  */
 public class Evaluate implements Functionality
 {
-    private static String internalFile = "de/steilerdev/whatToStudy/Network/StudyNetwork_new.dne";
-
     /**
      * This function is loading the stored network or a user specified one and evaluates the given data against it. As a result the likeness of a very good or good grade is given.
      * @param args The command line arguments stated during the call of the application. In this case it should be -e and the path to a CSV file, that needs to be evaluated.
-     * @throws NeticaException If an error occurs.
+     * @throws WhatToStudyException If an error occurs.
      */
     @Override
     public void run(String[] args) throws WhatToStudyException
@@ -52,7 +51,7 @@ public class Evaluate implements Functionality
             {   //If there is no network file use the internal file instead.
                 System.out.println("Loading network from internal file");
                 net = new Net(new Streamer(Thread.currentThread().getContextClassLoader()
-                        .getResourceAsStream(internalFile), //Getting the network as java.io.InputStream from the Netica file
+                        .getResourceAsStream(Main.internalFile), //Getting the network as java.io.InputStream from the Netica file
                         "StudyNetwork", //Giving the Network a name
                         env)); //Handling over the Environ
             } else if (args.length == 3)
@@ -82,31 +81,57 @@ public class Evaluate implements Functionality
             Node sex                    = net.getNode(Sex.getHeader());
             Node state                  = net.getNode(State.getHeader());
             Node studyAbilityTest       = net.getNode(StudyAbilityTest.getHeader());
-
-            //Currently not in the network:
-            //Node parentalIncome = net.getNode(ParentalIncome.getHeader());
+            Node parentalIncome         = net.getNode(ParentalIncome.getHeader());
 
             System.out.println("Compiling network.");
             net.compile();
 
             //Setting all values read from the file
-            age                 .finding().enterState(evaluationCase.getAge().toString());
-            course              .finding().enterState(evaluationCase.getCourse().toString());
-            german              .finding().enterState(evaluationCase.getGerman().toString());
-            math                .finding().enterState(evaluationCase.getMath().toString());
-            nationality         .finding().enterState(evaluationCase.getNationality().toString());
-            oltGerman           .finding().enterState(evaluationCase.getOLTGerman().toString());
-            oltMath             .finding().enterState(evaluationCase.getOLTMath().toString());
-            physics             .finding().enterState(evaluationCase.getPhysics().toString());
-            qualification       .finding().enterState(evaluationCase.getQualification().toString());
-            qualificationAverage.finding().enterState(evaluationCase.getQualificationAverage().toString());
-            schoolType          .finding().enterState(evaluationCase.getSchoolType().toString());
-            sex                 .finding().enterState(evaluationCase.getSex().toString());
-            state               .finding().enterState(evaluationCase.getState().toString());
-            studyAbilityTest    .finding().enterState(evaluationCase.getStudyAbilityTest().toString());
-
-            //Currently not in the network:
-            //parentalIncome.finding().enterState(evaluationCase.getParentalIncome().toString());
+            if(age != null){
+                age.finding().enterState(evaluationCase.getAge().toString());
+            }
+            if(course != null){
+                course.finding().enterState(evaluationCase.getCourse().toString());
+            }
+            if(german != null){
+                german.finding().enterState(evaluationCase.getGerman().toString());
+            }
+            if(math != null){
+                math                .finding().enterState(evaluationCase.getMath().toString());
+            }
+            if(nationality != null){
+                nationality         .finding().enterState(evaluationCase.getNationality().toString());
+            }
+            if(oltGerman != null){
+                oltGerman           .finding().enterState(evaluationCase.getOLTGerman().toString());
+            }
+            if(oltMath != null){
+                oltMath             .finding().enterState(evaluationCase.getOLTMath().toString());
+            }
+            if(physics != null){
+                physics             .finding().enterState(evaluationCase.getPhysics().toString());
+            }
+            if(qualification != null){
+                qualification       .finding().enterState(evaluationCase.getQualification().toString());
+            }
+            if(qualificationAverage != null){
+                qualificationAverage.finding().enterState(evaluationCase.getQualificationAverage().toString());
+            }
+            if(schoolType != null){
+                schoolType.finding().enterState(evaluationCase.getSchoolType().toString());
+            }
+            if(sex != null){
+                sex.finding().enterState(evaluationCase.getSex().toString());
+            }
+            if(state != null){
+                state.finding().enterState(evaluationCase.getState().toString());
+            }
+            if(studyAbilityTest != null){
+                studyAbilityTest.finding().enterState(evaluationCase.getStudyAbilityTest().toString());
+            }
+            if(parentalIncome != null){
+                parentalIncome.finding().enterState(evaluationCase.getParentalIncome().toString());
+            }
 
             System.out.println("Getting belief.");
             //Getting the final grade value

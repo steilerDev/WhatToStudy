@@ -18,19 +18,28 @@ package de.steilerdev.whatToStudy.Functionalities;
 
 import de.steilerdev.whatToStudy.Exception.WhatToStudyException;
 
+import java.io.Console;
+
 /**
  * This class is requesting the information of the user through an interactive command line interface.
  */
 public class Interactive implements Functionality
 {
     /**
-     * This function is called if the functionality is selected and started.
-     *
+     * This function is executing the interactive mode, reading the input and evaluating it.
      * @param args The command line arguments stated during the call of the application.
      */
     @Override
     public void run(String[] args) throws WhatToStudyException
     {
+        Console console = System.console();
+        String input = console.readLine("Enter input:");
 
+        System.out.println("##################################################################################");
+        System.out.println("Welcome to the interactive mode of WhatToStudy");
+        System.out.println("http://www.github.com/steilerDev/WhatToStudy");
+        System.out.println("##################################################################################");
+        System.out.println();
+        System.out.println();
     }
 }

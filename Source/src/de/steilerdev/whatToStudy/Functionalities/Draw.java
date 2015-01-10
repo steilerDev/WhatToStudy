@@ -19,6 +19,8 @@ package de.steilerdev.whatToStudy.Functionalities;
 import de.steilerdev.whatToStudy.Exception.WhatToStudyException;
 
 import javax.swing.*;
+
+import de.steilerdev.whatToStudy.Main;
 import norsys.netica.*;
 import norsys.netica.Net;
 import norsys.netica.gui.NetPanel;
@@ -29,11 +31,10 @@ import norsys.netica.gui.NodePanel;
  */
 public class Draw extends JFrame implements Functionality
 {
-    private static String internalFile = "de/steilerdev/whatToStudy/Network/StudyNetwork_new.dne";
-
     /**
      * Showing the selected network.
      * @param args The command line arguments stated during the call of the application.
+     * @throws WhatToStudyException If an error occurs.
      */
     @Override
     public void run(String[] args) throws WhatToStudyException
@@ -46,19 +47,19 @@ public class Draw extends JFrame implements Functionality
             Environ env = new Environ(null);
 
             Net net;
-            if(args.length == 2)
+            if(args.length == 1)
             {   //If there is no network file use the internal file instead.
                 System.out.println("Loading network from internal file");
                 net = new Net(new Streamer(Thread.currentThread().getContextClassLoader()
-                        .getResourceAsStream(internalFile), //Getting the network as java.io.InputStream from the Netica file
+                        .getResourceAsStream(Main.internalFile), //Getting the network as java.io.InputStream from the Netica file
                         "StudyNetwork", //Giving the Network a name
                         env)); //Handling over the Environ
-                this.setTitle("Bayesian Network for \"" + internalFile +  "\"");
-            } else if (args.length == 3)
+                this.setTitle("Bayesian Network for \"" + Main.internalFile +  "\"");
+            } else if (args.length == 2)
             {   //Load user specified network
                 System.out.println("Loading network from user specified file.");
                 net = new Net(new Streamer(args[2]));
-                this.setTitle("Bayesian Network for \"" + args[2] + "\"");
+                this.setTitle("Bayesian Network for \"" + args[1] + "\"");
             } else
             {
                 throw new WhatToStudyException("Unable to load network!");
@@ -78,6 +79,9 @@ public class Draw extends JFrame implements Functionality
         } catch (NeticaException e)
         {
             throw new WhatToStudyException("A Netica based error occurred while drawing the net.");
+        } catch (WhatToStudyException e)
+        {
+            throw e;
         } catch (Exception e)
         {
             throw new WhatToStudyException("An unknown error occurred while drawing the net.");

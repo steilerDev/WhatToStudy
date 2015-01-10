@@ -60,7 +60,7 @@ node Age {
 node Sex {
 	kind = NATURE;
 	discrete = TRUE;
-	states = (M, W);
+	states = (M, F);
 	parents = ();
 	whenchanged = 1420251360;
 	visual V2 {
