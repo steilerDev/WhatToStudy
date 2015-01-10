@@ -16,26 +16,21 @@
  */
 package de.steilerdev.whatToStudy.Functionalities;
 
+import de.steilerdev.whatToStudy.Exception.WhatToStudyException;
+
 /**
- * This functionality of the application is printing the version information of the program.
+ * This class is requesting the information of the user through an interactive command line interface.
  */
-public class Version implements Functionality
+public class Interactive implements Functionality
 {
     /**
-     * Printing out the version information.
+     * This function is called if the functionality is selected and started.
+     *
      * @param args The command line arguments stated during the call of the application.
      */
     @Override
-    public void run(String[] args)
+    public void run(String[] args) throws WhatToStudyException
     {
-        System.out.println("##################################################################################");
-        System.out.println("WhatToStudy v0.1a1");
-        System.out.println("By Frank Steiler & Lisa Mischer");
-        System.out.println("Licensed using a GNU GPL v2.0 license");
-        System.out.println("http://www.github.com/steilerDev/WhatToStudy");
-        System.out.println();
-        System.out.println("Created as part of the lecture \"Knowledge based systems\" at the DHBW Stuttgart");
-        System.out.println("##################################################################################");
 
     }
 }

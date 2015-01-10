@@ -17,7 +17,6 @@
 package de.steilerdev.whatToStudy.Functionalities;
 
 import de.steilerdev.whatToStudy.Exception.WhatToStudyException;
-import norsys.netica.NeticaException;
 
 /**
  * This interface is defining a functionality of the application, that can be started by the main class.
@@ -28,5 +27,5 @@ public interface Functionality
      * This function is called if the functionality is selected and started.
      * @param args The command line arguments stated during the call of the application.
      */
-    public void run(String args[]) throws WhatToStudyException, NeticaException;
+    public void run(String args[]) throws WhatToStudyException;
 }

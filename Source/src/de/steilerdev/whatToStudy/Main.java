@@ -2,7 +2,6 @@ package de.steilerdev.whatToStudy;
 
 import de.steilerdev.whatToStudy.Exception.WhatToStudyException;
 import de.steilerdev.whatToStudy.Functionalities.*;
-import norsys.netica.NeticaException;
 
 /**
  * This class is used to manage the basic terminal interface for the application.
@@ -19,7 +18,12 @@ public class Main {
     {
         Functionality program = null;
 
-        if (args.length == 1)
+        //Checking command line arguments and selecting correct functionality.
+        if(args.length == 0)
+        {
+            program = new Interactive();
+        }
+        if(args.length == 1)
         {
             if(args[0].equals("-h"))
             {
@@ -27,9 +31,9 @@ public class Main {
             } else if(args[0].equals("-v"))
             {
                 program = new Version();
-            } else if(args[0].equals("-p"))
+            } else if(args[0].equals("-d"))
             {
-
+                program = new Draw();
             }
         } else if(args.length == 2)
         {
@@ -41,21 +45,33 @@ public class Main {
                 program = new Learn();
             } else if(args[0].equals("-t"))
             {
-
+                program = new Test();
+            } else if(args[0].equals("-d"))
+            {
+                program = new Draw();
+            }
+        } else if(args.length == 3)
+        {
+            if(args[0].equals("-e"))
+            {
+                program = new Evaluate();
+            } else if(args[0].equals("-t"))
+            {
+                program = new Test();
             }
         }
 
+        //If no functionality applied to the command line arguments, the help dialog is shown.
         if(program == null)
         {
             System.out.println("Unsuitable amount or unrecognised arguments.");
             program = new Help();
         }
+
+        //Starting the selected functionality and properly handling the error.
         try
         {
             program.run(args);
-        } catch (NeticaException e)
-        {
-            System.err.println("Error occurred during runtime: " + e.getMessage());
         } catch(WhatToStudyException e)
         {
             System.err.println("Error occurred during runtime: " + e.getMessage());
