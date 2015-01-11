@@ -29,6 +29,10 @@ import java.util.ArrayList;
  */
 public class Test implements Functionality
 {
+    //Escape characters for font options
+    private static String boldFont = (char)27 +"[1m";
+    private static String redFont = (char)27 +"[31m";
+    private static String resetFont = (char)27 +"[0m";
 
     /**
      * Amount of cases where the prediction encourages to study the course, and the person achieved a very good or good grade
@@ -100,7 +104,7 @@ public class Test implements Functionality
             net.compile();
 
             System.out.println("Starting to test the accuracy");
-            System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+            System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
             testCases.stream().forEach(currentCase -> {
                 try
                 {
@@ -122,7 +126,7 @@ public class Test implements Functionality
                             falseNegative++;
                         } else
                         {
-                            truePositive++;
+                            trueNegative++;
                         }
                     } else
                     {
@@ -135,19 +139,32 @@ public class Test implements Functionality
                     System.err.println(e.getMessage());
                 }
             });
-            System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
 
             System.out.println();
             System.out.println("Finished!");
-            System.out.println("Results:");
+            System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+
+            System.out.println();
+            System.out.println(boldFont + redFont + "Results:" + resetFont);
+            System.out.println();
 
             System.out.println("                                     |   Person achieves a Very_Good or Good Grade   |  Person fails or receives a satisfying grade     |");
-            System.out.println(" Test encourages studying the course |                      " + truePositive + "                       |                      " + falsePositive + "                           |");
-            System.out.println("Test discourages studying the course |                      " + falseNegative + "                       |                      " + trueNegative + "                          |");
+            System.out.format( " Test encourages studying the course |                      " + boldFont + "%02d" + resetFont + "                       |                      " + boldFont + "%02d" + resetFont + "                          |\n", truePositive, falsePositive);
+            System.out.format( "Test discourages studying the course |                      " + boldFont + "%02d" + resetFont + "                       |                      " + boldFont + "%02d" + resetFont + "                          |\n", falseNegative, trueNegative);
+            System.out.println();
 
-            double errorRate = (falseNegative + falsePositive)/(falseNegative + falsePositive + truePositive + trueNegative);
-            System.out.println("Error rate: " + errorRate);
+
+            double nonAcceptableAmountOfErrors = falsePositive;
+            double amountOfErrors = falseNegative + falsePositive;
+            double amountOfTests = falseNegative + falsePositive + truePositive + trueNegative;
+            double errorRate = amountOfErrors / amountOfTests;
+            double nonAcceptableErrorRate = nonAcceptableAmountOfErrors / amountOfTests;
+
+            System.out.println("Error rate: " + boldFont + errorRate + resetFont);
+            System.out.println("Non-acceptable error rate (Since false negative is an acceptable error): " + boldFont + nonAcceptableErrorRate + resetFont);
+            System.out.println();
             System.out.println("Unable to evaluate " + noResult + " cases, because their result was not obvious");
+            System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
         }
         catch (Exception e) {
             e.printStackTrace();

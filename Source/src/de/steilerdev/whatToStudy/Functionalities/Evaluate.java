@@ -253,9 +253,9 @@ public class Evaluate implements Functionality
             if(currentCase.getCourse() != null) //If the user stated a course, give him a recommendation for or against the course
             {
                 //Recommend the course if it is going to be a good or a very good grade
-                double recommendationFor = finalGrade.getBelief(FinalGrade.VERY_GOOD.toString()) + finalGrade.getBelief(FinalGrade.GOOD.toString());
+                double recommendationFor = finalGrade.getBelief(FinalGrade.VERY_GOOD.toString()) + (2*finalGrade.getBelief(FinalGrade.GOOD.toString())/3);
                 //Recommend against the course if it is going to be a satisfying of failed grade
-                double recommendationAgainst = finalGrade.getBelief(FinalGrade.SATISFYING.toString()) + finalGrade.getBelief(FinalGrade.FAILED.toString());
+                double recommendationAgainst = (finalGrade.getBelief(FinalGrade.GOOD.toString())/3) + finalGrade.getBelief(FinalGrade.SATISFYING.toString()) + finalGrade.getBelief(FinalGrade.FAILED.toString());
 
                 System.out.println();
                 System.out.println("~~~~~~~~~");
