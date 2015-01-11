@@ -20,14 +20,43 @@ import de.steilerdev.whatToStudy.Exception.WhatToStudyException;
 import de.steilerdev.whatToStudy.Main;
 import de.steilerdev.whatToStudy.Utility.CSVStreamer;
 import de.steilerdev.whatToStudy.Utility.Case.*;
-import de.steilerdev.whatToStudy.Utility.Case.State;
 import norsys.netica.*;
+
+import java.util.ArrayList;
 
 /**
  * This functionality is testing the quality of the network using a set of data.
  */
 public class Test implements Functionality
 {
+
+    /**
+     * Amount of cases where the prediction encourages to study the course, and the person achieved a very good or good grade
+     */
+    private static int truePositive = 0;
+
+    /**
+     * Amount of cases where the prediction encourages to study the course, and the person did not achieve a very good or good grade
+     */
+    private static int falsePositive = 0;
+
+    /**
+     * Amount of cases where the prediction discourages to study the course, and the person did not achieve a very good or good grade
+     */
+    private static int trueNegative = 0;
+
+    /**
+     * Amount of cases where the prediction discourages to study the course, and the person achieved a very good or good grade
+     */
+    private static int falseNegative = 0;
+
+    /**
+     * Amount of cases where the prediction could neither discourage nor encourage the person
+     */
+    private static int noResult = 0;
+
+    private static Net net = null;
+
     /**
      * This functionality is testing the quality of the network using a set of data.
      * @param args The command line arguments stated during the call of the application.
@@ -36,22 +65,18 @@ public class Test implements Functionality
     @Override
     public void run(String[] args) throws WhatToStudyException
     {
-        if(true)
-        {
-            throw new WhatToStudyException("Unfortunately this functionality is not available due to an unresolved bug in NeticaJ.\n" +
-                    "While running the test the following error occurs: \"Fatal error within frame: C [libsystem_c.dylib+0x1152] strlen+0x12\"");
-        }
         //Instantiating variables, to finalize them later.
-        Environ env = null;
-        Net net = null;
-        Caseset testCases = null;
-        NetTester tester = null;
+        Environ env = Environ.getDefaultEnviron();
+        Evaluate evaluate = new Evaluate();
         try
         {
             System.out.println("Starting to test the network.");
 
             //Creating a new environment that is used as default environment later.
-            env = new Environ (null);
+            if(env == null)
+            {
+                env = new Environ(null);
+            }
 
             if(args.length == 2)
             {   //If there is no network file use the internal file instead.
@@ -69,60 +94,65 @@ public class Test implements Functionality
                 throw new WhatToStudyException("Unable to load network!");
             }
 
-            //The node list containing all nodes, that are going to be tested
-            NodeList testNodes = new NodeList(net);
+            ArrayList<Case> testCases = CSVStreamer.getCaseList(args[1]);
 
-            //Getting the node that you want to test
-            Node finalGrade = net.getNode(FinalGrade.getHeader());
-
-            // Adding the test node to the node list
-            testNodes.add(finalGrade);
-
-            System.out.println("Compiling network.");
-            //Clear the network before compiling
-            net.retractFindings();
+            System.out.println("Compiling network");
             net.compile();
 
-            System.out.println("Creating a new net tester.");
-            tester = new NetTester(testNodes, testNodes, -1);
+            System.out.println("Starting to test the accuracy");
+            System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+            testCases.stream().forEach(currentCase -> {
+                try
+                {
+                    net.retractFindings();
+                    FinalGrade testResult = (FinalGrade) evaluate.evaluateCase(currentCase, net, Environ.getDefaultEnviron());
+                    if (testResult == FinalGrade.VERY_GOOD) //Test recommends studying
+                    {
+                        if (currentCase.getFinalGrade() == FinalGrade.VERY_GOOD || currentCase.getFinalGrade() == FinalGrade.GOOD)
+                        {
+                            truePositive++;
+                        } else
+                        {
+                            falsePositive++;
+                        }
+                    } else if (testResult == FinalGrade.FAILED)
+                    {
+                        if (currentCase.getFinalGrade() == FinalGrade.VERY_GOOD || currentCase.getFinalGrade() == FinalGrade.GOOD)
+                        {
+                            falseNegative++;
+                        } else
+                        {
+                            truePositive++;
+                        }
+                    } else
+                    {
+                        noResult++;
+                    }
+                } catch (NeticaException | WhatToStudyException e)
+                {
+                    System.err.println("An error occurred, the result might not be correct. Please try again.");
+                    System.err.println("Details:");
+                    System.err.println(e.getMessage());
+                }
+            });
+            System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
 
-            //Load test cases
-            System.out.println("Loading test cases.");
-            Streamer inStream = CSVStreamer.getNeticaStream(args[1], "TestingStream", env);
-            testCases = new Caseset();
-            testCases.addCases(inStream, 1.0, null);
+            System.out.println();
+            System.out.println("Finished!");
+            System.out.println("Results:");
 
-            System.out.println("Testing network using cases.");
-            tester.testWithCaseset(testCases);
+            System.out.println("                                     |   Person achieves a Very_Good or Good Grade   |  Person fails or receives a satisfying grade     |");
+            System.out.println(" Test encourages studying the course |                      " + truePositive + "                       |                      " + falsePositive + "                           |");
+            System.out.println("Test discourages studying the course |                      " + falseNegative + "                       |                      " + trueNegative + "                          |");
 
-            printConfusionMatrix(tester, finalGrade);
-            System.out.println("      Error rate for " + finalGrade.getName() + " = " + tester.getErrorRate(finalGrade));
-            System.out.println("Logarithmic loss for " + finalGrade.getName() + " = " + tester.getLogLoss(finalGrade));
+            double errorRate = (falseNegative + falsePositive)/(falseNegative + falsePositive + truePositive + trueNegative);
+            System.out.println("Error rate: " + errorRate);
+            System.out.println("Unable to evaluate " + noResult + " cases, because their result was not obvious");
         }
         catch (Exception e) {
             e.printStackTrace();
         } finally
         {
-            if(testCases != null)
-            {
-                try
-                {
-                    testCases.finalize();
-                } catch (NeticaException e)
-                {
-                    throw new WhatToStudyException("A Netica based error occurred during the finalization of the test cases.");
-                }
-            }
-            if(tester != null)
-            {
-                try
-                {
-                    tester.finalize();
-                } catch (NeticaException e)
-                {
-                    throw new WhatToStudyException("A Netica based error occurred during the finalization of the test cases.");
-                }
-            }
             if(net != null)
             {
                 try
@@ -143,26 +173,6 @@ public class Test implements Functionality
                     throw new WhatToStudyException("A Netica based error occurred during the finalization of the net.");
                 }
             }
-        }
-    }
-
-    /*
-     * Print a confusion matrix table.
-     */
-    public static void printConfusionMatrix (NetTester nt, Node node) throws NeticaException {
-        int numStates = node.getNumStates();
-        System.out.println("\nConfusion matrix for " + node.getName() + ":");
-
-        for (int i=0;  i < numStates;  ++i){
-            System.out.print ("\t" + node.state(i).getName());
-        }
-        System.out.println ("\tActual");
-
-        for (int a=0;  a < numStates;  ++a){
-            for (int p=0;  p < numStates;  ++p){
-                System.out.print ("\t" + (int) (nt.getConfusion(node, p, a)));
-            }
-            System.out.println ("\t" + node.state(a).getName());
         }
     }
 }

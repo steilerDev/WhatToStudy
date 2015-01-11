@@ -133,7 +133,7 @@ public class CSVStreamer
             fileStream.print(FinalGrade.getHeader() + "\n");
 
             //Getting a list of all cases of the file
-            ArrayList<Case> cases = getCase(inputStream);
+            ArrayList<Case> cases = getCaseList(inputStream);
 
             //Adding a new line for each case
             for(Case currentCase: cases)
@@ -172,6 +172,27 @@ public class CSVStreamer
     }
 
     /**
+     * This function is creating a list of cases from an input file.<br>
+     * The first line needs to be a valid header specified within the {@link de.steilerdev.whatToStudy.Utility.Case case enumerations}. The order is specified within the class description of this class. <br>
+     * The values are validated and converted according to the specification stated in the {@link de.steilerdev.whatToStudy.Utility.Case case enumerations} and the order is specified within the class description of this class.
+     * @param inputFile The file name of the input file
+     * @return A list of cases.
+     * @throws WhatToStudyException If an error occurs.
+     */
+    public static ArrayList<Case> getCaseList(String inputFile) throws WhatToStudyException
+    {
+        try
+        {
+            File initialFile = new File(inputFile);
+            InputStream targetStream = new FileInputStream(initialFile);
+            return getCaseList(targetStream);
+        } catch (FileNotFoundException e)
+        {
+            throw new WhatToStudyException("Unable to find the specified file " + inputFile);
+        }
+    }
+
+    /**
      * This function is creating a list of cases from an Input Stream.<br>
      * The first line needs to be a valid header specified within the {@link de.steilerdev.whatToStudy.Utility.Case case enumerations}. The order is specified within the class description of this class. <br>
      * The values are validated and converted according to the specification stated in the {@link de.steilerdev.whatToStudy.Utility.Case case enumerations} and the order is specified within the class description of this class.
@@ -179,7 +200,7 @@ public class CSVStreamer
      * @return A list of cases.
      * @throws WhatToStudyException If an error occurs.
      */
-    public static ArrayList<Case> getCase(InputStream inputStream) throws WhatToStudyException
+    public static ArrayList<Case> getCaseList(InputStream inputStream) throws WhatToStudyException
     {
         try(BufferedReader br = new BufferedReader(new InputStreamReader(inputStream)))
         {

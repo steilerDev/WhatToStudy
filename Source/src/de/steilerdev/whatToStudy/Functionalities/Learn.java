@@ -37,13 +37,16 @@ public class Learn implements Functionality
         Learner learner = null;
         Caseset cases = null;
         Net net = null;
-        Environ env = null;
+        Environ env = Environ.getDefaultEnviron();
         try
         {
             System.out.println("Starting to learn CPT's for the stated network.");
 
             //Creating a new environment that is used as default environment later.
-            env = new Environ(null);
+            if(env == null)
+            {
+                env = new Environ(null);
+            }
 
             //Getting the network from the file
             System.out.println("Loading network.");

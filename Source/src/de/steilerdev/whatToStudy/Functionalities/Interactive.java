@@ -46,7 +46,9 @@ public class Interactive implements Functionality
             System.out.println("http://www.github.com/steilerDev/WhatToStudy");
             System.out.println("##################################################################################");
             System.out.println();
-
+            System.out.println("Please enter the requested information.");
+            System.out.println("If you don't want to enter a specific information, or you can't say anything within the topic just press enter.");
+            System.out.println("Note: Every missing information is decreasing the accuracy of the program.");
             System.out.println();
             System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
             System.out.println("Personal information");
@@ -63,6 +65,7 @@ public class Interactive implements Functionality
                     currentLine = console.readLine().trim();
                     if(!currentLine.isEmpty())
                     {
+                        currentCase.setAge(null);
                         currentCase.setAge(Age.clean(currentLine));
                     } else
                     {
@@ -96,6 +99,7 @@ public class Interactive implements Functionality
                         currentCase.setSex(Sex.clean(currentLine));
                     } else
                     {
+                        currentCase.setSex(null);
                         System.out.println("Skipped.");
                     }
                     break;
@@ -126,6 +130,7 @@ public class Interactive implements Functionality
                         currentCase.setNationality(Nationality.clean(currentLine));
                     } else
                     {
+                        currentCase.setNationality(null);
                         System.out.println("Skipped.");
                     }
                     break;
@@ -159,6 +164,7 @@ public class Interactive implements Functionality
                         currentCase.setState(State.clean(currentLine));
                     } else
                     {
+                        currentCase.setState(null);
                         System.out.println("Skipped.");
                     }
                     break;
@@ -189,6 +195,7 @@ public class Interactive implements Functionality
                         currentCase.setParentalIncome(ParentalIncome.clean(currentLine));
                     } else
                     {
+                        currentCase.setParentalIncome(null);
                         System.out.println("Skipped.");
                     }
                     break;
@@ -256,6 +263,7 @@ public class Interactive implements Functionality
                         currentCase.setQualification(Qualification.clean(currentLine));
                     } else
                     {
+                        currentCase.setQualification(null);
                         System.out.println("Skipped.");
                     }
                     break;
@@ -286,6 +294,7 @@ public class Interactive implements Functionality
                         currentCase.setQualificationAverage(QualificationAverage.clean(currentLine));
                     } else
                     {
+                        currentCase.setQualificationAverage(null);
                         System.out.println("Skipped.");
                     }
                     break;
@@ -415,6 +424,7 @@ public class Interactive implements Functionality
                         currentCase.setOLTGerman(OLTGerman.clean(currentLine));
                     } else
                     {
+                        currentCase.setOLTGerman(null);
                         System.out.println("Skipped.");
                     }
                     break;
@@ -445,6 +455,7 @@ public class Interactive implements Functionality
                         currentCase.setOLTMath(OLTMath.clean(currentLine));
                     } else
                     {
+                        currentCase.setOLTMath(null);
                         System.out.println("Skipped.");
                     }
                     break;
@@ -506,6 +517,7 @@ public class Interactive implements Functionality
                         currentCase.setCourse(Course.clean(currentLine));
                     } else
                     {
+                        currentCase.setCourse(null);
                         System.out.println("Skipped.");
                     }
                     break;
