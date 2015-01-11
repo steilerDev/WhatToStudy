@@ -106,17 +106,18 @@ A Bayesian Network is defined by a set of edges (nodes) connected through vertic
 
 Concluding to create and then use a Bayesian Network, a user has to create the correct graph first and then determine all values for the CPT. A correct network can either be created by an expert, by using data mining techniques to find connections between entities or through machine learning. 
 
-By adding observations for a specific case to the network, the network is updating beliefs about other variables. Therefore the probability of a certain event or state can be predicted by observing other events or states. Therefore it can support decision making and has numerous applications, like the diagnosis of diseases, automatic troubleshooting or education testing. \cite{Vomlel:2005aa}
+By adding observations for a specific case to the network, the network is updating beliefs about other variables. Furthermore the probability of a certain event or state can be predicted by observing other events or states. Therefore it can support decision making and has numerous applications, like the diagnosis of diseases, automatic troubleshooting or education testing. \cite{Vomlel:2005aa}
+
+
 
 \chapter{Analysis of data}
 Analysing data using Data Mining techniques (Parallel Coordinates). Finding connections
 
 \chapter{Structure of the network}
-Creating the structure of a Bayesian Network
-Changing cont. variables (grades, income) into ranges (very good, good, etc)
+Bayesian networks need discrete variables to work with. The first step was to discretize all continuous variables in our data set. 
 
 \chapter{Learning conditional probability tables (CPT)}
-Algorithms that can be used to learn the CPT
+To create the network we used Netica. After we made the first draw for a network and all nodes were connected in a possible way, the CPTs needed to be calculated. Netica offers three different functions to learn the CPTs from data. After testing each of the learning algorithms, we could achieve the best results with the Expectation Maximization Algorithm. 
 
 \chapter{Implementation - WhatToStudy}
 Concrete implementation of the program, functionalities and documentation of implementation

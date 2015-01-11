@@ -2,3 +2,11 @@
 !Resources/Parallel\ Coordinates\ Visualization/xdat.jar
 Documentation/.texpadtmp
 Source/.idea
+
+*.dne
+
+Source/src/de/steilerdev/whatToStudy/Network/StudyNet_final.dne
+
+Source/src/de/steilerdev/whatToStudy/Network/StudyNet_final.dne
+
+Source/src/de/steilerdev/whatToStudy/Network/Stud.dne
