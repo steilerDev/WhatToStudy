@@ -29,7 +29,7 @@ public class Version implements Functionality
     public void run(String[] args)
     {
         System.out.println("##################################################################################");
-        System.out.println("WhatToStudy v0.1a1");
+        System.out.println("WhatToStudy v0.1");
         System.out.println("By Frank Steiler & Lisa Mischer");
         System.out.println("Licensed using a GNU GPL v2.0 license");
         System.out.println("http://www.github.com/steilerDev/WhatToStudy");
