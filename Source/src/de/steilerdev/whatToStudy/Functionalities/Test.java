@@ -142,14 +142,14 @@ public class Test implements Functionality
 
             System.out.println();
             System.out.println("Finished!");
-            System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+            System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
 
             System.out.println();
             System.out.println(boldFont + redFont + "Results:" + resetFont);
             System.out.println();
 
             System.out.println("                                     |   Person achieves a Very_Good or Good Grade   |  Person fails or receives a satisfying grade     |");
-            System.out.format( " Test encourages studying the course |                      " + boldFont + "%02d" + resetFont + "                       |                      " + boldFont + "%02d" + resetFont + "                          |\n", truePositive, falsePositive);
+            System.out.format( "Test encourages studying the course  |                      " + boldFont + "%02d" + resetFont + "                       |                      " + boldFont + "%02d" + resetFont + "                          |\n", truePositive, falsePositive);
             System.out.format( "Test discourages studying the course |                      " + boldFont + "%02d" + resetFont + "                       |                      " + boldFont + "%02d" + resetFont + "                          |\n", falseNegative, trueNegative);
             System.out.println();
 
@@ -160,11 +160,11 @@ public class Test implements Functionality
             double errorRate = amountOfErrors / amountOfTests;
             double nonAcceptableErrorRate = nonAcceptableAmountOfErrors / amountOfTests;
 
-            System.out.println("Error rate: " + boldFont + errorRate + resetFont);
+            System.out.println("Error rate:                                                              " + boldFont + errorRate + resetFont);
             System.out.println("Non-acceptable error rate (Since false negative is an acceptable error): " + boldFont + nonAcceptableErrorRate + resetFont);
             System.out.println();
             System.out.println("Unable to evaluate " + noResult + " cases, because their result was not obvious");
-            System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+            System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
         }
         catch (Exception e) {
             e.printStackTrace();

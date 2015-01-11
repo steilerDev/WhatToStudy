@@ -4,7 +4,9 @@ import de.steilerdev.whatToStudy.Exception.WhatToStudyException;
 import de.steilerdev.whatToStudy.Functionalities.*;
 
 import java.text.NumberFormat;
+import java.util.Arrays;
 import java.util.Locale;
+import java.util.stream.Collectors;
 
 /**
  * This class is used to manage the basic terminal interface for the application.
@@ -21,7 +23,7 @@ public class Main {
     /**
      * The fully qualified path of the internal file.
      */
-    public static final String internalFile = "de/steilerdev/whatToStudy/Network/StudyNet_final_ohne_State.dne";
+    public static final String internalFile = "de/steilerdev/whatToStudy/Network/StudyNet.dne";
 
     /**
      * This function is called, at the startup of the application.
@@ -78,7 +80,8 @@ public class Main {
         //If no functionality applied to the command line arguments, the help dialog is shown.
         if(program == null)
         {
-            System.out.println("Unsuitable amount or unrecognised arguments.");
+            System.out.println("Unsuitable amount (" + args.length + ") or unrecognised arguments (" + Arrays.stream(args).collect(Collectors.joining(", ")) + ")");
+            System.out.println("Note: The file path should not contain any (escaped) white spaces!");
             program = new Help();
         }
 
