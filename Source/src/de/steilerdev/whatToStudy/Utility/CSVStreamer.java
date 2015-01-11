@@ -304,7 +304,7 @@ public class CSVStreamer
         String[] lineArray = caseLine.split(cvsSplitBy);
         Case currentCase = new Case();
 
-        if (!(lineArray.length == 17 || (skipNonMandatory && lineArray.length == 15)))
+        if (!(lineArray.length == 17 || (skipNonMandatory && (lineArray.length == 14 || lineArray.length == 15))))
         {
             throw new WhatToStudyException("Invalid number of columns in line " + currentLineNumber);
         }
@@ -314,6 +314,10 @@ public class CSVStreamer
         {
             currentCase.setCourse(Course.clean(lineArray[14].trim()));
             currentCase.setFinalGrade(FinalGrade.clean(lineArray[15].trim(), lineArray[16].trim()));
+        } else if (lineArray.length == 15)
+        {
+            currentCase.setCourse(Course.clean(lineArray[14].trim()));
+            currentCase.setFinalGrade(null);
         } else
         {
             currentCase.setCourse(null);
@@ -408,7 +412,7 @@ public class CSVStreamer
         {
             return false;
         }
-        if (!Course.validateHeader(header[14]))
+        if (!(skipNonMandatory || Course.validateHeader(header[14])))
         {
             return false;
         }
