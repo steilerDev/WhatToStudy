@@ -36,6 +36,5 @@ public class Version implements Functionality
         System.out.println();
         System.out.println("Created as part of the lecture \"Knowledge based systems\" at the DHBW Stuttgart");
         System.out.println("##################################################################################");
-
     }
 }

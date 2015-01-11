@@ -16,42 +16,90 @@
  */
 package de.steilerdev.whatToStudy.Utility.Case;
 
+import de.steilerdev.whatToStudy.Exception.WhatToStudyException;
+
+import java.util.Arrays;
+import java.util.Optional;
+
 /**
  * This enumeration contains all specification for the sex column of a case.
  */
 public enum Sex
 {
+    /**
+     * This value is representing a male person and is converted to the Netica compliant String "M".
+     */
     MALE
     {
-        /**
-         * A nice formatted output handed over to Netica to evaluate it.
-         * @return The name of this enum constant used by Netica
-         */
         @Override
         public String toString()
         {
             return "M";
         }
     },
+    /**
+     * This value is representing a female person and is converted to the Netica compliant String "F".
+     */
     FEMALE
     {
-        /**
-         * A nice formatted output handed over to Netica to evaluate it.
-         * @return The name of this enum constant used by Netica
-         */
         @Override
         public String toString()
         {
-            return "W";
+            return "F";
         }
     };
 
     /**
-     * Creates the header for the sex column.
-     * @return The header for the sex column
+     * Creates the header for the sex column used by Netica.
+     * @return The header used by Netica: "Sex"
      */
     public static String getHeader()
     {
         return "Sex";
+    }
+
+    /**
+     * A list of valid headers accepted from an input.
+     * These include: Geschlecht, Sex
+     * @return An array containing Strings that are considered as valid headers.
+     */
+    public static String[] getValidHeaders()
+    {
+        return new String[]{"Geschlecht", getHeader()};
+    }
+
+    /**
+     * Validates the Stated string against the specified {@link #getValidHeaders valid header strings}.
+     * @see #getValidHeaders
+     * @param header The header read from a file
+     * @return True if the header is considered valid, false otherwise.
+     */
+    public static boolean validateHeader(String header)
+    {
+        return Arrays.stream(getValidHeaders()).anyMatch(value -> value.equals(header));
+    }
+
+    /**
+     * This function is cleaning and validating a String for the sex property, to enable its use within the network.
+     * @param sex The input String, being one of the following: Male, Female, m, w, F, M.
+     * @return The appropriate enumeration.
+     * @throws WhatToStudyException If the input does not fit the requirements.
+     */
+    public static Sex clean(String sex) throws WhatToStudyException
+    {
+        Optional<Sex> currentValue;
+        if(sex.equalsIgnoreCase("m") || sex.equals("Male"))
+        {
+            return Sex.MALE;
+        } else if(sex.equalsIgnoreCase("w") || sex.equals("Female"))
+        {
+            return Sex.FEMALE;
+        } else if((currentValue = Arrays.stream(Sex.values()).parallel().filter(value -> value.toString().equals(sex)).findFirst()).isPresent())
+        {   //Check if the input is already a cleaned value
+            return currentValue.get();
+        } else
+        {
+            throw new WhatToStudyException("Error validating and cleaning sex type column");
+        }
     }
 }

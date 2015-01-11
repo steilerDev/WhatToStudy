@@ -17,11 +17,14 @@
 package de.steilerdev.whatToStudy.Functionalities;
 
 import de.steilerdev.whatToStudy.Exception.WhatToStudyException;
+import de.steilerdev.whatToStudy.Main;
 import de.steilerdev.whatToStudy.Utility.CSVStreamer;
 import de.steilerdev.whatToStudy.Utility.Case.*;
 import de.steilerdev.whatToStudy.Utility.Case.Math;
 import de.steilerdev.whatToStudy.Utility.Case.State;
 import norsys.netica.*;
+
+import java.util.Arrays;
 
 /**
  * This class is using the stored network or a user defined one to evaluate if the system can recommend the user to study a specific course.
@@ -29,12 +32,10 @@ import norsys.netica.*;
  */
 public class Evaluate implements Functionality
 {
-    private static String internalFile = "de/steilerdev/whatToStudy/Network/StudyNetwork_new.dne";
-
     /**
      * This function is loading the stored network or a user specified one and evaluates the given data against it. As a result the likeness of a very good or good grade is given.
      * @param args The command line arguments stated during the call of the application. In this case it should be -e and the path to a CSV file, that needs to be evaluated.
-     * @throws NeticaException If an error occurs.
+     * @throws WhatToStudyException If an error occurs.
      */
     @Override
     public void run(String[] args) throws WhatToStudyException
@@ -43,8 +44,7 @@ public class Evaluate implements Functionality
         Environ env = null;
         try
         {
-            System.out.println("Starting to evaluate the stated case.");
-
+            System.out.println("Starting to evaluate the stated case");
             //Creating a new environment that is used as default environment later.
             env = new Environ(null);
 
@@ -52,12 +52,12 @@ public class Evaluate implements Functionality
             {   //If there is no network file use the internal file instead.
                 System.out.println("Loading network from internal file");
                 net = new Net(new Streamer(Thread.currentThread().getContextClassLoader()
-                        .getResourceAsStream(internalFile), //Getting the network as java.io.InputStream from the Netica file
+                        .getResourceAsStream(Main.internalFile), //Getting the network as java.io.InputStream from the Netica file
                         "StudyNetwork", //Giving the Network a name
                         env)); //Handling over the Environ
             } else if (args.length == 3)
             {   //Load user specified network
-                System.out.println("Loading network from user specified file.");
+                System.out.println("Loading network from user specified file");
                 net = new Net(new Streamer(args[2]));
             } else
             {
@@ -65,57 +65,12 @@ public class Evaluate implements Functionality
             }
 
             //Gets the provided case
-            Case evaluationCase = CSVStreamer.getEvaluationCase(args[1]);
+            Case currentCase = CSVStreamer.getEvaluationCase(args[1]);
 
-            //Getting all nodes to set their values and calculating the belief.
-            Node age                    = net.getNode(Age.getHeader());
-            Node course                 = net.getNode(Course.getHeader());
-            Node german                 = net.getNode(German.getHeader());
-            Node math                   = net.getNode(Math.getHeader());
-            Node nationality            = net.getNode(Nationality.getHeader());
-            Node oltGerman              = net.getNode(OLTGerman.getHeader());
-            Node oltMath                = net.getNode(OLTMath.getHeader());
-            Node physics                = net.getNode(Physics.getHeader());
-            Node qualification          = net.getNode(Qualification.getHeader());
-            Node qualificationAverage   = net.getNode(QualificationAverage.getHeader());
-            Node schoolType             = net.getNode(SchoolType.getHeader());
-            Node sex                    = net.getNode(Sex.getHeader());
-            Node state                  = net.getNode(State.getHeader());
-            Node studyAbilityTest       = net.getNode(StudyAbilityTest.getHeader());
+            //Evaluating the case
+            evaluateCase(currentCase, net, env);
 
-            //Currently not in the network:
-            //Node parentalIncome = net.getNode(ParentalIncome.getHeader());
-
-            System.out.println("Compiling network.");
-            net.compile();
-
-            //Setting all values read from the file
-            age                 .finding().enterState(evaluationCase.getAge().toString());
-            course              .finding().enterState(evaluationCase.getCourse().toString());
-            german              .finding().enterState(evaluationCase.getGerman().toString());
-            math                .finding().enterState(evaluationCase.getMath().toString());
-            nationality         .finding().enterState(evaluationCase.getNationality().toString());
-            oltGerman           .finding().enterState(evaluationCase.getOLTGerman().toString());
-            oltMath             .finding().enterState(evaluationCase.getOLTMath().toString());
-            physics             .finding().enterState(evaluationCase.getPhysics().toString());
-            qualification       .finding().enterState(evaluationCase.getQualification().toString());
-            qualificationAverage.finding().enterState(evaluationCase.getQualificationAverage().toString());
-            schoolType          .finding().enterState(evaluationCase.getSchoolType().toString());
-            sex                 .finding().enterState(evaluationCase.getSex().toString());
-            state               .finding().enterState(evaluationCase.getState().toString());
-            studyAbilityTest    .finding().enterState(evaluationCase.getStudyAbilityTest().toString());
-
-            //Currently not in the network:
-            //parentalIncome.finding().enterState(evaluationCase.getParentalIncome().toString());
-
-            System.out.println("Getting belief.");
-            //Getting the final grade value
-            Node finalGrade = net.getNode(FinalGrade.getHeader());
-
-            //Calculating belief for the final grade
-            double belief = finalGrade.getBelief(FinalGrade.GOOD.toString()) + finalGrade.getBelief(FinalGrade.VERY_GOOD.toString());
-            System.out.println ("\nProbability of a very good or good final grade " + belief);
-        } catch(NeticaException e)
+        } catch (NeticaException e)
         {
             throw new WhatToStudyException("A Netica based error occurred: " + e.getMessage());
         } finally
@@ -140,6 +95,151 @@ public class Evaluate implements Functionality
                     throw new WhatToStudyException("A Netica based error occurred during the finalization of the net.");
                 }
             }
+        }
+    }
+
+    /**
+     * Evaluates the stated case using the internal network and standard values.
+     * @param currentCase The case that is going to be evaluated
+     * @throws WhatToStudyException If an error occurs.
+     */
+    public void evaluateCase(Case currentCase) throws WhatToStudyException
+    {
+        Net net = null;
+        Environ env = null;
+        try
+        {
+            System.out.println("Starting to evaluate the stated case");
+            //Creating a new environment that is used as default environment later.
+            env = new Environ(null);
+
+            System.out.println("Loading network from internal file");
+            net = new Net(new Streamer(Thread.currentThread().getContextClassLoader()
+                    .getResourceAsStream(Main.internalFile), //Getting the network as java.io.InputStream from the Netica file
+                    "StudyNetwork", //Giving the Network a name
+                    env)); //Handling over the Environ
+
+            //Evaluating the case
+            evaluateCase(currentCase, net, env);
+
+        } catch (NeticaException e)
+        {
+            throw new WhatToStudyException("A Netica based error occurred: " + e.getMessage());
+        } finally
+        {
+            if(net != null)
+            {
+                try
+                {
+                    net.finalize();
+                } catch (NeticaException e)
+                {
+                    throw new WhatToStudyException("A Netica based error occurred during the finalization of the net.");
+                }
+            }
+            if(env != null)
+            {
+                try
+                {
+                    env.finalize();
+                } catch (NeticaException e)
+                {
+                    throw new WhatToStudyException("A Netica based error occurred during the finalization of the net.");
+                }
+            }
+        }
+    }
+
+    /**
+     * Evaluates the case using variable values.
+     * @param currentCase The case that is going to be evaluated
+     * @param net The net that is going to be used to evaluate the network
+     * @param env The environment used to evaluate the case
+     * @throws WhatToStudyException If an error occurs.
+     */
+    private void evaluateCase(Case currentCase, Net net, Environ env) throws WhatToStudyException
+    {
+        try
+        {
+            //Getting all nodes to set their values and calculating the belief.
+            Node age                    = net.getNode(Age.getHeader());
+            Node course                 = net.getNode(Course.getHeader());
+            Node german                 = net.getNode(German.getHeader());
+            Node math                   = net.getNode(Math.getHeader());
+            Node nationality            = net.getNode(Nationality.getHeader());
+            Node oltGerman              = net.getNode(OLTGerman.getHeader());
+            Node oltMath                = net.getNode(OLTMath.getHeader());
+            Node parentalIncome         = net.getNode(ParentalIncome.getHeader());
+            Node physics                = net.getNode(Physics.getHeader());
+            Node qualification          = net.getNode(Qualification.getHeader());
+            Node qualificationAverage   = net.getNode(QualificationAverage.getHeader());
+            Node schoolType             = net.getNode(SchoolType.getHeader());
+            Node sex                    = net.getNode(Sex.getHeader());
+            Node state                  = net.getNode(State.getHeader());
+            Node studyAbilityTest       = net.getNode(StudyAbilityTest.getHeader());
+
+            System.out.println("Compiling network.");
+            net.compile();
+
+            //Setting all values read from the file
+            if(age != null && currentCase.getAge() != null){
+                age.finding().enterState(currentCase.getAge().toString());
+            }
+            if(course != null && currentCase.getCourse() != null){
+                course.finding().enterState(currentCase.getCourse().toString());
+            }
+            if(german != null && currentCase.getGerman() != null){
+                german.finding().enterState(currentCase.getGerman().toString());
+            }
+            if(math != null && currentCase.getMath() != null){
+                math.finding().enterState(currentCase.getMath().toString());
+            }
+            if(nationality != null && currentCase.getNationality() != null){
+                nationality.finding().enterState(currentCase.getNationality().toString());
+            }
+            if(oltGerman != null && currentCase.getOLTGerman() != null){
+                oltGerman.finding().enterState(currentCase.getOLTGerman().toString());
+            }
+            if(oltMath != null && currentCase.getOLTMath() != null){
+                oltMath.finding().enterState(currentCase.getOLTMath().toString());
+            }
+            if(physics != null && currentCase.getPhysics() != null){
+                physics.finding().enterState(currentCase.getPhysics().toString());
+            }
+            if(qualification != null && currentCase.getQualification() != null){
+                qualification.finding().enterState(currentCase.getQualification().toString());
+            }
+            if(qualificationAverage != null && currentCase.getQualificationAverage() != null){
+                qualificationAverage.finding().enterState(currentCase.getQualificationAverage().toString());
+            }
+            if(schoolType != null && currentCase.getSchoolType() != null){
+                schoolType.finding().enterState(currentCase.getSchoolType().toString());
+            }
+            if(sex != null && currentCase.getSex() != null){
+                sex.finding().enterState(currentCase.getSex().toString());
+            }
+            if(state != null && currentCase.getState() != null){
+                state.finding().enterState(currentCase.getState().toString());
+            }
+            if(studyAbilityTest != null && currentCase.getStudyAbilityTest() != null){
+                studyAbilityTest.finding().enterState(currentCase.getStudyAbilityTest().toString());
+            }
+            if(parentalIncome != null && currentCase.getParentalIncome() != null){
+                parentalIncome.finding().enterState(currentCase.getParentalIncome().toString());
+            }
+
+            //Getting the decision values
+            Node decision = net.getNode("Decision");
+            float[] utils = decision.getExpectedUtils();
+
+            for(int i = 0; i < utils.length; i++)
+            {
+                if(currentCase.getCourse() == null || currentCase.getCourse().toString().equals(decision.state(i)))
+                System.out.println("The expected utility for the course " + decision.state(i) + " is " + utils[i]);
+            }
+        } catch(NeticaException e)
+        {
+            throw new WhatToStudyException("A Netica based error occurred: " + e.getMessage());
         }
     }
 }

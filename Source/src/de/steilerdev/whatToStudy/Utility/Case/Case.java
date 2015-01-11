@@ -38,32 +38,34 @@ public class Case
     private State state;
     private StudyAbilityTest studyAbilityTest;
 
+    //Special options for a course object
     private static String delimiter = " ";
+    private static String dummy = "";
 
     /**
      * Creating the correct line for the specific case using the delimiter and appending a \n at the end of the string.
-     * @return
+     * @return A string that can be used by Netica to evaluate or learn the case.
      */
     @Override
     public String toString()
     {
         StringBuffer buffer = new StringBuffer();
-        buffer.append(qualification.toString() + delimiter);
-        buffer.append(qualificationAverage.toString() + delimiter);
-        buffer.append(state.toString() + delimiter);
-        buffer.append(math.toString() + delimiter);
-        buffer.append(physics.toString() + delimiter);
-        buffer.append(german.toString() + delimiter);
-        buffer.append(schoolType.toString() + delimiter);
-        buffer.append(oltMath.toString() + delimiter);
-        buffer.append(oltGerman.toString() + delimiter);
-        buffer.append(studyAbilityTest.toString() + delimiter);
-        buffer.append(age.toString() + delimiter);
-        buffer.append(sex.toString() + delimiter);
-        buffer.append(parentalIncome.toString() + delimiter);
-        buffer.append(nationality.toString() + delimiter);
-        buffer.append(course.toString() + delimiter);
-        buffer.append(finalGrade.toString());
+        buffer.append(qualification != null? qualification.toString() + delimiter: dummy);
+        buffer.append(qualificationAverage != null? qualificationAverage.toString() + delimiter: dummy);
+        buffer.append(state != null? state.toString() + delimiter: dummy);
+        buffer.append(math != null? math.toString() + delimiter: dummy);
+        buffer.append(physics != null? physics.toString() + delimiter: dummy);
+        buffer.append(german != null? german.toString() + delimiter: dummy);
+        buffer.append(schoolType != null? schoolType.toString() + delimiter: dummy);
+        buffer.append(oltMath != null? oltMath.toString() + delimiter: dummy);
+        buffer.append(oltGerman != null? oltGerman.toString() + delimiter: dummy);
+        buffer.append(studyAbilityTest != null? studyAbilityTest.toString() + delimiter: dummy);
+        buffer.append(age != null? age.toString() + delimiter: dummy);
+        buffer.append(sex != null? sex.toString() + delimiter: dummy);
+        buffer.append(parentalIncome != null? parentalIncome.toString() + delimiter: dummy);
+        buffer.append(nationality != null? nationality.toString() + delimiter: dummy);
+        buffer.append(course != null? course.toString() + delimiter: dummy);
+        buffer.append(finalGrade != null? finalGrade.toString(): dummy);
         return buffer.toString();
     }
 
