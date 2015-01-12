@@ -189,7 +189,7 @@ Evaluation mode can be entered by passing the \texttt{-e} command line argument 
 
 If the student's course is stated within the file, the program is going to evaluate the recommendation rate using the formula shown in figure \ref{equ:EvaluationFormula}. This evaluation was chosen based on testing experience using the provided data and the test mode described in section \vref{sec:Test}. By using this formula the general error rate of a wrong prediction is at 2\% and therefore double as high as choosing the conservative formula shown in figure \vref{equ:ConservativeEvaluationFormula}, but its non-acceptable error rate is 0\% and therefore performs better than the conservative formula.
 
-A non-acceptable error is a true negative error, saying the program is recommending the user to study the course, even if the user is, based on the experience of the network, not going to succeed. Concluding an acceptable error is a false positive one, where the program is discouraging a student to attend the course, even if he would succeed. Since we really did not want to give false negative prediction we were trying to reduce the amount of this kind of error, even if we therefore have to take a slightly higher overall error rate into account.
+A non-acceptable error is a false negative error, saying the program is recommending the user to study the course, even if the user is, based on the experience of the network, not going to succeed. Concluding an acceptable error is a false positive one, where the program is discouraging a student to attend the course, even if he would succeed. Since we really did not want to give false negative prediction we were trying to reduce the amount of this kind of error, even if we therefore have to take a slightly higher overall error rate into account.
 
 If the case within the file is not stating the course the student wants to attend, the evaluation is checking the likeliness of a recommendation of every available course by entering the appropriate state within the network and then returning the course with the highest recommendation rate. That means that the program is recommending the course, where the student is most likely going to get a very good or good grade.
 
@@ -201,27 +201,48 @@ The draw mode can be entered by passing the \texttt{-d} argument to the applicat
 Optionally the user can specify a bayesian network, other than the one packaged with the application to be drawn. To do so he can pass the path to the network file as a second, optional argument. The file path needs to not contain any white spaces, since those can't be handled by the Java command line interface.
 
 \subsection{Learning mode}
+A user can enter the learning mode by passing the \texttt{-l} argument as well as the path to a case file (which should not contain any white spaces). The file needs to meet the requirements stated within section \vref{sec:CaseFile}. This mode is using the provided data set to learn the values for the conditional probability tables (CPT) of the network.
+
+Before starting the learning process, every stored value within the CPTs is removed, to avoid unsuitable inference. The used learning algorithm is the \enquote{expectation-maximization (EM) algorithm}. The reason of choosing this algorithm over the other available ones is given in chapter \vref{chapter:Learning}.
+
+After the learning process is finished, the application is writing a file called \enquote{Learned.dne} into the current working directory, overwriting any equally named file. This file is containing all necessary specification for the network as well as the learned CPTs.
+
+Optionally the user can specify a bayesian network, other than the one packaged with the application, whose CPTs should be learned. To do so he can pass the path to the network file as a third, optional argument. The file path needs to not contain any white spaces, since those can't be handled by the Java command line interface.
 
 \subsection{Testing mode}
 \label{sec:Test}
+To enter the testing mode the user needs to pass the \texttt{-t} argument together with the whitespace-free path to a case file. The cases in the file need to meet the stated requirements for the input files, described in section \vref{sec:CaseFile}.
+
+The test is taking every case, including the information about the course, excluding the final grade, to evaluate the recommendation rate, giving either a recommendation for or against the choice. This recommendation is then compared with the real outcome of the case.
+
+No error occurs, if the program is recommending the student to study the course and he actually achieved a good or very good grade, which would be a true positive prediction. Another correct prediction would be, if the program is discouraging the student to study the selected course and he actually failed or only achieved a satisfying grade, which would be a true negative prediction.
+
+A false positive recommendation is given, if the program discourages the student to study the course, even if he actually achieved a very good or good grade. Concluding the program is giving a false negative prediction if he encourages the student to study the course even if actually failed or only achieved a satisfying grade. A false negative prediction, in contrast to a false positive one, is seen as a non-acceptable error, because we really do not want to encourage a person to waste his time by studying a course he is most likely going to fail. This kind of error should therefore been prevented by all means, even if this means that the overall amount of error is increasing.
+
+At the end of the testing process the program prints out a table containing the result of the test, aggregate into the four categories described in the previous paragraphs. On top of that it provides the error rate (amount of errors over the amount of tests) and the non-acceptable error rate (amount of non-acceptable error over the amount of tests). In an optimal network both rates are as low as possible, but the network should at least be designed in a way to keep the non-acceptable error rate as small as possible.
+
+Optionally the user can specify a bayesian network, other than the one packaged with the application, whose quality should be tested. To do so he can pass the path to the network file as a third, optional argument. The file path needs to not contain any white spaces, since those can't be handled by the Java command line interface.
+
 \subsection{Help mode}
 \label{sec:Help}
-\subsection{Version printing mode}
+To enter the help mode the user needs to either pass the \texttt{-h} command line argument or any non-valid argument. This mode is printing out a summary of the general usage of the program, as well as the specification of an input file. This specification is also shown in section \vref{sec:CaseFile}.
+
+\subsection{Version mode}
+The version mode is entered by passing the \texttt{-v} argument to the program. This mode is printing out the version number of the application, as well as a list of person involved at creating the application, further acknowledgements, a link to the Github repository of the application and the licensing notice.
 
 \section{Case file handling}
 \label{sec:CaseFile}
+
 %Include source code from file using:
 %\lstinputlisting[caption=Expected output for the program (implemented using the Bridge design pattern)]{./Source/de/steilerdev/swe/Bridge/output}
 
-\lstlistoflistings
+%\lstlistoflistings
 \printbibliography
 
 \begin{appendices}
-
-%Include pdf for appendix using:
-\includepdf[landscape=true,pages=-,addtotoc={1,chapter,0,Bayesian Network,app:Network}]{./assets/StudyNet_Optimal.png}
-\includepdf[landscape=true,pages=-,addtotoc={1,chapter,0,Data set represented by parallel coordinates,app:Parallel}]{./assets/Parallel.png}
-
+%Include pdf for appendix:
+    \includepdf[landscape=true,pages=-,addtotoc={1,chapter,0,Bayesian Network,app:Network}]{./assets/StudyNet_Optimal.png}
+    \includepdf[landscape=true,pages=-,addtotoc={1,chapter,0,Data set represented by parallel coordinates,app:Parallel}]{./assets/Parallel.png}
 \end{appendices}
 
 \end{document}
