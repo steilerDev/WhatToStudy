@@ -23,7 +23,7 @@ public class Main {
     /**
      * The fully qualified path of the internal file.
      */
-    public static final String internalFile = "de/steilerdev/whatToStudy/Network/StudyNet.dne";
+    public static final String internalFile = "de/steilerdev/whatToStudy/Network/StudyNet_small.dne";
 
     /**
      * This function is called, at the startup of the application.

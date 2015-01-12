@@ -253,9 +253,9 @@ public class Evaluate implements Functionality
             if(currentCase.getCourse() != null) //If the user stated a course, give him a recommendation for or against the course
             {
                 //Recommend the course if it is going to be a good or a very good grade
-                double recommendationFor = finalGrade.getBelief(FinalGrade.VERY_GOOD.toString()) + (2*finalGrade.getBelief(FinalGrade.GOOD.toString())/3);
+                double recommendationFor = getBeliefForRecommendation(finalGrade);
                 //Recommend against the course if it is going to be a satisfying of failed grade
-                double recommendationAgainst = (finalGrade.getBelief(FinalGrade.GOOD.toString())/3) + finalGrade.getBelief(FinalGrade.SATISFYING.toString()) + finalGrade.getBelief(FinalGrade.FAILED.toString());
+                double recommendationAgainst = getBeliefAgainstRecommendation(finalGrade);
 
                 System.out.println();
                 System.out.println("~~~~~~~~~");
@@ -332,7 +332,19 @@ public class Evaluate implements Functionality
     {
         courseNode.finding().clear();
         courseNode.finding().enterState(course.toString());
-        return finalGrade.getBelief(FinalGrade.VERY_GOOD.toString()) + finalGrade.getBelief(FinalGrade.GOOD.toString());
+        return getBeliefForRecommendation(finalGrade);
+    }
+
+    /**
+     * This function returns the belief for recommending studying using the information of the current network
+     * @param finalGrade The final grade node within the network
+     * @return The belief of having a very good or good grade with the selected course.
+     * @throws NeticaException If an error occurs
+     */
+    private double getBeliefForRecommendation(Node finalGrade) throws NeticaException
+    {
+        //return finalGrade.getBelief(FinalGrade.VERY_GOOD.toString()) + finalGrade.getBelief(FinalGrade.GOOD.toString());
+        return finalGrade.getBelief(FinalGrade.VERY_GOOD.toString()) + (2*finalGrade.getBelief(FinalGrade.GOOD.toString())/3);
     }
 
     /**
@@ -347,6 +359,18 @@ public class Evaluate implements Functionality
     {
         courseNode.finding().clear();
         courseNode.finding().enterState(course.toString());
-        return finalGrade.getBelief(FinalGrade.SATISFYING.toString()) + finalGrade.getBelief(FinalGrade.FAILED.toString());
+        return getBeliefAgainstRecommendation(finalGrade);
+    }
+
+    /**
+     * This function returns the belief for not recommending studying using the information of the current network
+     * @param finalGrade The final grade node within the network
+     * @return The belief of having a satisfying of failed grade with the selected course.
+     * @throws NeticaException If an error occurs
+     */
+    private double getBeliefAgainstRecommendation(Node finalGrade) throws NeticaException
+    {
+        //return finalGrade.getBelief(FinalGrade.SATISFYING.toString()) + finalGrade.getBelief(FinalGrade.FAILED.toString());
+        return (finalGrade.getBelief(FinalGrade.GOOD.toString())/3) + finalGrade.getBelief(FinalGrade.SATISFYING.toString()) + finalGrade.getBelief(FinalGrade.FAILED.toString());
     }
 }

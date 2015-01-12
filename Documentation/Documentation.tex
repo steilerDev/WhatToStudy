@@ -131,24 +131,18 @@ To determine whether or not our Bayesian network is suited to predict the final 
 
 The generation of the final network was an iterative process, changing the arcs, CPTs and/or entities within each step. After changing the structure, we determined the new error rate and compared it to the previous one. By using this process we were able to improve the overall performance of the network. In the end, all our considerations at the beginning proved as wrong, since there is no indirect influence on a variable, only direct.
 
-We were able to achieved an error rate of 11\%, predicting the course taken, and 4\%, predicting the final grade of a student. Appendix \vref{app:Network} is showing our final Bayesian network. The implementation documented in chapter \vref{chapter:WhatToStudy} is using this network to recommend for or against studying a specific course.
+We were able to achieved an error rate of 14\%, predicting the course taken, and 6\%, predicting the final grade of a student. Appendix \vref{app:Network} is showing our final Bayesian network. The implementation documented in chapter \vref{chapter:WhatToStudy} is using this network to recommend for or against studying a specific course.
 
 The tool we used to specify our Bayesian network is called Netica, unfortunately we only had access to a limited version of this program. Concluding, it was necessary to limit our data set to 15 entities. Therefore we had to leave out at least one piece of information and take a slightly more imprecise result into account. We chose to ignore the information about the state, even though it improved the error rate significantly, when taking only 5 of 16 states into account. Unfortunately it is necessary to accept all 16 available states, since all of them could be chosen. This resulted in an entity with 16 different parameter values, which were too much to handle for Netica. Since it was not reasonable to allow only 5 parameter values, we decided to leave this entity out of consideration. Furthermore we left out the income of the parents and the nationality, since these did not provide any gain in information to the network.
 
-\chapter{Learning conditional probability tables (CPT)}
-After creating a draft of the network layout, containing all plausible node connections, we hat to quantify the dependencies between nodes within the conditional probability tables (CPT). Since we were not able to consult an expert about this problem we chose to use machine learning algorithms to generate the tables.
+\chapter{Learning conditional probability tables}
+After creating a draft of the network layout, containing all plausible node connections, we had to quantify the dependencies between nodes within the conditional probability tables (CPT). Since we were not able to consult an expert about this problem we chose to use machine learning algorithms to generate the tables.
 
-Fortunately the tool we used to specify the network offered a set of machine learning algorithms to generate the CPTs from a data set. These include a \enquote{counting algorithm}, an \enquote{expectation-maximization (EM) algorithm} and a \enquote{gradient descent algorithm}.
+Fortunately the tool we used to specify the network offered a set of machine learning algorithms to generate the CPTs from a data set. These include a \enquote{counting algorithm}, an \enquote{expectation-maximization (EM) algorithm} and a \enquote{gradient descent algorithm}. According to the documentation of the tool the \enquote{counting algorithm} is the simplest and fastest. This algorithm is especially well performing when having no uncertainty or missing data. Concluding if the data set has missing values, the user should either choose the \enquote{EM-algorithm} or the \enquote{gradient descent algorithm}. The performance of either is highly depending on the data set and network structure. Therefore the selection of one algorithm over the other needs to be done by directly comparing their performance. \cite[p. 47]{Corp.:2010aa} 
 
-%Rest not reviewed yet.
+After comparing the performance of each algorithm using our set of data, we chose to use the \enquote{expectation-maximization (EM) algorithm}, since it fitted our needs best. \enquote{Briefly, Expectation Maximization learning repeatedly takes a Bayes net and uses it to find a better one by doing an expectation step followed by a maximization step. In the expectation step, it uses regular Bayes net inference with the existing Bayes net to compute the expected value of all the missing data, and then the maximization step finds the maximum likelihood Bayes net given the now extended data.} \cite[p. 48]{Corp.:2010aa}
 
-Netica offers three different functions to learn the CPTs from data. After testing each of the learning algorithms, we could achieve the best results with the Expectation Maximization Algorithm.
-
-"Briefly, E[xpectation] M[aximization] learning repeatedly takes a Bayes net and uses it to find a better one by doing an expectation (E) step followed by a maximization (M) step. In the E step, it uses regular Bayes net inference with the existing Bayes net to compute the expected value of all the missing data, and then the M step finds the maximum likelihood Bayes net given the now extended data". \cite[p. 48]{Corp.:2010aa}
-
-Other learning algorithms offered were counting, which is the simplest and fastest one, and gradient descent. Gradient Descent is faster than Expectation Maximization, whereas the latter one is more robust. Both perform better than counting, if there are missing values.
-
-Appendix \vref{app:Parallel} shows all trainings data in a parallel coordinate system. All these cases were taken into the calculation of the CPTs.
+After applying the algorithm with several hundert iterations using the provided data set we could create a network that reliably predicted the final grade and therefore could give a recommendation based on all provided values. As mentioned earlier the error rate at predicting the final grade correctly is 6\%. Testing the quality of the network based on the correct recommendation of studying the selected course achieves an error rate of 2\%, where no error is false positive (Recommending the course even if the student is probably not going to succeed). This testing is done within the application and its precise documentation can be found in section \vref{sec:Test}.
 
 \chapter{Implementation - WhatToStudy}
 \label{chapter:WhatToStudy}
@@ -159,6 +153,7 @@ Appendix \vref{app:Parallel} shows all trainings data in a parallel coordinate s
 \subsection{Evaluation mode}
 \subsection{Draw mode}
 \subsection{Learning mode}
+\label{sec:Test}
 \subsection{Testing mode}
 \subsection{Help mode}
 \subsection{Version printing mode}
