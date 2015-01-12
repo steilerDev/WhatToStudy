@@ -76,7 +76,7 @@ public enum State
         }
     },
     /**
-     * This value is representing the German state of Hamburg and is converted to the Netica compliant String "Hh".
+     * This value is representing the German state of Hamburg and is converted to the Netica compliant String "HH".
      */
     HAMBURG {
         @Override

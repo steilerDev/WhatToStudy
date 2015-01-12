@@ -24,6 +24,7 @@ public class Version implements Functionality
     /**
      * Printing out the version information.
      * @param args The command line arguments stated during the call of the application.
+     *             The first argument is "-v".
      */
     @Override
     public void run(String[] args)

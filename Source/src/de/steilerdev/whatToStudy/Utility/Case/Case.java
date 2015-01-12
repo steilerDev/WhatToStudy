@@ -17,7 +17,7 @@
 package de.steilerdev.whatToStudy.Utility.Case;
 
 /**
- * This class is representing a case used by the netica network.
+ * This class is representing a case used by the Netica network.
  */
 public class Case
 {
@@ -43,7 +43,7 @@ public class Case
     private static String dummy = "";
 
     /**
-     * Creating the correct line for the specific case using the delimiter and appending a \n at the end of the string.
+     * Creating the correct line for the specific case using the delimiter.
      * @return A string that can be used by Netica to evaluate or learn the case.
      */
     @Override

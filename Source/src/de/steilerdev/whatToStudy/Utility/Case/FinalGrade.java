@@ -19,7 +19,6 @@ package de.steilerdev.whatToStudy.Utility.Case;
 import de.steilerdev.whatToStudy.Exception.WhatToStudyException;
 import de.steilerdev.whatToStudy.Main;
 
-import javax.swing.text.html.Option;
 import java.text.ParseException;
 import java.util.Arrays;
 import java.util.Optional;
@@ -29,48 +28,44 @@ import java.util.Optional;
  */
 public enum FinalGrade
 {
+    /**
+     * This value is representing a very good grade (1.0 - 2.0) in German and is converted to the Netica compliant String "Very_Good".
+     */
     VERY_GOOD
     {
-        /**
-         * A nice formatted output handed over to Netica to evaluate it.
-         * @return The name of this enum constant used by Netica
-         */
         @Override
         public String toString()
         {
             return "Very_Good";
         }
     },
+    /**
+     * This value is representing a good grade (2.0 - 3.0) in German and is converted to the Netica compliant String "Good".
+     */
     GOOD
     {
-        /**
-         * A nice formatted output handed over to Netica to evaluate it.
-         * @return The name of this enum constant used by Netica
-         */
         @Override
         public String toString()
         {
             return "Good";
         }
     },
+    /**
+     * This value is representing a satisfying grade (3.0 - 4.0) in German and is converted to the Netica compliant String "Satisfying".
+     */
     SATISFYING
     {
-        /**
-         * A nice formatted output handed over to Netica to evaluate it.
-         * @return The name of this enum constant used by Netica
-         */
         @Override
         public String toString()
         {
             return "Satisfying";
         }
     },
+    /**
+     * This value is representing a failed (&gt; 4.0) German grade and is converted to the Netica compliant String "Failed".
+     */
     FAILED
     {
-        /**
-         * A nice formatted output handed over to Netica to evaluate it.
-         * @return The name of this enum constant used by Netica
-         */
         @Override
         public String toString()
         {
@@ -80,7 +75,7 @@ public enum FinalGrade
 
     /**
      * Creates the header for the final grade column used by Netica.
-     * @return The header for the final grade column used by Netica
+     * @return The header used by Netica: "Final_Grade"
      */
     public static String getHeader()
     {
@@ -88,7 +83,7 @@ public enum FinalGrade
     }
 
     /**
-     * A list of valid headers accepted from an input file.
+     * A list of valid headers accepted from an input.
      * These include: Zwischenkalk, Abschluss, Final_Grade
      * @return An array of Strings that are considered as a valid header.
      */
@@ -98,9 +93,10 @@ public enum FinalGrade
     }
 
     /**
-     * Validates the stated string against the stored valid header strings.
+     * Validates the stated String against the specified {@link #getValidHeaders valid header strings}.
+     * @see #getValidHeaders
      * @param header The header read from a file
-     * @return True if the header is considered as valid, false otherwise.
+     * @return True if the header is considered valid, false otherwise.
      */
     public static boolean validateHeader(String header)
     {

@@ -19,7 +19,6 @@ package de.steilerdev.whatToStudy.Utility.Case;
 import de.steilerdev.whatToStudy.Exception.WhatToStudyException;
 import de.steilerdev.whatToStudy.Main;
 
-import javax.swing.text.html.Option;
 import java.text.ParseException;
 import java.util.Arrays;
 import java.util.Optional;

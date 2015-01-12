@@ -26,36 +26,33 @@ import java.util.Optional;
  */
 public enum Age
 {
+    /**
+     * This value is representing a young person (In this context: Younger than 18) and is converted to the Netica compliant String "Young".
+     */
     YOUNG
     {
-        /**
-         * A nice formatted output handed over to Netica to evaluate it.
-         * @return The name of this enum constant used by Netica
-         */
         @Override
         public String toString()
         {
             return "Young";
         }
     },
+    /**
+     * This value is representing an average old person (In this context: Older than 18 and younger than 23) and is converted to the Netica compliant String "Average".
+     */
     AVERAGE
     {
-        /**
-         * A nice formatted output handed over to Netica to evaluate it.
-         * @return The name of this enum constant used by Netica
-         */
         @Override
         public String toString()
         {
             return "Average";
         }
     },
+    /**
+     * This value is representing an old person (In this context: Older than 22) and is converted to the Netica compliant String "Old".
+     */
     OLD
     {
-        /**
-         * A nice formatted output handed over to Netica to evaluate it.
-         * @return The name of this enum constant used by Netica
-         */
         @Override
         public String toString()
         {
@@ -64,8 +61,8 @@ public enum Age
     };
 
     /**
-     * Creates the header for the age column used by Netica.
-     * @return The header for the age column used by Netica
+     * Creates the header for the Age column used by Netica.
+     * @return The header used by Netica: "Age"
      */
     public static String getHeader()
     {
@@ -73,7 +70,7 @@ public enum Age
     }
 
     /**
-     * A list of valid headers accepted from an input file.
+     * A list of valid headers accepted from an input.
      * These include: Alter, Age
      * @return An array of Strings that are considered as a valid header.
      */
@@ -83,9 +80,10 @@ public enum Age
     }
 
     /**
-     * Validates the stated string against the stored valid header strings.
+     * Validates the stated String against the specified {@link #getValidHeaders valid header strings}.
+     * @see #getValidHeaders
      * @param header The header read from a file
-     * @return True if the header is considered as valid, false otherwise.
+     * @return True if the header is considered valid, false otherwise.
      */
     public static boolean validateHeader(String header)
     {

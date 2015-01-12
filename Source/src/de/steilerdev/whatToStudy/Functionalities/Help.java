@@ -28,6 +28,7 @@ public class Help implements Functionality
     /**
      * Printing out the help page.
      * @param args The command line arguments stated during the call of the application.
+     *             The first argument is "-h" or any set of non valid arguments.
      */
     @Override
     public void run(String args[])

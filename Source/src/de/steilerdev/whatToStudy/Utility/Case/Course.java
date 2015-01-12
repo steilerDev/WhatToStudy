@@ -26,42 +26,42 @@ import java.util.Optional;
  */
 public enum Course
 {
+    /**
+     * This value is representing the electric engineering course and is converted to the Netica compliant String "E_Engineering".
+     */
     E_ENGINEERING
     {
-        /**
-         * A nice formatted output handed over to Netica to evaluate it.
-         * @return The name of this enum constant used by Netica
-         */
         @Override
         public String toString()
         {
             return "E_Engineering";
         }
     },
+    /**
+     * This value is representing the computer science course and is converted to the Netica compliant String "C_Science".
+     */
     C_SCIENCE
     {
-        /**
-         * A nice formatted output handed over to Netica to evaluate it.
-         * @return The name of this enum constant used by Netica
-         */
         @Override
         public String toString()
         {
             return "C_Science";
         }
     },
+    /**
+     * This value is representing the engineering course and is converted to the Netica compliant String "Engineering".
+     */
     ENGINEERING
     {
-        /**
-         * A nice formatted output handed over to Netica to evaluate it.
-         * @return The name of this enum constant used by Netica
-         */
         @Override
         public String toString()
         {
             return "Engineering";
         }
     },
+    /**
+     * This value is representing the social work course and is converted to the Netica compliant String "W_Work".
+     */
     S_WORK
     {
         /**
@@ -74,6 +74,9 @@ public enum Course
             return "S_Work";
         }
     },
+    /**
+     * This value is representing the economics course and is converted to the Netica compliant String "Economics".
+     */
     ECONOMICS
     {
         /**
@@ -89,7 +92,7 @@ public enum Course
 
     /**
      * Creates the header for the course column used by Netica.
-     * @return The header for the course column used by Netica
+     * @return The header used by Netica: "Course"
      */
     public static String getHeader()
     {
@@ -97,7 +100,7 @@ public enum Course
     }
 
     /**
-     * A list of valid headers accepted from an input file.
+     * A list of valid headers accepted from an input.
      * These include: Studiengang, Course
      * @return An array of Strings that are considered as a valid header.
      */
@@ -107,9 +110,10 @@ public enum Course
     }
 
     /**
-     * Validates the stated string against the stored valid header strings.
+     * Validates the stated String against the specified {@link #getValidHeaders valid header strings}.
+     * @see #getValidHeaders
      * @param header The header read from a file
-     * @return True if the header is considered as valid, false otherwise.
+     * @return True if the header is considered valid, false otherwise.
      */
     public static boolean validateHeader(String header)
     {
@@ -118,7 +122,6 @@ public enum Course
 
     /**
      * This function is cleaning and validating a String for the course property, to enable its use within the network.
-     * The function is accepting a String
      * @param course The input String, being one of the following: E_Engineering, C_Science, Engineering, S_Work, Economics, Elektrotechnik, Informatik, Maschinenbau, Soziale Arbeit, Wirtschaftswissenschaften
      * @return The appropriate enumeration.
      * @throws WhatToStudyException If the input does not fit the requirements.

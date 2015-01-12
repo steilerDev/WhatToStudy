@@ -24,13 +24,9 @@ import de.steilerdev.whatToStudy.Utility.Case.Math;
 import de.steilerdev.whatToStudy.Utility.Case.State;
 import norsys.netica.*;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Enumeration;
 import java.util.stream.Collectors;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipInputStream;
 
 /**
  * This class is using the stored network or a user defined one to evaluate if the system can recommend the user to study a specific course.
@@ -45,7 +41,8 @@ public class Evaluate implements Functionality
 
     /**
      * This function is loading the stored network or a user specified one and evaluates the given data against it. As a result the likeness of a very good or good grade is given.
-     * @param args The command line arguments stated during the call of the application. In this case it should be -e and the path to a CSV file, that needs to be evaluated.
+     * @param args The command line arguments stated during the call of the application.
+     *             The first argument is "-e", the second one is a CSV case file meeting its requirements and the third (optional) one is the file path to a user specified network file.
      * @throws WhatToStudyException If an error occurs.
      */
     @Override

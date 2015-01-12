@@ -17,14 +17,15 @@
 package de.steilerdev.whatToStudy.Functionalities;
 
 import de.steilerdev.whatToStudy.Exception.WhatToStudyException;
-
-import javax.swing.*;
-
 import de.steilerdev.whatToStudy.Main;
-import norsys.netica.*;
+import norsys.netica.Environ;
 import norsys.netica.Net;
+import norsys.netica.NeticaException;
+import norsys.netica.Streamer;
 import norsys.netica.gui.NetPanel;
 import norsys.netica.gui.NodePanel;
+
+import javax.swing.*;
 
 /**
  * This class is drawing a user selected network, or the internal stored one.
@@ -32,8 +33,9 @@ import norsys.netica.gui.NodePanel;
 public class Draw extends JFrame implements Functionality
 {
     /**
-     * Showing the selected network.
+     * Drawing the selected network.
      * @param args The command line arguments stated during the call of the application.
+     *             The first argument is "-d" and the second (optional) one is the file path to a user specified network file.
      * @throws WhatToStudyException If an error occurs.
      */
     @Override

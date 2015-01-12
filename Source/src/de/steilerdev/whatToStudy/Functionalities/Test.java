@@ -19,8 +19,12 @@ package de.steilerdev.whatToStudy.Functionalities;
 import de.steilerdev.whatToStudy.Exception.WhatToStudyException;
 import de.steilerdev.whatToStudy.Main;
 import de.steilerdev.whatToStudy.Utility.CSVStreamer;
-import de.steilerdev.whatToStudy.Utility.Case.*;
-import norsys.netica.*;
+import de.steilerdev.whatToStudy.Utility.Case.Case;
+import de.steilerdev.whatToStudy.Utility.Case.FinalGrade;
+import norsys.netica.Environ;
+import norsys.netica.Net;
+import norsys.netica.NeticaException;
+import norsys.netica.Streamer;
 
 import java.util.ArrayList;
 
@@ -64,6 +68,7 @@ public class Test implements Functionality
     /**
      * This functionality is testing the quality of the network using a set of data.
      * @param args The command line arguments stated during the call of the application.
+     *             The first argument is "-t", the second one is a CSV case file meeting its requirements and the third (optional) one is the file path to a user specified network file.
      * @throws WhatToStudyException If an error occurs.
      */
     @Override

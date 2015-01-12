@@ -32,6 +32,7 @@ public class Interactive implements Functionality
     /**
      * This function is executing the interactive mode, reading the input and evaluating it.
      * @param args The command line arguments stated during the call of the application.
+     *             This array should be empty.
      */
     @Override
     public void run(String[] args) throws WhatToStudyException

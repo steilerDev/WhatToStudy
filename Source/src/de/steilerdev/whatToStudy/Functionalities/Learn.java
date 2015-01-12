@@ -29,8 +29,14 @@ public class Learn implements Functionality
     //Specific options for the learning process
     private static int learningAlgorithm = Learner.EM_LEARNING;
     private static int learningIterations = 200;
-    private static String fileName = "Learned.dne";
+    private static String outputFileName = "Learned.dne";
 
+    /**
+     * This function is performing the learning process and is writing the new network.
+     * @param args The command line arguments stated during the call of the application.
+     *             The first argument is "-l", the second one is a CSV case file meeting its requirements and the third (optional) one is the file path to a user specified network file.
+     * @throws WhatToStudyException If an error occurs.
+     */
     @Override
     public void run(String[] args) throws WhatToStudyException
     {
@@ -93,8 +99,8 @@ public class Learn implements Functionality
             learner.learnCPTs(nodes, cases, 1.0);
 
             //Saving the learned CPT's
-            System.out.println("Writing file \"" + fileName + "\"");
-            net.write(new Streamer(fileName));
+            System.out.println("Writing file \"" + outputFileName + "\"");
+            net.write(new Streamer(outputFileName));
             System.out.println("Finished learning!");
         } catch (NeticaException e)
         {
