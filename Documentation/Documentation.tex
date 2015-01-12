@@ -106,7 +106,7 @@ A probabilistic network is using conditional probabilities between the nodes of 
 
 A Bayesian Network is defined by a set of edges (nodes) connected through vertices within a graph: $D=(V,E)$. Every node has finite set of mutually exclusive states. On top of that the network is quantifying the dependencies within a separated conditional probability table (CPT) for each node. \cite{Vomlel:2005aa}
 
-Concluding to create and then use a Bayesian Network, a user has to create the correct graph first and then determine all values for the CPT. A correct network can either be created by an expert, by using data mining techniques to find connections between entities and machine learning to specify the CPT values. 
+Concluding to create and then use a Bayesian Network, a user has to create the correct graph first and then determine all values for the CPT. A correct network can either be created by an expert, or by using data mining techniques to find connections between entities and machine learning to specify the CPT values. 
 
 By adding observations for a specific case to the network, it is updating beliefs about other variables. Furthermore the probability of a certain event or state can be predicted by observing other events or states. Therefore it can support decision making and has numerous applications, like the diagnosis of diseases, automatic troubleshooting or education testing. \cite{Vomlel:2005aa}
 
@@ -130,7 +130,7 @@ On top of that we thought about logical connections, e.g. the mathematics', Germ
 
 To determine whether or not our Bayesian network is suited to predict the final grade of a specific student, we tested it using the provided data set. This test tried to predict the final grade of a person, using all available information from the data excluding the actual course and the actual final grade. By comparing the predicted and the actual result, we received an error rate for our network. We used this error rate to compare different versions of the network.
 
-The generation of the final network was an iterative process, changing the arcs, CPTs and/or entities within each step. After changing the structure, we determined the new error rate and compared it to the previous one. By using this process we were able to improve the overall performance of the network. In the end, all our considerations at the beginning proved as wrong, since there is no indirect influence on a variable, only direct.
+The generation of the final network was an iterative process, changing the arcs, CPTs and/or entities within each step. After changing the structure, we determined the new error rate and compared it to the previous one. By using this process we were able to improve the overall performance of the network. In the end, all our considerations at the beginning proved as wrong, since there is no indirect influence on a variable, only direct ones.
 
 We were able to achieved an error rate of 11\%, predicting the course taken, and 4\%, predicting the final grade of a student. Appendix \vref{app:Network} is showing our final Bayesian network. The implementation documented in chapter \vref{chapter:WhatToStudy} is using a slightly different Network, since the optimal one is too big, resulting in a out of memory error of the Java virtual machine. In the adjusted net the gender of a person is no longer considered, to reduce its size. Nevertheless, the error rate only rises slightly to 14\%, respectively 6\%. This network is then used to recommend for or against studying a specific course. 
 
@@ -142,9 +142,9 @@ After creating a draft of the network layout, containing all plausible node conn
 
 Fortunately the tool we used to specify the network offered a set of machine learning algorithms to generate the CPTs from a data set. These include a \enquote{counting algorithm}, an \enquote{expectation-maximization (EM) algorithm} and a \enquote{gradient descent algorithm}. According to the documentation of the tool the \enquote{counting algorithm} is the simplest and fastest. This algorithm is especially well performing when having no uncertainty or missing data. Concluding if the data set has missing values, the user should either choose the \enquote{EM-algorithm} or the \enquote{gradient descent algorithm}. The performance of either is highly depending on the data set and network structure. Therefore the selection of one algorithm over the other needs to be done by directly comparing their performance. \cite[p. 47]{Corp.:2010aa} 
 
-After comparing the performance of each algorithm using our set of data, we chose to use the \enquote{expectation-maximization (EM) algorithm}, since it fitted our needs best. \enquote{Briefly, Expectation Maximization learning repeatedly takes a Bayes net and uses it to find a better one by doing an expectation step followed by a maximization step. In the expectation step, it uses regular Bayes net inference with the existing Bayes net to compute the expected value of all the missing data, and then the maximization step finds the maximum likelihood Bayes net given the now extended data.} \cite[p. 48]{Corp.:2010aa}
+After evaluating the performance of each algorithm using our set of data, we chose to use the \enquote{expectation-maximization (EM) algorithm}, since it fitted our needs best. \enquote{Briefly, Expectation-Maximization learning repeatedly takes a Bayes net and uses it to find a better one by doing an expectation step followed by a maximization step. In the expectation step, it uses regular Bayes net inference with the existing Bayes net to compute the expected value of all the missing data, and then the maximization step finds the maximum likelihood Bayes net given the now extended data.} \cite[p. 48]{Corp.:2010aa}
 
-After applying the algorithm with several hundert iterations using the provided data set we could create a network that reliably predicted the final grade and therefore could give a recommendation based on all provided values. As mentioned earlier the error rate at predicting the final grade correctly is 4\%. Testing the quality of the network based on the correct recommendation of studying the selected course and using the worse network mentioned in chapter \vref{chapter:Learning}, achieves an error rate of 2\%, where no error is false positive (Recommending the course even if the student is probably not going to succeed). This testing is done within the application and its precise documentation can be found in section \vref{sec:Test}.
+After applying the algorithm with several hundert iterations using the provided data set we could create a network that reliably predicted the final grade and therefore could give a recommendation based on all provided values. As mentioned earlier the error rate at predicting the final grade correctly is 4\%. Testing the quality of the network based on the correct recommendation of studying the selected course and using the worse network mentioned in chapter \vref{chapter:Learning}, achieves an error rate of 2\%, where no error is false positive (recommending the course even if the student is probably not going to succeed). This testing is done within the application and its precise documentation can be found in section \vref{sec:Test}.
 
 \chapter{Implementation - WhatToStudy}
 \label{chapter:WhatToStudy}
@@ -165,7 +165,7 @@ Within this section every available functionality is listed and its functional p
 
 \subsection{Interactive mode}
 \label{sec:Interactive}
-When starting the application without any arguments, the user is entering the interactive mode. This mode is requesting personal information one after the other, providing a list of accepted answers. The application is trying to match the user given input with the list of allowed ones until it is accepted.
+When starting the application without any arguments, the user is entering the interactive mode. This mode is requesting personal information one after another, providing a list of accepted answers. The application is trying to match the user given input with the list of allowed ones until it is accepted.
 
 If the user does not want to give a specific answer, he can always pass an empty String (by hitting the return key without any input). This will most likely lead to a more imprecise prediction than it would be with a complete set of data.
 
@@ -173,7 +173,7 @@ This mode's main task is to collect and parse the user data. After the applicati
 
 \subsection{Evaluation mode}
 \label{sec:Evaluation}
-Evaluation mode can be entered by passing the \texttt{-e} command line argument together with a case file to the program. The file should be semi-colon separated, with a valid header and only valid values. The exact specification of the input file is given in section \vref{sec:CaseFile}. In contrast to the specification the file does not need to have a value for the final grade or course. The case file is read by the program and only the first case is evaluated, even if it is stating more.
+Evaluation mode can be entered by passing the \texttt{-e} command line argument together with a case file to the program. The exact specifications of the input file are given in section \vref{sec:CaseFile}. In contrast to the specification the file does not need to have a value for the final grade or course. The case file is read by the program and only the first case is evaluated, even if it is stating more.
 
 \begin{figure}
     \[ beliefOf(FinalGrade.VeryGood) + \frac{2}{3} \times beliefOf(FinalGrade.Good) \]
@@ -189,11 +189,11 @@ Evaluation mode can be entered by passing the \texttt{-e} command line argument 
 
 If the student's course is stated within the file, the program is going to evaluate the recommendation rate using the formula shown in figure \ref{equ:EvaluationFormula}. This evaluation was chosen based on testing experience using the provided data and the test mode described in section \vref{sec:Test}. By using this formula the general error rate of a wrong prediction is at 2\% and therefore double as high as choosing the conservative formula shown in figure \vref{equ:ConservativeEvaluationFormula}, but its non-acceptable error rate is 0\% and therefore performs better than the conservative formula.
 
-A non-acceptable error is a false negative error, saying the program is recommending the user to study the course, even if the user is, based on the experience of the network, not going to succeed. Concluding an acceptable error is a false positive one, where the program is discouraging a student to attend the course, even if he would succeed. Since we really did not want to give false negative prediction we were trying to reduce the amount of this kind of error, even if we therefore have to take a slightly higher overall error rate into account.
+A non-acceptable error is a false negative error, saying the program is recommending the user to study the course, even if the user is, based on the experience of the network, probably not going to succeed. Concluding an acceptable error is a false positive one, where the program is discouraging a student to attend the course, even if he would succeed. Since we really did not want to give false negative prediction we were trying to reduce the amount of this kind of error, even if we therefore have to take a slightly higher overall error rate into account.
 
 If the case within the file is not stating the course the student wants to attend, the evaluation is checking the likeliness of a recommendation of every available course by entering the appropriate state within the network and then returning the course with the highest recommendation rate. That means that the program is recommending the course, where the student is most likely going to get a very good or good grade.
 
-Optionally the user can specify a bayesian network, other than the one packaged with the application to evaluate a case. To do so he can pass the path to the network file as a third, optional argument. The file path needs to not contain any white spaces, since those can't be handled by the Java command line interface.
+Optionally the user can specify a bayesian network, other than the one packaged with the application to evaluate a case. To do so he can pass the path to the network file as a third, optional argument. The file path needs to not contain any white spaces, since those can't be handled by the Java command line interface. On top of that, the nodes of the user specified file need to match the ones of the internal network, but only the \enquote{Course} and \enquote{FinalGrade} nodes are mandatory
 
 \subsection{Draw mode}
 The draw mode can be entered by passing the \texttt{-d} argument to the application during startup. This mode is creating a graphical Java swing frame, which is showing the internally stored Bayesian network. The probabilities of every entity value is displayed as well.
@@ -201,13 +201,13 @@ The draw mode can be entered by passing the \texttt{-d} argument to the applicat
 Optionally the user can specify a bayesian network, other than the one packaged with the application to be drawn. To do so he can pass the path to the network file as a second, optional argument. The file path needs to not contain any white spaces, since those can't be handled by the Java command line interface.
 
 \subsection{Learning mode}
-A user can enter the learning mode by passing the \texttt{-l} argument as well as the path to a case file (which should not contain any white spaces). The file needs to meet the requirements stated within section \vref{sec:CaseFile}. This mode is using the provided data set to learn the values for the conditional probability tables (CPT) of the network.
+A user can enter the learning mode by passing the \texttt{-l} argument and the path to a case file (which should not contain any white spaces). The file needs to meet the requirements stated within section \vref{sec:CaseFile}. This mode is using the provided data set to learn the values for the conditional probability tables (CPT) of the network.
 
-Before starting the learning process, every stored value within the CPTs is removed, to avoid unsuitable inference. The used learning algorithm is the \enquote{expectation-maximization (EM) algorithm}. The reason of choosing this algorithm over the other available ones is given in chapter \vref{chapter:Learning}.
+Before starting the learning process, every stored value within the CPTs is removed, to avoid unsuitable inferences. The used learning algorithm is the \enquote{expectation-maximization (EM) algorithm}. The reason of choosing this algorithm over the other available ones is given in chapter \vref{chapter:Learning}.
 
 After the learning process is finished, the application is writing a file called \enquote{Learned.dne} into the current working directory, overwriting any equally named file. This file is containing all necessary specification for the network as well as the learned CPTs.
 
-Optionally the user can specify a bayesian network, other than the one packaged with the application, whose CPTs should be learned. To do so he can pass the path to the network file as a third, optional argument. The file path needs to not contain any white spaces, since those can't be handled by the Java command line interface.
+Optionally the user can specify a bayesian network, other than the one packaged with the application, whose CPTs should be learned. To do so he can pass the path to the network file as a third, optional argument. The file path needs to not contain any white spaces, since those can't be handled by the Java command line interface. On top of that, the nodes of the user specified file need to match the ones of the internal network, but only the \enquote{Course} and \enquote{FinalGrade} nodes are mandatory
 
 \subsection{Testing mode}
 \label{sec:Test}
@@ -221,22 +221,25 @@ A false positive recommendation is given, if the program discourages the student
 
 At the end of the testing process the program prints out a table containing the result of the test, aggregate into the four categories described in the previous paragraphs. On top of that it provides the error rate (amount of errors over the amount of tests) and the non-acceptable error rate (amount of non-acceptable error over the amount of tests). In an optimal network both rates are as low as possible, but the network should at least be designed in a way to keep the non-acceptable error rate as small as possible.
 
-Optionally the user can specify a bayesian network, other than the one packaged with the application, whose quality should be tested. To do so he can pass the path to the network file as a third, optional argument. The file path needs to not contain any white spaces, since those can't be handled by the Java command line interface.
+Optionally the user can specify a bayesian network, other than the one packaged with the application, whose quality should be tested. To do so he can pass the path to the network file as a third, optional argument. The file path needs to not contain any white spaces, since those can't be handled by the Java command line interface. On top of that, the nodes of the user specified file need to match the ones of the internal network, but only the \enquote{Course} and \enquote{FinalGrade} nodes are mandatory
 
 \subsection{Help mode}
 \label{sec:Help}
-To enter the help mode the user needs to either pass the \texttt{-h} command line argument or any non-valid argument. This mode is printing out a summary of the general usage of the program, as well as the specification of an input file. This specification is also shown in section \vref{sec:CaseFile}.
+To enter the help mode the user needs to either pass the \texttt{-h} command line argument or any non-valid set of arguments. This mode is printing out a summary of the general usage of the program, as well as the specification of an input file. This specification is also shown in section \vref{sec:CaseFile}.
 
 \subsection{Version mode}
 The version mode is entered by passing the \texttt{-v} argument to the program. This mode is printing out the version number of the application, as well as a list of person involved at creating the application, further acknowledgements, a link to the Github repository of the application and the licensing notice.
 
 \section{Case file handling}
 \label{sec:CaseFile}
+The reading of the case file is a very important part of the application used by many functionalities. On one hand it has to meet the requirements stated by our network and on the other hand it needs to be readable by the NeticaJ library. On top of that it needs to be able to read the file format stated by the exercise. 
 
-%Include source code from file using:
-%\lstinputlisting[caption=Expected output for the program (implemented using the Bridge design pattern)]{./Source/de/steilerdev/swe/Bridge/output}
+First of all the input file needs to have the same format as the file stated in the exercise, saying it needs to be a CSV file separating the values through semi-colons. The first line needs to be a header. The order of the columns is given by the JavaDoc class description of \texttt{de.\allowbreak steilerdev.\allowbreak WhatToStudy.\allowbreak Utility.\allowbreak CSVStreamer}. The allowed header values of each columns is described in the JavaDoc of the \texttt{getValidHeaders()} function of the respective enumeration.
 
-%\lstlistoflistings
+The values allowed within the columns are also specified within the enumeration object of the respective column. They are described within the JavaDoc of the \texttt{clean(String)} function, more precisely within the description of the String input variable.
+
+The file handling is mostly done by the \texttt{de.\allowbreak steilerdev.\allowbreak WhatToStudy.\allowbreak Utility.\allowbreak CSVStreamer} class, but the specification of a value is given by the enumeration classes within the \texttt{de.\allowbreak steilerdev.\allowbreak WhatToStudy.\allowbreak Utility.\allowbreak Case} package. Each line within the input files can be represented by an object of the \texttt{de.\allowbreak steilerdev.\allowbreak WhatToStudy.\allowbreak Utility.\allowbreak Case.\allowbreak Case} class. For more specific information about every functionality can be found in the JavaDoc documentation of the mentioned classes and enumerations.
+
 \printbibliography
 
 \begin{appendices}
