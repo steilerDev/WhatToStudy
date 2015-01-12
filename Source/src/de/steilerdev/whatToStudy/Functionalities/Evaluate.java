@@ -288,16 +288,24 @@ public class Evaluate implements Functionality
                                 return 0;
                             }
                         }).collect(Collectors.toCollection(ArrayList::new));
+
                 recommendedCourse = bestCourseList.get(0);
 
                 System.out.println();
                 System.out.println("~~~~~~~~~");
-                System.out.println("Based on the stated information we recommend the course " + boldFont + redFont + recommendedCourse.toString() + resetFont);
-                System.out.println("The belief for a very good or good grade within the course is " + getBeliefForCourse(recommendedCourse, course, finalGrade));
+                if(getBeliefForCourse(recommendedCourse, course, finalGrade) > 0.5)
+                {
+                    System.out.println("Based on the stated information we recommend the course " + boldFont + redFont + recommendedCourse.toString() + resetFont);
+                    System.out.println("The belief for a very good or good grade within the course is " + getBeliefForCourse(recommendedCourse, course, finalGrade));
+                    bestCourseList.remove(0);
+                } else
+                {
+
+                    System.out.println("Based on the stated information we " + boldFont + redFont + "do not recommend" + resetFont + " to study anything!");
+                }
                 System.out.println("~~~~~~~~~");
                 System.out.println();
                 System.out.println("The remaining course and beliefs in descending order are listed below:");
-                bestCourseList.remove(0);
                 bestCourseList.stream().forEach(nextCourse -> {
                     try
                     {
