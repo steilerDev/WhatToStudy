@@ -356,6 +356,10 @@ public class CSVStreamer
      */
     private static boolean validateHeader(String[] header, boolean skipNonMandatory)
     {
+        if (!(header.length == 17 || (skipNonMandatory && (header.length == 14 || header.length == 15))))
+        {
+            return false;
+        }
         if(!Qualification.validateHeader(header[0]))
         {
             return false;
