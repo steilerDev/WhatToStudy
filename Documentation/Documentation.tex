@@ -99,30 +99,50 @@
 \tableofcontents
 
 \chapter{Introduction}
-Within knowledge based systems, logic is a commonly used way to represent connections between data and expressions. Unfortunately logic can not handle uncertainty or unprecise data. Bayesian Networks have been developed to takle this problem, by representing knowledge as a set of variables and their dependencies within a directed acyclic graph. \cite{Reichardt:2014aa}
+Within knowledge based systems, logic is a commonly used way to represent connections between data and expressions. Unfortunately logic can not handle uncertainty or imprecise data. Bayesian Networks have been developed to takle this problem, by representing knowledge as a set of variables and their dependencies within a directed acyclic graph. \cite{Reichardt:2014aa}
 
 A probabilistic network is using conditional probabilities between the nodes of the graph and inferences to calculate the probability of symptoms and/or causes. There are three types of inferences that are occurring in the network and enable the functionality of the graph: diagnostic, causal and inter-causal inference.
 
 A Bayesian Network is defined by a set of edges (nodes) connected through vertices within a graph: $D=(V,E)$. Every node has finit set of mutually exclusive states. On top of that the network is quantifying the dependencies within a separated conditional probability table (CPT) for each node. \cite{Vomlel:2005aa}
 
-Concluding to create and then use a Bayesian Network, a user has to create the correct graph first and then determine all values for the CPT. A correct network can either be created by an expert, by using data mining techniques to find connections between entities or through machine learning. 
+Concluding to create and then use a Bayesian Network, a user has to create the correct graph first and then determine all values for the CPT. A correct network can either be created by an expert, by using data mining techniques to find connections between entities and machine learning to specify the CPT values. 
 
-By adding observations for a specific case to the network, the network is updating beliefs about other variables. Furthermore the probability of a certain event or state can be predicted by observing other events or states. Therefore it can support decision making and has numerous applications, like the diagnosis of diseases, automatic troubleshooting or education testing. \cite{Vomlel:2005aa}
+By adding observations for a specific case to the network, it is updating beliefs about other variables. Furthermore the probability of a certain event or state can be predicted by observing other events or states. Therefore it can support decision making and has numerous applications, like the diagnosis of diseases, automatic troubleshooting or education testing. \cite{Vomlel:2005aa}
 
 \chapter{Preparation of data}
-Bayesian networks need discrete variables to work with. Before the test data could be used, it had to be transformed. Most important was to discretise all continuous variables. Additionally, there was missing information in some cases. In the cleaned data set, we took not specified as a possible value for the variable into account. Furthermore, the data should be harmonized, e.g. standardised identifiers, consistent ranges for grades, etc.
+As part of our exercise we received a set of data that was supposed to help us derive the structure of the network. To be able to use the stated cases we first had to analyse and harmonise the provided data. 
 
-These preparations are necessary to train the Bayesian network, as well as to analyse a certain case. Only cases which are prepared in the same way can be evaluated with our result network. 
+These preparation included the transformation of continuous variables into discrete ones, to enable their usage within the network. The variables we had to adjust were all provided grades, the test results of the online tests and study ability test, as well as the parental income. 
+
+Furthermore we chose a general syntax for the naming of values, to have standardised identifiers and consistent ranges. E.g. we defined a not available value as "NA", where the source used different words in different entities, like "keine", "n.a." and many more. We did not need to do this necessarily, but it simplified the work with the network.
+
+A detailed description about the conversation of these values can be found within the documentation of the implementation in chapter \vref{chapter:WhatToStudy}, more specific in section \vref{sec:CaseFile}.
+
+These preparations were necessary to train the Bayesian network, as well as to analyse a certain case. Only cases which are prepared in the same way can be evaluated with our result network, but the implementation is able to read a cleaned
 
 \chapter{Structure of the network}
-To find a structure for the network, we took a look at the information which we had in our data set. We considered which connections had to be definitely there, e.g. Mathematics', German's and Physic's grade had to influence the numerus clausus. Furthermore, we took it for granted that Mathematics influences OLT-Math, and same for German which influences OLT-German. Mathematics influences moreover Physics, since a basic understanding of formulas and variables is essential for Physic. To determine whether or not the Bayesian network is suited to give a recommendation for the course, we used the error rate as an indicator. The generation of the final network was an iterative process consisting of making changes of the arcs. After each change we determined the new error rate and checked if it was below the old one. If it was, then the change was saved, otherwise another change was tested.
+To find the best structure of the network, we took a look at the provided information, trying to find connections between columns of the data set. 
 
-The best error rate arrived at 14\% for cours and 6\% for final grade. Appendix \vref{app:Network} shows our final Bayesian network. Based on this network the recommendations are given.
+Therefore we plotted the data within a parallel coordinate system, shown in appendix \vref{app:Parallel}. We used this representation to derive connections by reducing the data on a single axis to a smaller range and hoping to observe a similar behaviour on another axis. By revealing such a influence we concluded a direct connection between the entities.
 
-Since we only used a limited version of Netica, it was necessary to limit our data set to 15 variables. We left out the state, even though it improved the error rate. Taking only 5 of 16 states into account would have been possible, but 16 different parameter values were too much to handle for Netica. Since possible students all over Germany are taken into account, it was not reasonable to work just with 5 parameter values, so we decided to leave this value out of consideration.
+On top of that we thought about logical connections, e.g. the mathematics', German's and physic's grade had to influence the qualification average. Furthermore, we took it for granted that the mathematics grade influences the results of the math online test, as well as the German grade influences the results of the German online test. Moreover the mathematics results influence the physics grade, since a basic understanding of mathematics is essential for physics. 
+
+To determine whether or not our Bayesian network is suited to predict the final grade of a specific student, we tested it using the provided data set. This test tried to predict the final grade of a person, using all available information from the data excluding the actual final grade. By comparing the predicted and the actual result, we received an error rate for our network. We used this error rate to compare different versions of the network.
+
+The generation of the final network was an iterative process, changing the arcs, CPTs and/or entities within each step. After changing the structure, we determined the new error rate and compared it to the previous one. By using this process we were able to improve the overall performance of the network.
+
+At the end we were able to achieved an error rate of 6\%, predicting the final grade of a student. Appendix \vref{app:Network} is showing our final Bayesian network. The implementation documented in chapter \vref{chapter:WhatToStudy} is using this network to recommend for or against studying a specific course. 
+
+The tool we used to specify our Bayesian network is called Netica, unfortunately we only had access to a limited version of this program. Concluding, it was necessary to limit our data set to 15 entities. Therefore we had to leave out at least one piece of information and take a slightly more imprecise result into account. We chose to ignore the information about the state, even though it improved the error rate significantly, when taking only 5 of 16 states into account. Unfortunately it is necessary to accept all 16 available states, since all of them could be chosen. This resulted in an entity with 16 different parameter values, which were too much to handle for Netica. Since it was not reasonable to allow only 5 parameter values, we decided to leave this entity out of consideration.
 
 \chapter{Learning conditional probability tables (CPT)}
-To create the network we used Netica. After we made the first draw for a network and all nodes were connected in a plausible way, the CPTs needed to be calculated. Netica offers three different functions to learn the CPTs from data. After testing each of the learning algorithms, we could achieve the best results with the Expectation Maximization Algorithm.
+After creating a draft of the network layout, containing all plausible node connections, we hat to quantify the dependencies between nodes within the conditional probability tables (CPT). Since we were not able to consult an expert about this problem we chose to use machine learning algorithms to generate the tables.
+
+Fortunately the tool we used to specify the network offered a set of machine learning algorithms to generate the CPTs from a data set. These include a \enquote{counting algorithm}, an \enquote{expectation-maximization (EM) algorithm} and a \enquote{gradient descent algorithm}.
+
+%Rest not reviewed yet.
+
+Netica offers three different functions to learn the CPTs from data. After testing each of the learning algorithms, we could achieve the best results with the Expectation Maximization Algorithm.
 
 "Briefly, E[xpectation] M[aximization] learning repeatedly takes a Bayes net and uses it to find a better one by doing an expectation (E) step followed by a maximization (M) step. In the E step, it uses regular Bayes net inference with the existing Bayes net to compute the expected value of all the missing data, and then the M step finds the maximum likelihood Bayes net given the now extended data". \cite[p. 48]{Corp.:2010aa}
 
@@ -131,7 +151,7 @@ Other learning algorithms offered were counting, which is the simplest and faste
 Appendix \vref{app:Parallel} shows all trainings data in a parallel coordinate system. All these cases were taken into the calculation of the CPTs.
 
 \chapter{Implementation - WhatToStudy}
-
+\label{chapter:WhatToStudy}
 \section{General usage}
 
 \section{Operation modes}
@@ -144,7 +164,7 @@ Appendix \vref{app:Parallel} shows all trainings data in a parallel coordinate s
 \subsection{Version printing mode}
 
 \section{Case file handling}
-
+\label{sec:CaseFile}
 %Include source code from file using:
 %\lstinputlisting[caption=Expected output for the program (implemented using the Bridge design pattern)]{./Source/de/steilerdev/swe/Bridge/output}
 
