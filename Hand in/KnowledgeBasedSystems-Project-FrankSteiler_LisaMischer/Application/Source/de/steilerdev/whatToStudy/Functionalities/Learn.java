@@ -1,0 +1,153 @@
+/**
+ * Copyright (C) 2015 Frank Steiler <frank@steilerdev.de>
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+package de.steilerdev.whatToStudy.Functionalities;
+
+import de.steilerdev.whatToStudy.Exception.WhatToStudyException;
+import de.steilerdev.whatToStudy.Main;
+import de.steilerdev.whatToStudy.Utility.CSVStreamer;
+import norsys.netica.*;
+
+/**
+ * This class is used to learn the CPT's of the network stored network.
+ */
+public class Learn implements Functionality
+{
+    //Specific options for the learning process
+    private static int learningAlgorithm = Learner.EM_LEARNING;
+    private static int learningIterations = 200;
+    private static String outputFileName = "Learned.dne";
+
+    /**
+     * This function is performing the learning process and is writing the new network.
+     * @param args The command line arguments stated during the call of the application.
+     *             The first argument is "-l", the second one is a CSV case file meeting its requirements and the third (optional) one is the file path to a user specified network file.
+     * @throws WhatToStudyException If an error occurs.
+     */
+    @Override
+    public void run(String[] args) throws WhatToStudyException
+    {
+        Learner learner = null;
+        Caseset cases = null;
+        Net net = null;
+        Environ env = Environ.getDefaultEnviron();
+        try
+        {
+            System.out.println("Starting to learn CPT's for the stated network.");
+
+            //Creating a new environment that is used as default environment later.
+            if(env == null)
+            {
+                env = new Environ(null);
+            }
+
+            //Getting the network from the file
+            System.out.println("Loading network.");
+            net = new Net(new Streamer(Thread.currentThread().getContextClassLoader()
+                    .getResourceAsStream(Main.internalFile), //Getting the network as java.io.InputStream from the Netica file
+                    "StudyNetwork", //Giving the Network a name
+                    Environ.getDefaultEnviron())); //Handling over the Environ
+            NodeList nodes = net.getNodes();
+
+            //Deleting all previously stored CPT's
+            System.out.println("Clearing current CPT.");
+            nodes.parallelStream().forEach(node -> {
+                try
+                {
+                    ((Node) node).deleteTables();
+                } catch (NeticaException ignoreExceptionInsideLambda) {}
+            });
+
+            // Read in the case file into a case set
+            System.out.println("Loading cases from file");
+            cases = new Caseset();
+            Streamer caseFile = CSVStreamer.getNeticaStream(args[1], "LearningStreamer", env);
+            cases.addCases(caseFile, 1.0, null);
+
+            //Configuring learning
+            switch (learningAlgorithm)
+            {
+                case 1:
+                    System.out.println("Starting learning process, using case counting learning algorithm with " + learningIterations + " iterations.");
+                    break;
+                case 3:
+                    System.out.println("Starting learning process, using EM (Expectation Maximization) learning algorithm with " + learningIterations + " iterations.");
+                    break;
+                case 4:
+                    System.out.println("Starting learning process, using Gradient Descent learning algorithm with " + learningIterations + " iterations.");
+                    break;
+                default:
+                    System.out.println("Starting learning process, using an unknown learning algorithm with " + learningIterations + " iterations.");
+            }
+            learner = new Learner(learningAlgorithm);
+            learner.setMaxIterations(learningIterations);
+
+            //Starting learning
+            learner.learnCPTs(nodes, cases, 1.0);
+
+            //Saving the learned CPT's
+            System.out.println("Writing file \"" + outputFileName + "\"");
+            net.write(new Streamer(outputFileName));
+            System.out.println("Finished learning!");
+        } catch (NeticaException e)
+        {
+            throw new WhatToStudyException("A Netica based error occurred: " + e.getMessage());
+        } finally
+        {
+            // Closing all resources, not necessary, but a good habit.
+            if (learner != null)
+            {
+                try
+                {
+                    learner.finalize();
+                } catch (NeticaException e)
+                {
+                    throw new WhatToStudyException("A Netica based error occurred during the finalization of the learner.");
+                }
+            }
+            if (cases != null)
+            {
+                try
+                {
+                    cases.finalize();
+                } catch (NeticaException e)
+                {
+                    throw new WhatToStudyException("A Netica based error occurred during the finalization of the case set.");
+                }
+            }
+            if(net != null)
+            {
+                try
+                {
+                    net.finalize();
+                } catch (NeticaException e)
+                {
+                    throw new WhatToStudyException("A Netica based error occurred during the finalization of the net.");
+                }
+            }
+            if(env != null)
+            {
+                try
+                {
+                    env.finalize();
+                } catch (NeticaException e)
+                {
+                    throw new WhatToStudyException("A Netica based error occurred during the finalization of the environment.");
+                }
+            }
+        }
+    }
+}
