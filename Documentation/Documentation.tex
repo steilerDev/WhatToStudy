@@ -12,7 +12,7 @@
 
 
 \title{Knowledge based systems\\ Analysing the eligibility of a person for higher education using a Bayesian network}
-\author{Lisa Mischer \& Frank Steiler\\ Interactive and knowledge based systems (T2INF4307)\\ DHBW Stuttgart\\ Contact: it12147@lehre.dhbw-stuttgart.de}
+\author{Lisa Mischer \& Frank Steiler\\ Interactive and knowledge based systems (T2INF4307)\\ DHBW Stuttgart\\ Contact: it12147@lehre.dhbw-stuttgart.de\\\\ \url{http://www.github.com/steilerDev/WhatToStudy}}
         
 \usepackage[english]{babel}
 \usepackage[english=british]{csquotes}
@@ -86,6 +86,7 @@
 \counterwithout{figure}{chapter}
 \counterwithout{table}{chapter}
 \counterwithout{lstlisting}{chapter}
+\counterwithout{equation}{chapter}
 
 \newcounter{magicrownumbers}[table]
 
@@ -147,16 +148,64 @@ After applying the algorithm with several hundert iterations using the provided 
 
 \chapter{Implementation - WhatToStudy}
 \label{chapter:WhatToStudy}
+As part of the project a program had to be implemented that is using a Bayesian network and user specific input to give a recommendation for or against studying a specific course. This program was implemented using Java 8 and the NeticaJ library. 
+
+Within this chapter the general functionality and usage of the program is going to be described. For a in-depth documentation of the complete application see the JavaDoc webpage, bundled with this document, or the source code of the application, which is licensed using a GNU General Public License version 2. The complete project and all used assets are hosted on Github (\url{http://www.github.com/steilerDev/WhatToStudy}).
+
 \section{General usage}
+The easiest way to start the application is to use the provided \texttt{./run.sh} script. Make sure, that the stated location of the NeticaJ binaries within the script is correct. The NeticaJ binary files can be retrieved from the following URL: \url{https://www.norsys.com/netica-j.html}. 
+
+This project is packed and optimised to run on Macintosh OSX of any version, but since Java is allowing multi platform execution, the start script only needs to be adjusted to your operating system and the correct version of the NeticaJ library needs to be retrieved.
+
+When starting the application without any additional command line arguments you are entering the interactive mode described in section \vref{sec:Interactive}. By adding additional arguments to the program call (or the script execution) you can switch to other modes. A full list of all available modes is given in section \vref{chapter:Modes}, as well as printed to screen when entering the help mode through passing the \texttt{-h} argument (See section \vref{sec:Help}).
 
 \section{Operation modes}
+\label{chapter:Modes}
+Within this section every available functionality is listed and its functional principles are described.
+
 \subsection{Interactive mode}
+\label{sec:Interactive}
+When starting the application without any arguments, the user is entering the interactive mode. This mode is requesting personal information one after the other, providing a list of accepted answers. The application is trying to match the user given input with the list of allowed ones until it is accepted.
+
+If the user does not want to give a specific answer, he can always pass an empty String (by hitting the return key without any input). This will most likely lead to a more imprecise prediction than it would be with a complete set of data.
+
+This mode's main task is to collect and parse the user data. After the application gathered the data, it is actually starting to instantiate the evaluation mode, passing the created set of data. The evaluation mode's functionality is described in section \vref{sec:Evaluation}.
+
 \subsection{Evaluation mode}
+\label{sec:Evaluation}
+Evaluation mode can be entered by passing the \texttt{-e} command line argument together with a case file to the program. The file should be semi-colon separated, with a valid header and only valid values. The exact specification of the input file is given in section \vref{sec:CaseFile}. In contrast to the specification the file does not need to have a value for the final grade or course. The case file is read by the program and only the first case is evaluated, even if it is stating more.
+
+\begin{figure}
+    \[ beliefOf(FinalGrade.VeryGood) + \frac{2}{3} \times beliefOf(FinalGrade.Good) \]
+    \caption{The used recommendation-rate formula}
+    \label{equ:EvaluationFormula}
+\end{figure}
+
+\begin{figure}
+    \[ beliefOf(FinalGrade.VeryGood) + beliefOf(FinalGrade.Good) \]
+    \caption{The conservative recommendation-rate formula}
+    \label{equ:ConservativeEvaluationFormula}
+\end{figure}
+
+If the student's course is stated within the file, the program is going to evaluate the recommendation rate using the formula shown in figure \ref{equ:EvaluationFormula}. This evaluation was chosen based on testing experience using the provided data and the test mode described in section \vref{sec:Test}. By using this formula the general error rate of a wrong prediction is at 2\% and therefore double as high as choosing the conservative formula shown in figure \vref{equ:ConservativeEvaluationFormula}, but its non-acceptable error rate is 0\% and therefore performs better than the conservative formula.
+
+A non-acceptable error is a true negative error, saying the program is recommending the user to study the course, even if the user is, based on the experience of the network, not going to succeed. Concluding an acceptable error is a false positive one, where the program is discouraging a student to attend the course, even if he would succeed. Since we really did not want to give false negative prediction we were trying to reduce the amount of this kind of error, even if we therefore have to take a slightly higher overall error rate into account.
+
+If the case within the file is not stating the course the student wants to attend, the evaluation is checking the likeliness of a recommendation of every available course by entering the appropriate state within the network and then returning the course with the highest recommendation rate. That means that the program is recommending the course, where the student is most likely going to get a very good or good grade.
+
+Optionally the user can specify a bayesian network, other than the one packaged with the application to evaluate a case. To do so he can pass the path to the network file as a third, optional argument. The file path needs to not contain any white spaces, since those can't be handled by the Java command line interface.
+
 \subsection{Draw mode}
+The draw mode can be entered by passing the \texttt{-d} argument to the application during startup. This mode is creating a graphical Java swing frame, which is showing the internally stored Bayesian network. The probabilities of every entity value is displayed as well.
+
+Optionally the user can specify a bayesian network, other than the one packaged with the application to be drawn. To do so he can pass the path to the network file as a second, optional argument. The file path needs to not contain any white spaces, since those can't be handled by the Java command line interface.
+
 \subsection{Learning mode}
-\label{sec:Test}
+
 \subsection{Testing mode}
+\label{sec:Test}
 \subsection{Help mode}
+\label{sec:Help}
 \subsection{Version printing mode}
 
 \section{Case file handling}
